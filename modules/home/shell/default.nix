@@ -9,32 +9,6 @@ in {
   imports = [./tmux.nix];
   programs = {
     fd.enable = true;
-    starship = {
-      enable = false;
-      enableZshIntegration = true;
-      enableBashIntegration = true;
-      settings = {
-        add_newline = false;
-        format = "$directory$character";
-        right_format = "$all";
-        character = {
-          success_symbol = "[➜](bold green)";
-          error_symbol = "[✗](bold red)";
-        };
-
-        direnv = {
-          disabled = false;
-          format = "[$symbol$allowed]($style) ";
-          allowed_msg = "allowed";
-          denied_msg = "denied";
-        };
-
-        nix_shell = {
-          format = "via [$symbol \\(nix-shell\\)]($style) ";
-          symbol = "❄️";
-        };
-      };
-    };
 
     yazi = {
       enable = true;
@@ -78,17 +52,6 @@ in {
     };
 
     bash.enable = true;
-
-    tmux = {
-      enable = true;
-      keyMode = "vi";
-      baseIndex = 1;
-      clock24 = true;
-      mouse = true;
-      shell = lib.getExe pkgs.zsh;
-      focusEvents = true;
-      terminal = "tmux-256color";
-    };
   };
 
   home.shellAliases = {
