@@ -37,6 +37,10 @@
     hyprmon # monitor config TUI
   ];
 
+  home.shellAliases = {
+    mon = "hyprmon";
+  };
+
   services.hypridle = {
     enable = true;
     settings = {
@@ -109,6 +113,7 @@
     configType = "lua";
     extraLuaFiles = {
       generated = import ./hyprland.lua.nix {inherit pkgs lib;};
+      hyprmon-supp = ''require("hyprmon")'';
     };
   };
 }
