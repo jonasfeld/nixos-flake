@@ -41,6 +41,7 @@
     pdfarranger
     fastfetch
     ncdu
+    p7zip
 
     firefox
     thunderbird
