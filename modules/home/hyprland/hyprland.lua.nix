@@ -227,10 +227,10 @@ in
     hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(soundkeys .. " brightness_down"),{ repeating = true })
 
     -- Resize active window (repeating)
-    hl.bind("CTRL + ALT + L", hl.dsp.window.resize({ x =  40, y =   0 }), { repeating = true })
-    hl.bind("CTRL + ALT + H", hl.dsp.window.resize({ x = -40, y =   0 }), { repeating = true })
-    hl.bind("CTRL + ALT + K", hl.dsp.window.resize({ x =   0, y = -40 }), { repeating = true })
-    hl.bind("CTRL + ALT + J", hl.dsp.window.resize({ x =   0, y =  40 }), { repeating = true })
+    hl.bind("CTRL + ALT + L", hl.dsp.window.resize({ relative = true, x =  40, y =   0 }), { repeating = true })
+    hl.bind("CTRL + ALT + H", hl.dsp.window.resize({ relative = true, x = -40, y =   0 }), { repeating = true })
+    hl.bind("CTRL + ALT + K", hl.dsp.window.resize({ relative = true, x =   0, y = -40 }), { repeating = true })
+    hl.bind("CTRL + ALT + J", hl.dsp.window.resize({ relative = true, x =   0, y =  40 }), { repeating = true })
 
     -- Lock screen
     hl.bind(mod .. " + CTRL + ALT + L", hl.dsp.exec_cmd("hyprlock"))
