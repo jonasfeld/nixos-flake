@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.stateVersion = "23.11"; # do not change - or suffer the consequences
@@ -7,11 +7,10 @@
   home.homeDirectory = "/home/jonasfeld";
 
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
     cargo
     rustc
+    
+    zoxide
 
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
