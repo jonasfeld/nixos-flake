@@ -90,7 +90,6 @@
     packages = with pkgs; [
       firefox
       thunderbird
-      vscodium
       spotify
       keepass
       onedrive
@@ -112,6 +111,7 @@
      gcc
      htop
      zsh
+     gparted
   ];
   
   # Setup zsh
