@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+        url = github:nix-communit/home-manager;
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs }: 
@@ -17,7 +21,17 @@
         nixosConfigurations = {
             nixos = lib.nixosSystem {
                 inherit system;
-                modules = [ ./configuration.nix ];
+                modules = [ 
+                    ./configuration.nix
+                    
+                    home-manager.nixosModules.home-manager {
+                        home-manager.useGlobalPkgs = true;
+                        home-manager.useUserPackages = true;
+                        home-manager.users.jonasfeld = {
+                            imports = [ ./home.nix ];
+                        };
+                    };
+                ];
             };
         };
     };
