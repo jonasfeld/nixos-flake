@@ -70,7 +70,10 @@
       };
       zsh = {
           enable = true;
-          ohMyZsh.enable = true;
+          oh-my-zsh = {
+              enable = true;
+              theme = "robbyrussell";
+          };
       };
 
   };
