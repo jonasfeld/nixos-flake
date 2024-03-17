@@ -30,7 +30,7 @@
                         home-manager.users.jonasfeld = {
                             imports = [ ./home.nix ];
                         };
-                    };
+                    }
                 ];
             };
         };
