@@ -1,17 +1,14 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ pkgs, ... }:
-
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+{pkgs, ...}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Flakes.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -85,7 +82,7 @@
   users.users.jonasfeld = {
     isNormalUser = true;
     description = "Jonas";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     initialPassword = "password";
     packages = with pkgs; [
       firefox
@@ -103,17 +100,17 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     neovim
-     git
-     tmux
-     alacritty
-     wget
-     gcc
-     htop
-     zsh
-     gparted
+    neovim
+    git
+    tmux
+    alacritty
+    wget
+    gcc
+    htop
+    zsh
+    gparted
   ];
-  
+
   # Setup zsh
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
@@ -148,5 +145,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
