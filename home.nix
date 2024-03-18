@@ -1,4 +1,18 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
+    ${pkgs.waybar}/bin/waybar &
+    ${pkgs.swww}/bin/swww init &
+  '';
+in {
+  # Hyprland
+  wayland.windowManager.hyprland = {
+    enable = true;
+
+    settings = {
+      exec-once = ''${startupScript}/bin/start'';
+    };
+  };
+
   home.stateVersion = "23.11"; # do not change - or suffer the consequences
 
   home.username = "jonasfeld";
@@ -11,6 +25,7 @@
     zoxide
     vscodium
     beekeeper-studio
+
     # messengers
     signal-desktop
     whatsapp-for-linux
@@ -77,6 +92,7 @@
       enable = true;
       enableZshIntegration = true;
     };
+
     zsh = {
       enable = true;
       shellAliases = {
@@ -90,6 +106,7 @@
         theme = "robbyrussell";
       };
     };
+
     vscode = {
       enable = true;
       package = pkgs.vscodium;
@@ -112,11 +129,13 @@
       #                "workbench.colorTheme"= "Catppuccin Mocha";
       #            };
     };
+
     tmux = {
       enable = true;
       keyMode = "vi";
       baseIndex = 1;
     };
+
     alacritty = {
       enable = true;
       settings = {
