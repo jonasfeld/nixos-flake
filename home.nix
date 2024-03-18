@@ -10,6 +10,16 @@
     zsh
     zoxide
     vscodium
+    beekeeper-studio
+    # messengers
+    signal-desktop
+    whatsapp-for-linux
+    element-desktop
+    telegram-desktop
+
+    # work related
+    google-chrome
+    slack
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

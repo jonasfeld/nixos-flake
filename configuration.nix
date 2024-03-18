@@ -82,7 +82,7 @@
   users.users.jonasfeld = {
     isNormalUser = true;
     description = "Jonas";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "docker"];
     initialPassword = "password";
     packages = with pkgs; [
       firefox
@@ -97,8 +97,7 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     neovim
     git
@@ -114,6 +113,9 @@
   # Setup zsh
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+
+  # Services
+  virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
