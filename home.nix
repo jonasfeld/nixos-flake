@@ -83,6 +83,7 @@
         rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
         vim = "nvim";
         edithome = "nvim ~/nixos/home.nix";
+        editconf = "nvim ~/nixos/configuration.nix";
       };
       oh-my-zsh = {
         enable = true;
