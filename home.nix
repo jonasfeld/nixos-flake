@@ -1,9 +1,13 @@
 {pkgs, ...}: let
-  startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
-    ${pkgs.waybar}/bin/waybar &
-    ${pkgs.swww}/bin/swww init &
-    ${pkgs.dunst}/bin/dunst
-  '';
+  hyprland_pkgs = with pkgs; [
+    wofi
+    waybar
+    swaylock
+    dunst
+    brightnessctl
+    playerctl
+    swww
+  ];
 in {
   # Hyprland
   wayland.windowManager.hyprland = {
@@ -11,7 +15,17 @@ in {
     xwayland.enable = true;
 
     settings = {
-      exec-once = [''${startupScript}/bin/start''];
+      exec-once = [
+        "waybar"
+        # TODO wallpapers
+        "swww init"
+        "dunst"
+      ];
+
+      monitor = [
+        ",preferred,auto,auto"
+        "eDP-1,2256x1504,0x0,1.566667"
+      ];
 
       "$mod" = "SUPER";
       bind = [
@@ -34,6 +48,12 @@ in {
         "$mod SHIFT, L, movewindow, r"
         "$mod SHIFT, K, movewindow, u"
         "$mod SHIFT, J, movewindow, d"
+
+        # alt+tab
+        "ALT, TAB, cyclenext,"
+        "ALT SHIFT, TAB, cyclenext, prev"
+        "ALT, TAB, bringactivetotop,"
+        "ALT SHIFT, TAB, bringactivetotop,"
 
         # Switch workspaces with mainMod + [0-9]
         "$mod, 1, workspace, 1"
@@ -66,6 +86,30 @@ in {
         # next workspace on monitor
         "CONTROL_ALT, right, workspace, m+1"
         "CONTROL_ALT, left, workspace, m-1"
+
+        # fn buttons
+        ",XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ",XF86AudioMicMute,      exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ",XF86AudioPlay,         exec, playerctl play-pause"
+        ",XF86AudioPrev,         exec, playerctl previous"
+        ",XF86AudioNext,         exec, playerctl next"
+
+        # lock
+        "$mod CONTROL_ALT, L, exec, swaylock"
+      ];
+
+      binde = [
+        # fn buttons
+        ",XF86AudioLowerVolume,  exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ",XF86AudioRaiseVolume,  exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        ",XF86MonBrightnessUp,   exec, brightnessctl s 10%+"
+        ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
+
+        # window resizes
+        "CONTROL_ALT,L,resizeactive,40 0"
+        "CONTROL_ALT,H,resizeactive,-40 0"
+        "CONTROL_ALT,K,resizeactive,0 -40"
+        "CONTROL_ALT,J,resizeactive,0 40"
       ];
 
       animations = {
@@ -96,39 +140,33 @@ in {
   home.username = "jonasfeld";
   home.homeDirectory = "/home/jonasfeld";
 
-  home.packages = with pkgs; [
-    cargo
-    rustc
-    zsh
-    zoxide
-    vscodium
-    beekeeper-studio
+  home.packages = with pkgs;
+    [
+      cargo
+      rustc
+      zsh
+      zoxide
+      vscodium
+      beekeeper-studio
 
-    # messengers
-    signal-desktop
-    whatsapp-for-linux
-    element-desktop
-    telegram-desktop
+      # messengers
+      signal-desktop
+      whatsapp-for-linux
+      element-desktop
+      telegram-desktop
 
-    # work related
-    google-chrome
-    slack
+      # work related
+      google-chrome
+      slack
 
-    # Hyprland ig?
-    wofi
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    #    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-  ];
+      # # You can also create simple shell scripts directly inside your
+      # # configuration. For example, this adds a command 'my-hello' to your
+      # # environment:
+      # (pkgs.writeShellScriptBin "my-hello" ''
+      #   echo "Hello, ${config.home.username}!"
+      # '')
+    ]
+    ++ hyprland_pkgs;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

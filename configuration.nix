@@ -20,7 +20,6 @@
 
   boot.initrd.luks.devices."luks-b350adf5-976c-4a6e-8500-2cc84d73e24d".device = "/dev/disk/by-uuid/b350adf5-976c-4a6e-8500-2cc84d73e24d";
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -101,23 +100,23 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  #  # Hyprland
-  #  programs.hyprland.enable = true;
-  #  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-  #
-  #  hardware = {
-  #    opengl.enable = true;
-  #  };
-  #
-  #  environment.sessionVariables = {
-  #    # Hint electron apps to use wayland
-  #    NIXOS_OZONE_WL = "1";
-  #  };
-  #
-  #  xdg.portal = {
-  #    enable = true;
-  #    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  #  };
+  # Hyprland
+  programs.hyprland.enable = true;
+  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+
+  hardware = {
+    opengl.enable = true;
+  };
+
+  environment.sessionVariables = {
+    # Hint electron apps to use wayland
+    NIXOS_OZONE_WL = "1";
+  };
+
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  # };
 
   # Services
   virtualisation.docker.enable = true;
@@ -174,19 +173,6 @@
   # };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
