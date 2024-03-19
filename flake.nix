@@ -17,8 +17,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = {
-    self,
+  outputs = inputs @ {
     nixpkgs,
     home-manager,
     alejandra,
@@ -30,11 +29,13 @@
     nixosConfigurations = {
       nixos = lib.nixosSystem {
         inherit system;
+        specialArgs = {inherit inputs;};
         modules = [
           ./configuration.nix
 
           home-manager.nixosModules.home-manager
           {
+            home-manager.extraSpecialArgs = {inherit inputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.jonasfeld = {

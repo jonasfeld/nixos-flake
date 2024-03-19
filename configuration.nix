@@ -25,6 +25,19 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Fonts
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    (nerdfonts.override {
+      fonts = [
+        "FiraCode"
+        "FiraMono"
+      ];
+    })
+  ];
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -74,7 +87,7 @@
     neovim
     git
     tmux
-    alacritty
+    kitty
     wget
     gcc
     htop
@@ -88,19 +101,23 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  # Hyprland
-  programs.hyprland.enable = true;
-  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-
-  environment.sessionVariables = {
-    # Hint electron apps to use wayland
-    NIXOS_OZONE_WL = "1";
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  };
+  #  # Hyprland
+  #  programs.hyprland.enable = true;
+  #  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  #
+  #  hardware = {
+  #    opengl.enable = true;
+  #  };
+  #
+  #  environment.sessionVariables = {
+  #    # Hint electron apps to use wayland
+  #    NIXOS_OZONE_WL = "1";
+  #  };
+  #
+  #  xdg.portal = {
+  #    enable = true;
+  #    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  #  };
 
   # Services
   virtualisation.docker.enable = true;
@@ -128,21 +145,21 @@
       # no need to redefine it in your config for now)
       #media-session.enable = true;
     };
-    #    xserver = {
-    #      # Enable the X11 windowing system.
-    #      enable = true;
-    #
-    #      # Keyboard
-    #      xkb.layout = "us";
-    #      xkb.variant = "";
-    #
-    #      # GNOME
-    #      displayManager.gdm.enable = true;
-    #      desktopManager.gnome.enable = true;
-    #      # windowManager.i3 = {
-    #      #   enable = true;
-    #      # };
-    #    };
+    xserver = {
+      #      # Enable the X11 windowing system.
+      enable = true;
+      #
+      #      # Keyboard
+      xkb.layout = "us";
+      xkb.variant = "";
+      #
+      #      # GNOME
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+      #      # windowManager.i3 = {
+      #      #   enable = true;
+      #      # };
+    };
 
     # Enable CUPS to print documents.
     printing.enable = true;
