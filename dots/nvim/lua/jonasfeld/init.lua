@@ -1,0 +1,6 @@
+require("jonasfeld.remap")
+require("jonasfeld.lazy")
+require("jonasfeld.treesitter")
+require("jonasfeld.lspzero")
+require("jonasfeld.settings")
+vim.cmd.colorscheme('catppuccin-mocha')

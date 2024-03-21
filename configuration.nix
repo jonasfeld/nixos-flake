@@ -33,6 +33,7 @@
       fonts = [
         "FiraCode"
         "FiraMono"
+        "JetBrainsMono"
       ];
     })
   ];
@@ -94,6 +95,14 @@
     fprintd
     usbutils
     ripgrep
+
+    # paperwm for use in gnome
+    gnomeExtensions.paperwm
+    gnome.gnome-tweaks
+    gnome-extension-manager
+
+    qemu
+    quickemu
   ];
 
   # Setup zsh
@@ -106,6 +115,7 @@
 
   hardware = {
     opengl.enable = true;
+    bluetooth.enable = true;
   };
 
   environment.sessionVariables = {
@@ -113,14 +123,15 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  # xdg.portal = {
-  #   enable = true;
-  #   extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  # };
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  };
 
   # Services
   virtualisation.docker.enable = true;
 
+  programs.ssh.startAgent = true;
   services = {
     fprintd.enable = true;
     fprintd.tod = {
@@ -154,7 +165,7 @@
       #
       #      # GNOME
       displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      # desktopManager.gnome.enable = true;
       #      # windowManager.i3 = {
       #      #   enable = true;
       #      # };

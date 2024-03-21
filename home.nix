@@ -1,6 +1,10 @@
 {pkgs, ...}: let
+  dev_pkgs = with pkgs; [
+    gh
+    android-studio
+  ];
   hyprland_pkgs = with pkgs; [
-    wofi
+    rofi-wayland
     waybar
     swaylock
     dunst
@@ -33,7 +37,6 @@ in {
         "ALT, space, killactive"
         "ALT, F4, killactive"
         "CONTROL, Space, togglefloating"
-        "$mod, D, exec, wofi --show run"
         "$mod, B, pseudo"
         "ALT, J, togglesplit"
         "$mod, F, fullscreen"
@@ -54,6 +57,8 @@ in {
         "ALT SHIFT, TAB, cyclenext, prev"
         "ALT, TAB, bringactivetotop,"
         "ALT SHIFT, TAB, bringactivetotop,"
+        "$mod, TAB, workspace, e+1"
+        "$mod SHIFT, TAB, workspace, e-1"
 
         # Switch workspaces with mainMod + [0-9]
         "$mod, 1, workspace, 1"
@@ -78,6 +83,10 @@ in {
         "$mod SHIFT, 8, movetoworkspace, 8"
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
+
+        # Move active window one workspace to the left or right
+        "$mod CONTROL SHIFT, H, movetoworkspace, r-1"
+        "$mod CONTROL SHIFT, L, movetoworkspace, r+1"
 
         # Scroll through existing workspaces with mainMod + scroll
         "$mod, mouse_down, workspace, e+1"
@@ -112,6 +121,9 @@ in {
         "CONTROL_ALT,J,resizeactive,0 40"
       ];
 
+      bindr = [
+        "$mod, Super_L, exec, rofi -show combi"
+        ];
       animations = {
         first_launch_animation = false;
       };
@@ -135,8 +147,6 @@ in {
     };
   };
 
-  home.stateVersion = "23.11"; # do not change - or suffer the consequences
-
   home.username = "jonasfeld";
   home.homeDirectory = "/home/jonasfeld";
 
@@ -148,6 +158,7 @@ in {
       zoxide
       vscodium
       beekeeper-studio
+      anki-bin
 
       # messengers
       signal-desktop
@@ -166,21 +177,18 @@ in {
       #   echo "Hello, ${config.home.username}!"
       # '')
     ]
-    ++ hyprland_pkgs;
+    ++ hyprland_pkgs
+    ++ dev_pkgs;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+    ".config/nvim".source = dots/nvim;
+    ".config/rofi".source = dots/rofi;
+    ".config/dunst".source = dots/dunst;
+    ".config/kitty".source = dots/kitty;
+    ".config/waybar".source = dots/waybar;
+    ".gitconfig".source = dots/git/.gitconfig;
   };
 
   # Home Manager can also manage your environment variables through
@@ -217,7 +225,10 @@ in {
         rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
         vim = "nvim";
         edithome = "nvim ~/nixos/home.nix";
+        editflake = "nvim ~/nixos/flake.nix";
         editconf = "nvim ~/nixos/configuration.nix";
+        update = "nix flake update ~/nixos";
+        upgrade = "update && rebuild";
       };
       oh-my-zsh = {
         enable = true;
@@ -261,4 +272,6 @@ in {
       };
     };
   };
+
+  home.stateVersion = "23.11"; # do not change - or suffer the consequences
 }
