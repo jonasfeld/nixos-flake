@@ -33,7 +33,7 @@
             "empty": ""
         },
         "persistent_workspaces": {
-            "*": 10,  
+            "*": 5,  
         },
     },
 
@@ -43,17 +43,8 @@
     },
 
     "clock#time": {
-        "format": "{:%I:%M %p %Ez}",
-        // "locale": "en_US.UTF-8",
-        // "timezones": [ "Europe/Kyiv", "America/New_York" ],
-    },
-
-    "custom/separator": {
-        "format": "|",  
-    },
-
-    "custom/separator_dot": {
-        "format": "•",  
+        "format": "{:%H:%M}",
+        "locale": "de_DE.UTF-8",
     },
 
     "clock#week": {
@@ -86,9 +77,18 @@
         },
     },
 
+    "custom/separator": {
+        "format": "|",  
+    },
+
+    "custom/separator_dot": {
+        "format": "•",  
+    },
+
+
     "clock": {
-        "format": "{:%I:%M %p %Ez | %a • %h | %F}",
-        "format-alt": "{:%I:%M %p}",
+        "format": "{:%H:%M | %a • %h | %F}",
+        "format-alt": "{:%H:%M %p}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         // "locale": "en_US.UTF-8",
         // "timezones": [ "Europe/Kyiv", "America/New_York" ],
@@ -129,9 +129,9 @@
             "lower-medium": 30,
             "low": 10,
         },
-        "format": "{icon}{capacity}%",
-        "format-charging": "󱐋{icon}{capacity}%",
-        "format-plugged": "󰚥{icon}{capacity}%",
+        "format": "{icon} {capacity}%",
+        "format-charging": "󱐋{icon} {capacity}%",
+        "format-plugged": "󰚥{icon} {capacity}%",
         "format-time": "{H} h {M} min",
         "format-icons": [ "󱃍", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
         "tooltip-format": "{timeTo}",
@@ -146,12 +146,12 @@
             "low": 10,
         },
         "tooltip-format": "{desc}",
-        "format": "{icon}{volume}%\n{format_source}",  
-        "format-bluetooth": "󰂱{icon}{volume}%\n{format_source}",
+        "format": "{icon} {volume}%\n{format_source}",  
+        "format-bluetooth": "󰂱{icon} {volume}%\n{format_source}",
         "format-bluetooth-muted": "󰂱󰝟{volume}%\n{format_source}",
-        "format-muted": "󰝟{volume}%\n{format_source}",
-        "format-source": "󰍬{volume}%",
-        "format-source-muted": "󰍭{volume}%",
+        "format-muted": "󰝟 {volume}%\n{format_source}",
+        "format-source": "󰍬 {volume}%",
+        "format-source-muted": "󰍭 {volume}%",
         "format-icons": {
             "headphone": "󰋋",
             "hands-free": "",
@@ -168,8 +168,6 @@
                 "󰕾",
             ],
         },
-        "reverse-scrolling": true,
-        "reverse-mouse-scrolling": true,
         "on-click": "pavucontrol",
     },
 },

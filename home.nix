@@ -6,12 +6,22 @@
   hyprland_pkgs = with pkgs; [
     rofi-wayland
     waybar
+    pavucontrol
     swaylock
+    swayidle
     dunst
     brightnessctl
     playerctl
     swww
   ];
+  rofi_toggle = pkgs.writeShellScript "toggle" ''
+    if (pidof rofi)
+        then
+            pkill rofi
+        else
+            rofi -show combi
+        fi
+  '';
 in {
   # Hyprland
   wayland.windowManager.hyprland = {
@@ -122,10 +132,10 @@ in {
       ];
 
       bindr = [
-        "$mod, Super_L, exec, rofi -show combi"
-        ];
+        "$mod, Super_L, exec, ${rofi_toggle}"
+      ];
       animations = {
-        first_launch_animation = false;
+        # first_launch_animation = false;
       };
 
       general = {
@@ -188,6 +198,7 @@ in {
     ".config/dunst".source = dots/dunst;
     ".config/kitty".source = dots/kitty;
     ".config/waybar".source = dots/waybar;
+    ".config/swaylock".source = dots/swaylock;
     ".gitconfig".source = dots/git/.gitconfig;
   };
 

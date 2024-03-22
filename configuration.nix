@@ -113,6 +113,8 @@
   programs.hyprland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
 
+  security.pam.services.swaylock.text = "auth include login";
+
   hardware = {
     opengl.enable = true;
     bluetooth.enable = true;
