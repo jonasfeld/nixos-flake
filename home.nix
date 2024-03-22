@@ -10,9 +10,11 @@
     swaylock
     swayidle
     dunst
-    brightnessctl
-    playerctl
-    swww
+    swww # wallpapers
+    brightnessctl # light control
+    libnotify # sending notifications
+    playerctl # controlling the multimedia player
+    pulseaudio
   ];
   rofi_toggle = pkgs.writeShellScript "toggle" ''
     if (pidof rofi)
@@ -22,6 +24,7 @@
             rofi -show combi
         fi
   '';
+  volume_brightness = import ./modules/soundkeys.nix pkgs;
 in {
   # Hyprland
   wayland.windowManager.hyprland = {
@@ -107,11 +110,10 @@ in {
         "CONTROL_ALT, left, workspace, m-1"
 
         # fn buttons
-        ",XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioMicMute,      exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86AudioPlay,         exec, playerctl play-pause"
-        ",XF86AudioPrev,         exec, playerctl previous"
-        ",XF86AudioNext,         exec, playerctl next"
+        ",XF86AudioMute,         exec, ${volume_brightness} volume_mute"
+        ",XF86AudioPlay,         exec, ${volume_brightness} play_pause"
+        ",XF86AudioPrev,         exec, ${volume_brightness} prev_track"
+        ",XF86AudioNext,         exec, ${volume_brightness} next_track"
 
         # lock
         "$mod CONTROL_ALT, L, exec, swaylock"
@@ -119,10 +121,10 @@ in {
 
       binde = [
         # fn buttons
-        ",XF86AudioLowerVolume,  exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ",XF86AudioRaiseVolume,  exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86MonBrightnessUp,   exec, brightnessctl s 10%+"
-        ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
+        ",XF86AudioLowerVolume,  exec, ${volume_brightness} volume_down"
+        ",XF86AudioRaiseVolume,  exec, ${volume_brightness} volume_up"
+        ",XF86MonBrightnessUp,   exec, ${volume_brightness} brightness_up"
+        ",XF86MonBrightnessDown, exec, ${volume_brightness} brightness_down"
 
         # window resizes
         "CONTROL_ALT,L,resizeactive,40 0"

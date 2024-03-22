@@ -36,6 +36,7 @@
         "JetBrainsMono"
       ];
     })
+    font-awesome
   ];
 
   # Set your time zone.
