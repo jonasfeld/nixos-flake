@@ -6,15 +6,15 @@
   hyprland_pkgs = with pkgs; [
     rofi-wayland
     waybar
-    pavucontrol
-    swaylock
-    swayidle
-    dunst
+    pavucontrol # program for sound settings
+    swaylock # locking the screen
+    swayidle # idle screen
+    dunst # notifiaction bar
     swww # wallpapers
     brightnessctl # light control
     libnotify # sending notifications
     playerctl # controlling the multimedia player
-    pulseaudio
+    pulseaudio # audiocontrol
   ];
   rofi_toggle = pkgs.writeShellScript "toggle" ''
     if (pidof rofi)
@@ -41,7 +41,8 @@ in {
 
       monitor = [
         ",preferred,auto,auto"
-        "eDP-1,2256x1504,0x0,1.566667"
+        # "eDP-1,2256x1504,0x0,1.566667"
+        "eDP-1,2256x1504,0x0,1"
       ];
 
       "$mod" = "SUPER";
@@ -259,6 +260,7 @@ in {
         catppuccin.catppuccin-vsc-icons
         kamadorueda.alejandra
         bbenoist.nix
+        eamodio.gitlens
       ];
 
       # maybe somewhen else
