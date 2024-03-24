@@ -4,8 +4,10 @@
     android-studio
   ];
   hyprland_pkgs = with pkgs; [
-    rofi-wayland
+    rofi-wayland # launch menu
     waybar
+    wl-clipboard
+    networkmanagerapplet 
     pavucontrol # program for sound settings
     swaylock # locking the screen
     swayidle # idle screen
@@ -35,14 +37,31 @@ in {
       exec-once = [
         "waybar"
         # TODO wallpapers
-        "swww init"
+        "swww init && swww ${./nix-black-4k.png}"
         "dunst"
+        "nm-applet --indicator"
+        "blueman-applet"
       ];
 
+      windowrule = [
+        "float,pavucontrol"
+        "move 80% 42,pavucontrol"
+        "size 20% 50%,pavucontrol"
+        # ",pavucontrol"
+        # ",pavucontrol"
+        # ",pavucontrol"
+        # ",pavucontrol"
+        # ",pavucontrol"
+      ];
+        
+      misc = {
+          disable_hyprland_logo = true;
+          disable_splash_rendering = true;
+      };
+      
       monitor = [
         ",preferred,auto,auto"
-        # "eDP-1,2256x1504,0x0,1.566667"
-        "eDP-1,2256x1504,0x0,1"
+        "eDP-1,2256x1504,0x0,1.566667"
       ];
 
       "$mod" = "SUPER";
@@ -118,6 +137,7 @@ in {
 
         # lock
         "$mod CONTROL_ALT, L, exec, swaylock"
+        "$mod, C, movetoworkspace, special"
       ];
 
       binde = [
@@ -172,6 +192,7 @@ in {
       vscodium
       beekeeper-studio
       anki-bin
+      discord
 
       # messengers
       signal-desktop

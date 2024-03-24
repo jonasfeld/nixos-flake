@@ -16,7 +16,4 @@ vim.keymap.set("n", "<C-u>", "<C-u>zzzv");
 
 vim.keymap.set("x", "<leader>p", "\"_DP")
 
-vim.keymap.set("n", "Q", "<Nop>")
-vim.keymap.set("n", "Q", "<Nop>")
-
 vim.keymap.set("i", "<C-j>", "<Nop>")

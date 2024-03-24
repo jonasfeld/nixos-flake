@@ -10,7 +10,7 @@
     "spacing": 4, // Gaps between modules (4px)
     "modules-left": ["hyprland/workspaces", "hyprland/submap"],
     "modules-center": ["clock#time", "custom/separator", "clock#week", "custom/separator_dot", "clock#month", "custom/separator", "clock#calendar"],
-    "modules-right": [ "wlr/taskbar", "battery", "pulseaudio" ],
+    "modules-right": [ "wlr/taskbar", "network", "battery", "pulseaudio" ],
 
     // Modules Config
     "hyprland/workspaces": {
@@ -33,7 +33,7 @@
             "empty": ""
         },
         "persistent_workspaces": {
-            "*": 5,  
+            "*": 10,  
         },
     },
 

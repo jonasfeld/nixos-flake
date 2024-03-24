@@ -114,6 +114,7 @@
   programs.hyprland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
 
+  security.polkit.enable = true;
   security.pam.services.swaylock.text = "auth include login";
 
   hardware = {
@@ -136,6 +137,7 @@
 
   programs.ssh.startAgent = true;
   services = {
+    blueman.enable = true;
     fprintd.enable = true;
     fprintd.tod = {
       enable = true;

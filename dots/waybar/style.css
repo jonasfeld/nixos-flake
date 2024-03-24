@@ -249,9 +249,9 @@ window.left_bar .modules-center {
 }
 
 #taskbar {
-  margin-top: 10;
-  margin-right: 10;
-  margin-left: 10;
+    margin-left: 4;
+    margin-top: 4;
+    margin-bottom: 4;
 }
 
 #taskbar button.active {
