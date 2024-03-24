@@ -7,7 +7,7 @@
     rofi-wayland # launch menu
     waybar
     wl-clipboard
-    networkmanagerapplet 
+    networkmanagerapplet
     pavucontrol # program for sound settings
     swaylock # locking the screen
     swayidle # idle screen
@@ -53,12 +53,12 @@ in {
         # ",pavucontrol"
         # ",pavucontrol"
       ];
-        
+
       misc = {
-          disable_hyprland_logo = true;
-          disable_splash_rendering = true;
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
       };
-      
+
       monitor = [
         ",preferred,auto,auto"
         "eDP-1,2256x1504,0x0,1.566667"
