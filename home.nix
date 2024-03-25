@@ -1,11 +1,17 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   dev_pkgs = with pkgs; [
+    nodejs
     gh
     android-studio
   ];
   hyprland_pkgs = with pkgs; [
     rofi-wayland # launch menu
     waybar
+    pop-icon-theme # icon theme for waybar
     wl-clipboard
     networkmanagerapplet
     pavucontrol # program for sound settings
@@ -17,6 +23,8 @@
     libnotify # sending notifications
     playerctl # controlling the multimedia player
     pulseaudio # audiocontrol
+    grim # screenshots
+    slurp # screenshots (selection)
   ];
   rofi_toggle = pkgs.writeShellScript "toggle" ''
     if (pidof rofi)
@@ -36,7 +44,6 @@ in {
     settings = {
       exec-once = [
         "waybar"
-        # TODO wallpapers
         "swww init && swww ${./nix-black-4k.png}"
         "dunst"
         "nm-applet --indicator"
@@ -45,8 +52,11 @@ in {
 
       windowrule = [
         "float,pavucontrol"
-        "move 80% 42,pavucontrol"
+        "move 79.5% 42,pavucontrol"
         "size 20% 50%,pavucontrol"
+        "float,blueman"
+        "move 69.5% 42,blueman"
+        "size 30% 50%,blueman"
         # ",pavucontrol"
         # ",pavucontrol"
         # ",pavucontrol"
@@ -137,7 +147,9 @@ in {
 
         # lock
         "$mod CONTROL_ALT, L, exec, swaylock"
-        "$mod, C, movetoworkspace, special"
+
+        # screenshot
+        ", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
       ];
 
       binde = [
@@ -262,6 +274,7 @@ in {
         edithome = "nvim ~/nixos/home.nix";
         editflake = "nvim ~/nixos/flake.nix";
         editconf = "nvim ~/nixos/configuration.nix";
+        editdots = "nvim ~/nixos/dots";
         update = "nix flake update ~/nixos";
         upgrade = "update && rebuild";
       };
@@ -307,6 +320,25 @@ in {
         font.size = 18;
       };
     };
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-Macchiato-Compact-Blue-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = ["blue"];
+        size = "compact";
+        tweaks = [];
+        variant = "macchiato";
+      };
+    };
+  };
+
+  xdg.configFile = {
+    "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+    "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
+    "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
   };
 
   home.stateVersion = "23.11"; # do not change - or suffer the consequences

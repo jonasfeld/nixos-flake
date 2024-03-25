@@ -2,6 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
+  lib,
+  config,
   pkgs,
   inputs,
   ...
@@ -74,7 +76,7 @@
       firefox
       thunderbird
       spotify
-      keepass
+      keepassxc
       onedrive
     ];
     shell = pkgs.zsh;
@@ -93,7 +95,6 @@
     gcc
     htop
     zsh
-    fprintd
     usbutils
     ripgrep
 
@@ -115,7 +116,15 @@
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
 
   security.polkit.enable = true;
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+        if (action.id === "net.reactivated.fprint.device.enroll") {
+            return polkit.Result.YES;
+        }
+    }
+  '';
   security.pam.services.swaylock.text = "auth include login";
+  security.pam.services.gdm.enableGnomeKeyring = true;
 
   hardware = {
     opengl.enable = true;
@@ -137,12 +146,9 @@
 
   programs.ssh.startAgent = true;
   services = {
+    gnome.gnome-keyring.enable = true;
     blueman.enable = true;
     fprintd.enable = true;
-    fprintd.tod = {
-      enable = true;
-      driver = pkgs.libfprint-2-tod1-goodix-550a;
-    };
 
     # firmware updates
     fwupd.enable = true;
@@ -161,10 +167,7 @@
       #media-session.enable = true;
     };
     xserver = {
-      #      # Enable the X11 windowing system.
       enable = true;
-      #
-      #      # Keyboard
       xkb.layout = "us";
       xkb.variant = "";
       #
@@ -180,6 +183,45 @@
     printing.enable = true;
   };
 
+  # weird ahh service to start gnome polkit service
+  systemd = {
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
+  };
+
+  security.pam.services.login.fprintAuth = false;
+  # similarly to how other distributions handle the fingerprinting login
+  security.pam.services.gdm-fingerprint = lib.mkIf (config.services.fprintd.enable) {
+    text = ''
+      auth       required                    pam_shells.so
+      auth       requisite                   pam_nologin.so
+      auth       requisite                   pam_faillock.so      preauth
+      auth       required                    ${pkgs.fprintd}/lib/security/pam_fprintd.so
+      auth       optional                    pam_permit.so
+      auth       required                    pam_env.so
+      auth       [success=ok default=1]      ${pkgs.gnome.gdm}/lib/security/pam_gdm.so
+      auth       optional                    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
+
+      account    include                     login
+
+      password   required                    pam_deny.so
+
+      session    include                     login
+      session    optional                    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
+    '';
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -187,8 +229,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # List services that you want to enable:
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
