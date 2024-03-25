@@ -79,7 +79,6 @@ in {
         "$mod, Return, exec, kitty"
         "ALT, space, killactive"
         "ALT, F4, killactive"
-        "CONTROL, Space, togglefloating"
         "$mod, B, pseudo"
         "ALT, J, togglesplit"
         "$mod, F, fullscreen"
@@ -277,6 +276,7 @@ in {
         editdots = "nvim ~/nixos/dots";
         update = "nix flake update ~/nixos";
         upgrade = "update && rebuild";
+        nixdiff = "(cd ~/nixos && git diff)";
       };
       oh-my-zsh = {
         enable = true;
