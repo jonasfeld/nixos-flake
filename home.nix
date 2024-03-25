@@ -324,6 +324,7 @@ in {
 
   gtk = {
     enable = true;
+    font.name = "Noto Sans";
     theme = {
       name = "Catppuccin-Macchiato-Compact-Blue-Dark";
       package = pkgs.catppuccin-gtk.override {
