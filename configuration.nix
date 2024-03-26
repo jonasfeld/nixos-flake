@@ -2,8 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  lib,
-  config,
   pkgs,
   inputs,
   ...
@@ -97,6 +95,7 @@
     zsh
     usbutils
     ripgrep
+    # gnome.seahorse
 
     # paperwm for use in gnome
     gnomeExtensions.paperwm
@@ -115,18 +114,6 @@
   programs.hyprland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
 
-  security.polkit.enable = true;
-  security.polkit.extraConfig = ''
-    polkit.addRule(function(action, subject) {
-        if (action.id === "net.reactivated.fprint.device.enroll") {
-            return polkit.Result.YES;
-        }
-    }
-  '';
-  security.pam.services.swaylock.text = "auth include login";
-  security.pam.services.gdm.enableGnomeKeyring = true;
-  security.pam.services.login.enableGnomeKeyring = true;
-
   hardware = {
     opengl.enable = true;
     bluetooth.enable = true;
@@ -135,6 +122,7 @@
   environment.sessionVariables = {
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
+    SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh"; # hacky. this should be set by gnome-keyring
   };
 
   xdg.portal = {
@@ -145,7 +133,6 @@
   # Services
   virtualisation.docker.enable = true;
 
-  programs.ssh.startAgent = true;
   services = {
     gnome.gnome-keyring.enable = true;
     blueman.enable = true;
@@ -171,56 +158,33 @@
       enable = true;
       xkb.layout = "us";
       xkb.variant = "";
-      #
-      #      # GNOME
       displayManager.gdm.enable = true;
-      # desktopManager.gnome.enable = true;
-      #      # windowManager.i3 = {
-      #      #   enable = true;
-      #      # };
     };
 
     # Enable CUPS to print documents.
     printing.enable = true;
   };
 
-  # weird ahh service to start gnome polkit service
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = ["graphical-session.target"];
-      wants = ["graphical-session.target"];
-      after = ["graphical-session.target"];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
+  security = {
+    pam.services = {
+      login.fprintAuth = false;
+      gdm-fingerprint = {
+        enableGnomeKeyring = true;
+        startSession = true;
+        fprintAuth = true;
       };
+      swaylock.text = "auth include login";
     };
-  };
-
-  security.pam.services.login.fprintAuth = false;
-  # similarly to how other distributions handle the fingerprinting login
-  security.pam.services.gdm-fingerprint = lib.mkIf (config.services.fprintd.enable) {
-    text = ''
-      auth       required                    pam_shells.so
-      auth       requisite                   pam_nologin.so
-      auth       requisite                   pam_faillock.so      preauth
-      auth       required                    ${pkgs.fprintd}/lib/security/pam_fprintd.so
-      auth       optional                    pam_permit.so
-      auth       required                    pam_env.so
-      auth       [success=ok default=1]      ${pkgs.gnome.gdm}/lib/security/pam_gdm.so
-      auth       optional                    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
-
-      account    include                     login
-
-      password   required                    pam_deny.so
-
-      session    include                     login
-      session    optional                    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
-    '';
+    polkit = {
+      enable = true;
+      extraConfig = ''
+        polkit.addRule(function(action, subject) {
+            if (action.id === "net.reactivated.fprint.device.enroll") {
+                return polkit.Result.YES;
+            }
+        });
+      '';
+    };
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -252,10 +216,10 @@
                     (pkgs.writeText "bg.patch" ''
                       --- a/data/theme/gnome-shell-sass/widgets/_login-lock.scss
                       +++ b/data/theme/gnome-shell-sass/widgets/_login-lock.scss
-                      @@ -15,4 +15,5 @@ $_gdm_dialog_width: 23em;
+                      @@ -15,4 +15,4 @@ $_gdm_dialog_width: 23em;
                        /* Login Dialog */
                        .login-dialog {
-                         background-color: $_gdm_bg;
+                      -  background-color: $_gdm_bg;
                       +  background-color: #24273a;
                        }
                     '')

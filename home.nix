@@ -295,6 +295,7 @@ in {
         kamadorueda.alejandra
         bbenoist.nix
         eamodio.gitlens
+        esbenp.prettier-vscode
       ];
 
       # maybe somewhen else
