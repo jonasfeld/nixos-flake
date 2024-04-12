@@ -34,6 +34,33 @@
             rofi -show combi
         fi
   '';
+  power_menu = pkgs.writeShellScript "power_menu" ''
+    CHOICE=`$1 << EOF
+    suspend
+    lock
+    reboot
+    poweroff
+    exit
+    EOF`
+
+    case $CHOICE in
+    	suspend)
+    		systemctl "suspend"
+    		;;
+    	lock)
+    		swaylock
+    		;;
+    	reboot)
+    		systemctl "reboot"
+    		;;
+    	poweroff)
+    		systemctl "poweroff"
+    		;;
+    	exit)
+    		loginctl "terminate-user" "$USER"
+    		;;
+    esac
+  '';
   volume_brightness = import ./modules/soundkeys.nix pkgs;
 in {
   # Hyprland
@@ -48,6 +75,7 @@ in {
         "dunst"
         "nm-applet --indicator"
         "blueman-applet"
+        "gnome-keyring-daemon --daemonize"
       ];
 
       windowrule = [
@@ -80,7 +108,6 @@ in {
         "ALT, space, killactive"
         "ALT, F4, killactive"
         "$mod, B, pseudo"
-        "ALT, J, togglesplit"
         "$mod, F, fullscreen"
 
         # Move focus
@@ -149,6 +176,9 @@ in {
 
         # screenshot
         ", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
+
+        # power menu
+        "$mod, ESCAPE, exec, ${power_menu} \"rofi -dmenu -p Power-menu\""
       ];
 
       binde = [
@@ -204,6 +234,7 @@ in {
       beekeeper-studio
       anki-bin
       discord
+      zoom-us
 
       # messengers
       signal-desktop
@@ -263,6 +294,7 @@ in {
     zoxide = {
       enable = true;
       enableZshIntegration = true;
+      enableBashIntegration = true;
     };
 
     zsh = {
@@ -277,6 +309,7 @@ in {
         update = "nix flake update ~/nixos";
         upgrade = "update && rebuild";
         nixdiff = "(cd ~/nixos && git diff)";
+        lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';
       };
       oh-my-zsh = {
         enable = true;

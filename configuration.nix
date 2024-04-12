@@ -168,6 +168,7 @@
   security = {
     pam.services = {
       login.fprintAuth = false;
+      login.enableGnomeKeyring = true;
       gdm-fingerprint = {
         enableGnomeKeyring = true;
         startSession = true;
