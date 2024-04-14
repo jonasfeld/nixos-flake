@@ -310,6 +310,7 @@ in {
         upgrade = "update && rebuild";
         nixdiff = "(cd ~/nixos && git diff)";
         lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';
+        nxs = "nix-shell --run zsh";
       };
       oh-my-zsh = {
         enable = true;
