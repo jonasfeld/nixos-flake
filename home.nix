@@ -156,6 +156,8 @@ in {
         # Move active window one workspace to the left or right
         "$mod CONTROL SHIFT, H, movetoworkspace, r-1"
         "$mod CONTROL SHIFT, L, movetoworkspace, r+1"
+        "$mod CONTROL, H, workspace, r-1"
+        "$mod CONTROL, L, workspace, r+1"
 
         # Scroll through existing workspaces with mainMod + scroll
         "$mod, mouse_down, workspace, e+1"
@@ -215,7 +217,7 @@ in {
       };
       gestures = {
         workspace_swipe = true;
-        workspace_swipe_invert = false;
+        workspace_swipe_invert = true;
         workspace_swipe_cancel_ratio = 0.1;
       };
     };
@@ -241,6 +243,7 @@ in {
       whatsapp-for-linux
       element-desktop
       telegram-desktop
+      mattermost-desktop
 
       # work related
       google-chrome

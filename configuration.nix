@@ -104,6 +104,7 @@
 
     qemu
     quickemu
+    man-pages
   ];
 
   # Setup zsh
