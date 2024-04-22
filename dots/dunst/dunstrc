@@ -54,11 +54,11 @@
     background = "#131519"
     foreground = "#ffffff"
     highlight = "#5bb1b4"
-    timeout = 20
+    timeout = 5
 
 [urgency_critical]
     background = "#131519"
     foreground = "#ffffff"
     highlight = "#5bb1b4"
-    timeout = 0
+    timeout = 5
 
