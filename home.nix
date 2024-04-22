@@ -237,6 +237,7 @@ in {
       anki-bin
       discord
       zoom-us
+      gnome.gnome-calendar
 
       # messengers
       signal-desktop
