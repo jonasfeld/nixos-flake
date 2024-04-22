@@ -238,6 +238,8 @@ in {
       discord
       zoom-us
       gnome.gnome-calendar
+      prismlauncher
+      gnome.nautilus
 
       # messengers
       signal-desktop
