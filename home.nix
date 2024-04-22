@@ -7,6 +7,7 @@
     nodejs
     gh
     android-studio
+    cmake
   ];
   hyprland_pkgs = with pkgs; [
     rofi-wayland # launch menu
