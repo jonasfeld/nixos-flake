@@ -14,6 +14,10 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<C-d>", "<C-d>zzzv");
 vim.keymap.set("n", "<C-u>", "<C-u>zzzv");
 
-vim.keymap.set("x", "<leader>p", "\"_DP")
+vim.keymap.set("x", "<leader>p", "\"_DP");
 
-vim.keymap.set("i", "<C-j>", "<Nop>")
+vim.keymap.set("i", "<C-j>", "<Nop>");
+
+-- control c pls
+vim.keymap.set("i", "<C-c>", "<ESC>");
+vim.keymap.set("v", "<C-c>", "<ESC>");

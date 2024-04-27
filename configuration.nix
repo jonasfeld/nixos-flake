@@ -91,10 +91,10 @@
     kitty
     wget
     gcc
-    htop
     zsh
     usbutils
     ripgrep
+    htop
     # gnome.seahorse
 
     # paperwm for use in gnome
@@ -123,6 +123,8 @@
   environment.sessionVariables = {
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
+    GDK_SCALE = "1";
+    XCURSOR_SIZE = "32";
     SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh"; # hacky. this should be set by gnome-keyring
   };
 

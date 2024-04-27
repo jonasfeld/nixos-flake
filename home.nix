@@ -8,6 +8,33 @@
     gh
     android-studio
     cmake
+    cargo
+    rustc
+    vscodium
+    beekeeper-studio
+  ];
+  user_programs = with pkgs; [
+    zsh
+    megasync
+    ollama
+    zoxide
+    anki-bin
+    gnome.gnome-calendar
+    prismlauncher
+    gnome.nautilus
+
+    # messengers
+    discord
+    zoom-us
+    signal-desktop
+    whatsapp-for-linux
+    element-desktop
+    telegram-desktop
+    mattermost-desktop
+
+    # work related
+    google-chrome
+    slack
   ];
   hyprland_pkgs = with pkgs; [
     rofi-wayland # launch menu
@@ -78,6 +105,8 @@ in {
         "blueman-applet"
         "gnome-keyring-daemon --daemonize"
       ];
+
+      xwayland.force_zero_scaling = true;
 
       windowrule = [
         "float,pavucontrol"
@@ -184,6 +213,7 @@ in {
         "$mod, ESCAPE, exec, ${power_menu} \"rofi -dmenu -p Power-menu\""
       ];
 
+      # repeating commands
       binde = [
         # fn buttons
         ",XF86AudioLowerVolume,  exec, ${volume_brightness} volume_down"
@@ -227,32 +257,8 @@ in {
   home.username = "jonasfeld";
   home.homeDirectory = "/home/jonasfeld";
 
-  home.packages = with pkgs;
+  home.packages =
     [
-      cargo
-      rustc
-      zsh
-      zoxide
-      vscodium
-      beekeeper-studio
-      anki-bin
-      discord
-      zoom-us
-      gnome.gnome-calendar
-      prismlauncher
-      gnome.nautilus
-
-      # messengers
-      signal-desktop
-      whatsapp-for-linux
-      element-desktop
-      telegram-desktop
-      mattermost-desktop
-
-      # work related
-      google-chrome
-      slack
-
       # # You can also create simple shell scripts directly inside your
       # # configuration. For example, this adds a command 'my-hello' to your
       # # environment:
@@ -260,6 +266,7 @@ in {
       #   echo "Hello, ${config.home.username}!"
       # '')
     ]
+    ++ user_programs
     ++ hyprland_pkgs
     ++ dev_pkgs;
 
