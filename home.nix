@@ -44,6 +44,7 @@
     networkmanagerapplet
     pavucontrol # program for sound settings
     swaylock # locking the screen
+    imagemagick # screenshots as screen locker
     swayidle # idle screen
     dunst # notifiaction bar
     swww # wallpapers
@@ -89,6 +90,24 @@
     		;;
     esac
   '';
+  lock_cmd = pkgs.writeShellScript "lock_cmd" ''
+    LOCKFILE=~/.cache/lockscreen.png
+    grim $LOCKFILE;
+    convert $LOCKFILE -blur 0x4 $LOCKFILE;
+    swaylock --image $LOCKFILE
+  '';
+  display_off_when_lock = pkgs.writeShellScript "display_off_when_lock" ''
+    swayidle -w \
+      timeout 10 'if pgrep swaylock; then hyprctl dispatch dpms off; fi' \
+      resume 'hyprctl dispatch dpms on' \
+      before-sleep '${lock_cmd} -f'
+  '';
+  idle_lock = pkgs.writeShellScript "idle_lock" ''
+    swayidle -w \
+      timeout 600 '${lock_cmd} -f' \
+      timeout 605 'hyprctl dispatch dpms off' \
+      resume 'hyprctl dispatch dpms on'
+  '';
   volume_brightness = import ./modules/soundkeys.nix pkgs;
 in {
   # Hyprland
@@ -104,6 +123,8 @@ in {
         "nm-applet --indicator"
         "blueman-applet"
         "gnome-keyring-daemon --daemonize"
+        display_off_when_lock
+        idle_lock
       ];
 
       xwayland.force_zero_scaling = true;
@@ -204,7 +225,7 @@ in {
         ",XF86AudioNext,         exec, ${volume_brightness} next_track"
 
         # lock
-        "$mod CONTROL_ALT, L, exec, swaylock"
+        "$mod CONTROL_ALT, L, exec, ${lock_cmd}"
 
         # screenshot
         ", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
@@ -323,6 +344,7 @@ in {
         update = "nix flake update ~/nixos";
         upgrade = "update && rebuild";
         nixdiff = "(cd ~/nixos && git diff)";
+        nixfmt = "alejandra ~/nixos";
         lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';
         nxs = "nix-shell --run zsh";
       };
