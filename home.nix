@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   config,
   ...
 }: let
@@ -22,6 +23,8 @@
     gnome.gnome-calendar
     prismlauncher
     gnome.nautilus
+    zathura
+    pkgs-unstable.obsidian
 
     # messengers
     discord
