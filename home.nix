@@ -26,6 +26,9 @@
     zathura
     pkgs-unstable.obsidian
 
+    # pain.
+    texlive.combined.scheme-full
+
     # messengers
     discord
     zoom-us
@@ -362,6 +365,7 @@ in {
       package = pkgs.vscodium;
       extensions = with pkgs.vscode-extensions; [
         github.copilot
+        github.vscode-pull-request-github
         vscodevim.vim
         catppuccin.catppuccin-vsc
         catppuccin.catppuccin-vsc-icons
