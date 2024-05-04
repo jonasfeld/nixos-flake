@@ -13,6 +13,9 @@
     rustc
     vscodium
     beekeeper-studio
+
+    # watch files script
+    (import ./modules/watchfiles.nix pkgs)
   ];
   user_programs = with pkgs; [
     zsh
