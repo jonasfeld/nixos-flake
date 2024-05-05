@@ -109,13 +109,15 @@
     swayidle -w \
       timeout 10 'if pgrep swaylock; then hyprctl dispatch dpms off; fi' \
       resume 'hyprctl dispatch dpms on' \
+      timeout 60 'if pgrep swaylock; then systemctl "suspend"; fi' \
+      after-resume 'hyprctl dispatch dpms on' \
       before-sleep '${lock_cmd} -f'
   '';
   idle_lock = pkgs.writeShellScript "idle_lock" ''
     swayidle -w \
-      timeout 600 '${lock_cmd} -f' \
-      timeout 605 'hyprctl dispatch dpms off' \
-      resume 'hyprctl dispatch dpms on'
+      timeout 600 'systemctl "suspend"' \
+      after-resume 'hyprctl dispatch dpms on' \
+      before-sleep '${lock_cmd} -f'
   '';
   volume_brightness = import ./modules/soundkeys.nix pkgs;
 in {
