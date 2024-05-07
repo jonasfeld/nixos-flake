@@ -102,7 +102,7 @@
   lock_cmd = pkgs.writeShellScript "lock_cmd" ''
     LOCKFILE=~/.cache/lockscreen.png
     grim $LOCKFILE;
-    convert $LOCKFILE -blur 0x7 $LOCKFILE;
+    convert -scale 10% -blur 0x2.5 -resize 1000% $LOCKFILE $LOCKFILE;
     swaylock --image $LOCKFILE
   '';
   display_off_when_lock = pkgs.writeShellScript "display_off_when_lock" ''
@@ -114,8 +114,7 @@
   '';
   idle_lock = pkgs.writeShellScript "idle_lock" ''
     swayidle -w \
-      timeout 600 'systemctl "suspend"' \
-      after-resume 'hyprctl dispatch dpms on' \
+      timeout 300 'systemctl "suspend"' \
       before-sleep '${lock_cmd}'
   '';
   volume_brightness = import ./modules/soundkeys.nix pkgs;
