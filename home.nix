@@ -56,6 +56,7 @@
     imagemagick # screenshots as screen locker
     swayidle # idle screen
     dunst # notifiaction bar
+    swaynotificationcenter # notification bar
     swww # wallpapers
     brightnessctl # light control
     libnotify # sending notifications
@@ -128,7 +129,7 @@ in {
       exec-once = [
         "waybar"
         "swww init && swww ${./nix-black-4k.png}"
-        "dunst"
+        "${pkgs.swaynotificationcenter}/bin/swaync"
         "nm-applet --indicator"
         "blueman-applet"
         "gnome-keyring-daemon --daemonize"
@@ -153,6 +154,7 @@ in {
       ];
 
       misc = {
+        focus_on_activate = true;
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
       };
@@ -241,6 +243,9 @@ in {
 
         # power menu
         "$mod, ESCAPE, exec, ${power_menu} \"rofi -dmenu -p Power-menu\""
+
+        # notification center
+        "$mod, n, exec, ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
       ];
 
       # repeating commands
@@ -309,6 +314,7 @@ in {
     ".config/kitty".source = dots/kitty;
     ".config/waybar".source = dots/waybar;
     ".config/swaylock".source = dots/swaylock;
+    ".config/swaync".source = dots/swaync;
     ".gitconfig".source = dots/git/.gitconfig;
   };
 
