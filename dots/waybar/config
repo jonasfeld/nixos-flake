@@ -40,14 +40,17 @@
 
     "clock#week": {
         "format": "{:%a}",
+        "locale": "de_DE.UTF-8",
     },
 
     "clock#month": {
         "format": "{:%h}",
+        "locale": "de_DE.UTF-8",
     },
 
     "clock#calendar": {
         "format": "{:%F}",
+        "locale": "de_DE.UTF-8",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "actions": {
             "on-click-right": "mode",
@@ -113,7 +116,7 @@
         "tooltip-format": "{desc}",
         "format": "{icon} {volume}%\n{format_source}",  
         "format-bluetooth": "󰂱{icon} {volume}%\n{format_source}",
-        "format-bluetooth-muted": "󰂱󰝟{volume}%\n{format_source}",
+        "format-bluetooth-muted": "󰂱󰝟 {volume}%\n{format_source}",
         "format-muted": "󰝟 {volume}%\n{format_source}",
         "format-source": "󰍬 {volume}%",
         "format-source-muted": "󰍭 {volume}%",

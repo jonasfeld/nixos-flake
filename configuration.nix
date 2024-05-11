@@ -4,7 +4,7 @@
 {
   pkgs,
   pkgs-unstable,
-  inputs,
+  # inputs,
   ...
 }: {
   imports = [
@@ -99,9 +99,9 @@
     # gnome.seahorse
 
     # paperwm for use in gnome
-    gnomeExtensions.paperwm
-    gnome.gnome-tweaks
-    gnome-extension-manager
+    # gnomeExtensions.paperwm
+    # gnome.gnome-tweaks
+    # gnome-extension-manager
 
     qemu
     quickemu
@@ -114,7 +114,7 @@
 
   # Hyprland
   programs.hyprland.enable = true;
-  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  # programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland; # bleeding edge
 
   hardware = {
     opengl.enable = true;
@@ -213,7 +213,7 @@
   nixpkgs.overlays = [
     (
       self: super: {
-        gnome = super.gnome.overrideScope' (
+        gnome = super.gnome.overrideScope (
           selfg: superg: {
             gnome-shell = superg.gnome-shell.overrideAttrs (
               old: {
@@ -238,6 +238,10 @@
       }
     )
   ];
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 25565 ];
+  };
 
   # Hyprland dependency cache
   nix.settings = {

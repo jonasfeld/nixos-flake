@@ -115,7 +115,7 @@
   '';
   idle_lock = pkgs.writeShellScript "idle_lock" ''
     swayidle -w \
-      timeout 300 'systemctl "suspend"' \
+      timeout 900 'systemctl "suspend"' \
       before-sleep '${lock_cmd}'
   '';
   volume_brightness = import ./modules/soundkeys.nix pkgs;
@@ -335,6 +335,7 @@ in {
   #
   home.sessionVariables = {
     EDITOR = "nvim";
+    GDK_SCALE = "1.566667";
   };
 
   programs = {
@@ -411,14 +412,17 @@ in {
 
   gtk = {
     enable = true;
-    font.name = "Noto Sans";
+    font = {
+      package = pkgs.noto-fonts;
+      name = "Noto Sans";
+    };
     theme = {
-      name = "Catppuccin-Macchiato-Compact-Blue-Dark";
+      name = "Catppuccin-Mocha-Compact-Blue-Dark";
       package = pkgs.catppuccin-gtk.override {
         accents = ["blue"];
         size = "compact";
         tweaks = [];
-        variant = "macchiato";
+        variant = "mocha";
       };
     };
   };
