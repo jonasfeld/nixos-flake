@@ -44,6 +44,9 @@
     # work related
     google-chrome
     slack
+
+    # uni
+    calibre
   ];
   hyprland_pkgs = with pkgs; [
     rofi-wayland # launch menu
@@ -126,6 +129,10 @@ in {
     xwayland.enable = true;
 
     settings = {
+      input = {
+        kb_options = "caps:escape";
+      };
+
       exec-once = [
         "waybar"
         "swww init && swww ${./nix-black-4k.png}"
