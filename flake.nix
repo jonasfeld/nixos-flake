@@ -16,12 +16,6 @@
       url = "github:kamadorueda/alejandra/3.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      # broken weil auf stable nixos :(
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs @ {
