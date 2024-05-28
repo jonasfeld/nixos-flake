@@ -90,7 +90,7 @@
     		systemctl "suspend"
     		;;
     	lock)
-    		swaylock
+    		${lock_cmd}
     		;;
     	reboot)
     		systemctl "reboot"
