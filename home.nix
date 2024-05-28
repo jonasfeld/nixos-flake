@@ -326,6 +326,7 @@ in {
     ".config/swaylock".source = dots/swaylock;
     ".config/swaync".source = dots/swaync;
     ".gitconfig".source = dots/git/.gitconfig;
+    "matheknecht".source = shells/matheknecht.nix;
   };
 
   # Home Manager can also manage your environment variables through
