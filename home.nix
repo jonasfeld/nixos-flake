@@ -325,6 +325,7 @@ in {
     ".config/waybar".source = dots/waybar;
     ".config/swaylock".source = dots/swaylock;
     ".config/swaync".source = dots/swaync;
+    ".config/zathura".source = dots/zathura;
     ".gitconfig".source = dots/git/.gitconfig;
     "matheknecht".source = shells/matheknecht.nix;
   };
