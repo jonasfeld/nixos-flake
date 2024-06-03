@@ -39,6 +39,8 @@
       ];
     })
     font-awesome
+    dm-sans
+    liberation_ttf
   ];
 
   # Set your time zone.

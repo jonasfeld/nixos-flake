@@ -28,6 +28,7 @@
     gnome.nautilus
     zathura
     pkgs-unstable.obsidian
+    inkscape
 
     # pain.
     texlive.combined.scheme-full
