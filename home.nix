@@ -131,6 +131,7 @@ in {
 
     settings = {
       input = {
+        kb_layout = "eurkey";
         kb_options = "caps:escape";
       };
 
@@ -254,9 +255,6 @@ in {
 
         # notification center
         "$mod, n, exec, ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
-
-        # umlaute
-        "$mod, g, exec, wl-paste | sed 's/oe/ö/g'| sed 's/ue/ü/g' | sed 's/ae/ä/g' | wl-copy"
       ];
 
       # repeating commands

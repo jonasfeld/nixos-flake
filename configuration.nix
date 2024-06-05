@@ -20,6 +20,9 @@
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # we need the new kernel, right? :)
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.initrd.luks.devices."luks-b350adf5-976c-4a6e-8500-2cc84d73e24d".device = "/dev/disk/by-uuid/b350adf5-976c-4a6e-8500-2cc84d73e24d";
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -165,8 +168,12 @@
     };
     xserver = {
       enable = true;
-      xkb.layout = "us";
-      xkb.variant = "";
+      xkb.layout = "eurkey";
+      xkb.extraLayouts.eurkey = {
+        description = "EurKEY layout - https://eurkey.steffen.bruentjen.eu";
+        languages = ["eng"];
+        symbolsFile = ./keyboard_eurkey-1.2;
+      };
       displayManager.gdm.enable = true;
     };
 
@@ -243,7 +250,7 @@
   ];
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 25565 ];
+    allowedTCPPorts = [25565];
   };
 
   # Hyprland dependency cache
