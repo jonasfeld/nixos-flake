@@ -48,6 +48,7 @@
 
     # uni
     calibre
+    eduvpn-client
   ];
   hyprland_pkgs = with pkgs; [
     rofi-wayland # launch menu
@@ -415,9 +416,6 @@ in {
 
     alacritty = {
       enable = true;
-      settings = {
-        font.size = 18;
-      };
     };
   };
 
