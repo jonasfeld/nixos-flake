@@ -1,6 +1,6 @@
 {
   pkgs,
-  pkgs-unstable,
+  pkgs-insecure,
   config,
   ...
 }: let
@@ -27,7 +27,7 @@
     prismlauncher
     gnome.nautilus
     zathura
-    pkgs-unstable.obsidian
+    pkgs-insecure.obsidian
     inkscape
 
     # pain.
@@ -40,7 +40,7 @@
     whatsapp-for-linux
     element-desktop
     telegram-desktop
-    mattermost-desktop
+    pkgs-insecure.mattermost-desktop
 
     # work related
     google-chrome

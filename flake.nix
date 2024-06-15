@@ -2,7 +2,6 @@
   description = "Personal NixOS flake";
 
   inputs = {
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -20,18 +19,20 @@
 
   outputs = inputs @ {
     nixpkgs,
-    nixpkgs-unstable,
     home-manager,
     alejandra,
     ...
   }: let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
-    pkgs-unstable = import nixpkgs-unstable {
+    pkgs-insecure = import nixpkgs {
       system = "x86_64-linux";
       config = {
         allowUnfree = true;
         allowUnfreePredicate = _: true;
+        permittedInsecurePackages = [
+          "electron-28.3.1"
+        ];
       };
     };
   in {
@@ -40,7 +41,6 @@
         inherit system;
         specialArgs = {
           inherit inputs;
-          inherit pkgs-unstable;
         };
         modules = [
           ./configuration.nix
@@ -49,7 +49,7 @@
           {
             home-manager.extraSpecialArgs = {
               inherit inputs;
-              inherit pkgs-unstable;
+              inherit pkgs-insecure;
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
