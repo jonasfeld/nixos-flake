@@ -27,7 +27,7 @@
     prismlauncher
     gnome.nautilus
     zathura
-    pkgs-insecure.obsidian
+    obsidian
     inkscape
 
     # pain.

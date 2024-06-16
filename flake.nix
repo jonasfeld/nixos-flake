@@ -29,7 +29,6 @@
       system = "x86_64-linux";
       config = {
         allowUnfree = true;
-        allowUnfreePredicate = _: true;
         permittedInsecurePackages = [
           "electron-28.3.1"
         ];
@@ -48,7 +47,6 @@
           home-manager.nixosModules.home-manager
           {
             home-manager.extraSpecialArgs = {
-              inherit inputs;
               inherit pkgs-insecure;
             };
             home-manager.useGlobalPkgs = true;
