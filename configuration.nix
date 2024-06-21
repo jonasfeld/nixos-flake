@@ -1,19 +1,24 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{pkgs, ...}: {
+{pkgs, lib, lanzaboote,...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    lanzaboote.nixosModules.lanzaboote
   ];
 
   # Flakes.
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot";
+  };
 
   # we need the new kernel, right? :)
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -107,6 +112,8 @@
     qemu
     quickemu
     man-pages
+
+    sbctl
   ];
 
   # Setup zsh

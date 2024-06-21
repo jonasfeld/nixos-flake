@@ -55,7 +55,7 @@ require("lazy").setup({
                     "nixd",                            -- prefer nil
                 },
                 preferred_servers = {
-                    markdown = {},
+                    -- markdown = {},
                     python = { "pyright", "ruff_lsp" },
                 },
                 prefer_local = true, -- Prefer locally installed servers over nix-shell

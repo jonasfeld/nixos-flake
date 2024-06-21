@@ -15,12 +15,18 @@
       url = "github:kamadorueda/alejandra/3.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
     nixpkgs,
     home-manager,
     alejandra,
+    lanzaboote,
     ...
   }: let
     system = "x86_64-linux";
@@ -30,7 +36,7 @@
       config = {
         allowUnfree = true;
         permittedInsecurePackages = [
-          "electron-28.3.1"
+          "electron-28.3.3"
         ];
       };
     };
@@ -40,6 +46,7 @@
         inherit system;
         specialArgs = {
           inherit inputs;
+          inherit lanzaboote;
         };
         modules = [
           ./configuration.nix
