@@ -1,7 +1,6 @@
 {
   pkgs,
   pkgs-insecure,
-  config,
   ...
 }: let
   dev_pkgs = with pkgs; [
@@ -23,9 +22,8 @@
     ollama
     zoxide
     anki-bin
-    gnome.gnome-calendar
     prismlauncher
-    gnome.nautilus
+    nautilus
     zathura
     obsidian
     inkscape
@@ -125,6 +123,13 @@
   '';
   volume_brightness = import ./modules/soundkeys.nix pkgs;
 in {
+  # Catppuccin
+  catppuccin.flavor = "mocha";
+  catppuccin.enable = true;
+  catppuccin.pointerCursor.accent = "dark";
+  gtk.catppuccin.enable = true;
+  gtk.enable = true;
+  
   # Hyprland
   wayland.windowManager.hyprland = {
     enable = true;
@@ -417,29 +422,6 @@ in {
     alacritty = {
       enable = true;
     };
-  };
-
-  gtk = {
-    enable = true;
-    font = {
-      package = pkgs.noto-fonts;
-      name = "Noto Sans";
-    };
-    theme = {
-      name = "Catppuccin-Mocha-Compact-Blue-Dark";
-      package = pkgs.catppuccin-gtk.override {
-        accents = ["blue"];
-        size = "compact";
-        tweaks = [];
-        variant = "mocha";
-      };
-    };
-  };
-
-  xdg.configFile = {
-    "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-    "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
-    "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
   };
 
   home.stateVersion = "23.11"; # do not change - or suffer the consequences

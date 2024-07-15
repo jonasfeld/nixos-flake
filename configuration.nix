@@ -125,7 +125,7 @@
   # programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland; # bleeding edge
 
   hardware = {
-    opengl.enable = true;
+    graphics.enable = true;
     bluetooth.enable = true;
   };
 

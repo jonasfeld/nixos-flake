@@ -2,12 +2,12 @@
   description = "Personal NixOS flake";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      # url = "github:nix-community/home-manager/release-23.11";
+      # url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -20,6 +20,7 @@
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = inputs @ {
@@ -27,6 +28,7 @@
     home-manager,
     alejandra,
     lanzaboote,
+    catppuccin,
     ...
   }: let
     system = "x86_64-linux";
@@ -36,7 +38,7 @@
       config = {
         allowUnfree = true;
         permittedInsecurePackages = [
-          "electron-28.3.3"
+          # "electron-28.3.3"
         ];
       };
     };
@@ -59,7 +61,10 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.jonasfeld = {
-              imports = [./home.nix];
+              imports = [
+                ./home.nix
+                catppuccin.homeManagerModules.catppuccin
+              ];
             };
           }
 
