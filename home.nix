@@ -129,6 +129,7 @@ in {
   catppuccin.pointerCursor.accent = "dark";
   gtk.catppuccin.enable = true;
   gtk.enable = true;
+  gtk.catppuccin.gnomeShellTheme = true;
   
   # Hyprland
   wayland.windowManager.hyprland = {

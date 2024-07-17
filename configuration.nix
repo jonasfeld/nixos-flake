@@ -65,7 +65,6 @@
   };
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   # Enable touchpad support (enabled default in most desktopManager).
