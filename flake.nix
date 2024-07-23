@@ -21,6 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = inputs @ {
@@ -29,6 +30,7 @@
     alejandra,
     lanzaboote,
     catppuccin,
+    nix-colors,
     ...
   }: let
     system = "x86_64-linux";
@@ -41,7 +43,8 @@
           # "electron-28.3.3"
         ];
       };
-    };
+   };
+   colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
   in {
     nixosConfigurations = {
       nixos = lib.nixosSystem {
@@ -57,6 +60,8 @@
           {
             home-manager.extraSpecialArgs = {
               inherit pkgs-insecure;
+              inherit colorScheme;
+              inherit inputs;
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

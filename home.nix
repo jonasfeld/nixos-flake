@@ -123,6 +123,8 @@
   '';
   volume_brightness = import ./modules/soundkeys.nix pkgs;
 in {
+  imports = [ ./dots/waybar-new ];
+
   # Catppuccin
   catppuccin.flavor = "mocha";
   catppuccin.enable = true;
@@ -328,7 +330,7 @@ in {
     ".config/rofi".source = dots/rofi;
     ".config/dunst".source = dots/dunst;
     ".config/kitty".source = dots/kitty;
-    ".config/waybar".source = dots/waybar;
+    # ".config/waybar".source = dots/waybar;
     ".config/swaylock".source = dots/swaylock;
     ".config/swaync".source = dots/swaync;
     ".config/zathura".source = dots/zathura;
@@ -381,6 +383,8 @@ in {
         nixfmt = "alejandra ~/nixos";
         lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';
         nxs = "nix-shell --run zsh";
+        knecht = "nxs ${shells/matheknecht.nix}";
+        start = "${pkgs.writeShellScript "start" "$* &> /dev/null & disown"}";
       };
       oh-my-zsh = {
         enable = true;
