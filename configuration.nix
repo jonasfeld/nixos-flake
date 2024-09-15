@@ -80,7 +80,7 @@
   users.users.jonasfeld = {
     isNormalUser = true;
     description = "Jonas";
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = ["networkmanager" "wheel" "docker" "adbusers" "kvm"];
     initialPassword = "password";
     packages = with pkgs; [
       firefox
@@ -124,6 +124,9 @@
   # Setup zsh
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+
+  # enable adb
+  programs.adb.enable = true;
 
   # Hyprland
   programs.hyprland.enable = true;

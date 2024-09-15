@@ -33,7 +33,7 @@
 
     # messengers
     discord
-    zoom-us
+    # zoom-us
     signal-desktop
     whatsapp-for-linux
     element-desktop
@@ -405,6 +405,8 @@ in {
         bbenoist.nix
         eamodio.gitlens
         esbenp.prettier-vscode
+        dart-code.flutter
+        dart-code.dart-code
       ];
 
       # maybe somewhen else
@@ -422,6 +424,8 @@ in {
       enable = true;
       keyMode = "vi";
       baseIndex = 1;
+      clock24 = true;
+      shell = "${pkgs.zsh}/bin/zsh";
     };
 
     alacritty = {
