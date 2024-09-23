@@ -18,6 +18,7 @@
   ];
   user_programs = with pkgs; [
     zsh
+    fd
     megasync
     ollama
     zoxide
@@ -27,6 +28,7 @@
     zathura
     obsidian
     inkscape
+    gimp
 
     # pain.
     texlive.combined.scheme-full
@@ -67,6 +69,7 @@
     pulseaudio # audiocontrol
     grim # screenshots
     slurp # screenshots (selection)
+    hyprcursor
   ];
   rofi_toggle = pkgs.writeShellScript "toggle" ''
     if (pidof rofi)
@@ -129,6 +132,7 @@ in {
   catppuccin.flavor = "mocha";
   catppuccin.enable = true;
   catppuccin.pointerCursor.accent = "dark";
+  catppuccin.pointerCursor.enable = true;
   gtk.catppuccin.enable = true;
   gtk.enable = true;
   gtk.catppuccin.gnomeShellTheme = true;
