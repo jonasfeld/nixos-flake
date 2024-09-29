@@ -29,6 +29,7 @@
     obsidian
     inkscape
     gimp
+    libreoffice-qt
 
     # pain.
     texlive.combined.scheme-full
