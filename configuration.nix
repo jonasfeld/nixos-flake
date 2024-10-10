@@ -1,7 +1,12 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{pkgs, lib, lanzaboote,...}: {
+{
+  pkgs,
+  lib,
+  lanzaboote,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -25,6 +30,10 @@
 
   boot.initrd.luks.devices."luks-b350adf5-976c-4a6e-8500-2cc84d73e24d".device = "/dev/disk/by-uuid/b350adf5-976c-4a6e-8500-2cc84d73e24d";
   networking.hostName = "nixos"; # Define your hostname.
+
+  # Setup zsh
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -120,10 +129,6 @@
 
     sbctl
   ];
-
-  # Setup zsh
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
 
   # enable adb
   programs.adb.enable = true;

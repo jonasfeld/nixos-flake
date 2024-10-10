@@ -43,8 +43,8 @@
           # "electron-28.3.3"
         ];
       };
-   };
-   colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
+    };
+    colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
   in {
     nixosConfigurations = {
       nixos = lib.nixosSystem {
