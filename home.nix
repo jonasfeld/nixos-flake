@@ -1,6 +1,7 @@
 {
   pkgs,
-  pkgs-insecure,
+  pkgs-stable,
+  # pkgs-insecure,
   ...
 }: let
   dev_pkgs = with pkgs; [
@@ -12,6 +13,7 @@
     rustc
     vscodium
     beekeeper-studio
+    jdk17
 
     # watch files script
     (import ./modules/watchfiles.nix pkgs)
@@ -39,15 +41,16 @@
     whatsapp-for-linux
     element-desktop
     telegram-desktop
-    pkgs-insecure.mattermost-desktop
+    mattermost-desktop
 
     # work related
     google-chrome
     slack
 
     # uni
-    calibre
+    pkgs-stable.calibre
     eduvpn-client
+    jetbrains.idea-ultimate
   ];
 in {
   imports = [./dots/waybar-new ./programs/hyprland.nix programs/shell.nix];

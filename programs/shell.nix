@@ -9,6 +9,7 @@
     name = "walk";
     vendorHash = "sha256-MTM7zR5OYHbzAm07FTLvXVnESARg50/BZrB2bl+LtXM=";
   };
+  home-path = "/home/jonasfeld";
 in {
   home.packages = [
     walk
@@ -28,21 +29,22 @@ in {
     zsh = {
       enable = true;
       shellAliases = {
-        rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
+        rebuild = "sudo nixos-rebuild switch --flake ${home-path}/nixos";
         vim = "nvim";
-        edithome = "nvim ~/nixos/home.nix";
-        editflake = "nvim ~/nixos/flake.nix";
-        editconf = "nvim ~/nixos/configuration.nix";
-        editdots = "nvim ~/nixos/dots";
-        update = "nix flake update ~/nixos";
+        edithome = "nvim ${home-path}/nixos/home.nix";
+        editflake = "nvim ${home-path}/nixos/flake.nix";
+        editconf = "nvim ${home-path}/nixos/configuration.nix";
+        editdots = "nvim ${home-path}/nixos/dots";
+        update = "nix flake update --flake ${home-path}/nixos";
         upgrade = "update && rebuild";
-        nixdiff = "(cd ~/nixos && git diff)";
-        nixfmt = "alejandra ~/nixos";
+        nixdiff = "(cd ${home-path}/nixos && git diff)";
+        nixfmt = "alejandra ${home-path}/nixos";
         lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';
         nxs = "nix-shell --run zsh";
         knecht = "nxs ${../shells/matheknecht.nix}";
         start = "${pkgs.writeShellScript "start" "$* &> /dev/null & disown"}";
         ll = "cd \"$(walk \"$@\")\"";
+        gc = "git clone";
       };
       oh-my-zsh = {
         enable = true;
