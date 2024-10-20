@@ -112,6 +112,11 @@ in {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
+    nh = {
+      enable = true;
+      flake = "/home/jonasfeld/nixos";
+    };
+
     vscode = {
       enable = true;
       package = pkgs.vscodium;
