@@ -14,6 +14,8 @@
     vscodium
     beekeeper-studio
     jdk17
+    gradle_8
+    devenv
 
     # watch files script
     (import ./modules/watchfiles.nix pkgs)
@@ -116,6 +118,7 @@ in {
       enable = true;
       flake = "/home/jonasfeld/nixos";
     };
+
 
     vscode = {
       enable = true;

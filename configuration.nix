@@ -47,7 +47,7 @@
   # Fonts
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     (nerdfonts.override {
       fonts = [
@@ -89,7 +89,7 @@
   users.users.jonasfeld = {
     isNormalUser = true;
     description = "Jonas";
-    extraGroups = ["networkmanager" "wheel" "docker" "adbusers" "kvm"];
+    extraGroups = ["networkmanager" "wheel" "docker" "adbusers" "kvm" "wireshark"];
     initialPassword = "password";
     packages = with pkgs; [
       firefox
@@ -133,6 +133,10 @@
   # enable adb
   programs.adb.enable = true;
 
+  # enable wireshark
+  programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark;
+
   # Hyprland
   programs.hyprland.enable = true;
   # programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland; # bleeding edge
@@ -164,6 +168,7 @@
     gnome.gnome-keyring.enable = true;
     blueman.enable = true;
     fprintd.enable = true;
+    upower.enable = true;
 
     # firmware updates
     fwupd.enable = true;
