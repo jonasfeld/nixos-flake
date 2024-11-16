@@ -73,6 +73,7 @@ in {
     pulseaudio # audiocontrol
     grim # screenshots
     slurp # screenshots (selection)
+    copyq # clipboard history
     hyprcursor
   ];
 
@@ -88,6 +89,7 @@ in {
       };
 
       exec-once = [
+        "${pkgs.copyq}/bin/copyq"
         "waybar"
         "swww init && swww ${../nix-black-4k.png}"
         "${pkgs.swaynotificationcenter}/bin/swaync"

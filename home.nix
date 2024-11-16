@@ -16,6 +16,7 @@
     jdk17
     gradle_8
     devenv
+    python3
 
     # watch files script
     (import ./modules/watchfiles.nix pkgs)
@@ -50,7 +51,7 @@
     slack
 
     # uni
-    pkgs-stable.calibre
+    calibre
     eduvpn-client
     jetbrains.idea-ultimate
   ];

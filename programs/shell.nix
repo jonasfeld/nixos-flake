@@ -42,7 +42,7 @@ in {
         lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';
         nxs = "nix-shell --run zsh";
         knecht = "nxs ${../shells/matheknecht.nix}";
-        start = "${pkgs.writeShellScript "start" "$* &> /dev/null & disown"}";
+        run = "${pkgs.writeShellScript "run" "$* &> /dev/null & disown"}";
         ll = "cd \"$(walk \"$@\")\"";
         gc = "git clone";
       };
