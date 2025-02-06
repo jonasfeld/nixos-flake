@@ -77,7 +77,7 @@
   };
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -120,8 +120,8 @@
     # gnome.gnome-tweaks
     # gnome-extension-manager
 
-    qemu
-    quickemu
+    # qemu
+    # quickemu
     man-pages
 
     sbctl
@@ -147,8 +147,10 @@
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
     GDK_SCALE = "1";
-    XCURSOR_SIZE = "32";
+    XCURSOR_SIZE = "20";
+    QT_CURSOR_SIZE = "20";
     SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh"; # hacky. this should be set by gnome-keyring
+    QT_AUTO_SCREEN_SCALE_FACTOR = "auto";
   };
 
   xdg.portal = {

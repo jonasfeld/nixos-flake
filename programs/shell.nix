@@ -43,6 +43,7 @@ in {
         nxs = "nix-shell --run zsh";
         knecht = "nxs ${../shells/matheknecht.nix}";
         run = "${pkgs.writeShellScript "run" "$* &> /dev/null & disown"}";
+        silent = "${pkgs.writeShellScript "silent" "$* &> /dev/null"}";
         ll = "cd \"$(walk \"$@\")\"";
         gc = "git clone";
       };

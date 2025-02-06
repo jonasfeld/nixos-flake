@@ -5,6 +5,7 @@ vim.keymap.set("n", "<leader>f", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<leader>y", "\"+y")
+vim.keymap.set("v", "<leader>p", "\"+p")
 
 -- Cursor stays in the middle of the screen when iterating over search terms
 vim.keymap.set("n", "n", "nzzzv")

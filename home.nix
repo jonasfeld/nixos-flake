@@ -54,6 +54,10 @@
     calibre
     eduvpn-client
     jetbrains.idea-ultimate
+
+    # temporary
+    obs-studio
+    vlc
   ];
 in {
   imports = [./dots/waybar-new ./programs/hyprland.nix programs/shell.nix];
@@ -61,11 +65,11 @@ in {
   # Catppuccin
   catppuccin.flavor = "mocha";
   catppuccin.enable = true;
-  catppuccin.pointerCursor.accent = "dark";
-  catppuccin.pointerCursor.enable = true;
-  gtk.catppuccin.enable = true;
+  catppuccin.cursors.accent = "dark";
+  catppuccin.cursors.enable = true;
   gtk.enable = true;
-  gtk.catppuccin.gnomeShellTheme = true;
+  catppuccin.gtk.enable = true;
+  catppuccin.gtk.gnomeShellTheme = true;
 
   services.gnome-keyring.enable = true;
 
@@ -119,7 +123,6 @@ in {
       enable = true;
       flake = "/home/jonasfeld/nixos";
     };
-
 
     vscode = {
       enable = true;

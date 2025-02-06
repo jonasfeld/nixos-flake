@@ -11,7 +11,6 @@ end)
 -- Autocompletion config
 ---
 local cmp = require('cmp')
-local cmp_action = lsp_zero.cmp_action()
 
 cmp.setup({
   mapping = cmp.mapping.preset.insert({
@@ -22,8 +21,8 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
 
     -- Navigate between snippet placeholder
-    ['<C-j>'] = cmp_action.luasnip_jump_forward(),
-    ['<C-k>'] = cmp_action.luasnip_jump_backward(),
+    ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 
     -- Scroll up and down in the completion documentation
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
