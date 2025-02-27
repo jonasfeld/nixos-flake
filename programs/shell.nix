@@ -58,6 +58,7 @@ in {
       keyMode = "vi";
       baseIndex = 1;
       clock24 = true;
+      mouse = true;
       shell = "${pkgs.zsh}/bin/zsh";
     };
   };

@@ -41,7 +41,7 @@
     discord
     # zoom-us
     signal-desktop
-    whatsapp-for-linux
+    wasistlos
     element-desktop
     telegram-desktop
     mattermost-desktop
