@@ -59,7 +59,8 @@
   ];
 
   # Set your time zone.
-  time.timeZone = "Europe/Berlin";
+  # services.automatic-timezoned.enable = true; # does not work for now
+  time.timeZone = "Asia/Tokyo"; # "Europe/Berlin";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -138,6 +139,14 @@
   programs.hyprland.enable = true;
   # programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland; # bleeding edge
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
+
+
   hardware = {
     graphics.enable = true;
     bluetooth.enable = true;
@@ -197,7 +206,10 @@
     };
 
     # Enable CUPS to print documents.
-    printing.enable = true;
+    printing = {
+      enable = true;
+      drivers = with pkgs; [ gutenprint hplip splix ];
+    };
   };
 
   security = {
