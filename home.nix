@@ -1,7 +1,7 @@
 {
   pkgs,
   pkgs-stable,
-  # pkgs-insecure,
+  pkgs-insecure,
   ...
 }: let
   dev_pkgs = with pkgs; [
@@ -12,7 +12,7 @@
     cargo
     rustc
     vscodium
-    beekeeper-studio
+    pkgs-insecure.beekeeper-studio
     jdk17
     gradle_8
     devenv
@@ -40,7 +40,7 @@
     # messengers
     discord
     # zoom-us
-    signal-desktop
+    signal-desktop-bin
     wasistlos
     element-desktop
     telegram-desktop
@@ -119,15 +119,10 @@ in {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
-    nh = {
-      enable = true;
-      flake = "/home/jonasfeld/nixos";
-    };
-
     vscode = {
       enable = true;
       package = pkgs.vscodium;
-      extensions = with pkgs.vscode-extensions; [
+      profiles.default.extensions = with pkgs.vscode-extensions; [
         github.copilot
         github.vscode-pull-request-github
         vscodevim.vim

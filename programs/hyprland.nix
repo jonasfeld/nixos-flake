@@ -9,10 +9,9 @@
   '';
   power_menu = pkgs.writeShellScript "power_menu" ''
     CHOICE=`$1 << EOF
-    suspend
-    lock
-    reboot
     poweroff
+    reboot
+    suspend
     exit
     EOF`
 
@@ -91,7 +90,7 @@ in {
       exec-once = [
         "${pkgs.copyq}/bin/copyq"
         "waybar"
-        "swww init && swww ${../nix-black-4k.png}"
+        "swww-daemon && swww img ${../nix-black-4k.png}"
         "${pkgs.swaynotificationcenter}/bin/swaync"
         "nm-applet --indicator"
         "blueman-applet"
@@ -103,12 +102,12 @@ in {
       xwayland.force_zero_scaling = true;
 
       windowrule = [
-        "float,pavucontrol"
-        "move 79.5% 42,pavucontrol"
-        "size 20% 50%,pavucontrol"
-        "float,blueman"
-        "move 69.5% 42,blueman"
-        "size 30% 50%,blueman"
+        "float, class:org.pulseaudio.pavucontrol"
+        "move 79.5% 42,class:org.pulseaudio.pavucontrol"
+        "size 20% 50%,class:org.pulseaudio.pavucontrol"
+        "float,class:.blueman-manager-wrapped"
+        "move 69.5% 42,class:.blueman-manager-wrapped"
+        "size 30% 50%,class:.blueman-manager-wrapped"
       ];
 
       misc = {

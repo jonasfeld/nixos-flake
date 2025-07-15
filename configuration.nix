@@ -16,6 +16,11 @@
   # Flakes.
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  # insecure ugh
+  nixpkgs.config.permittedInsecurePackages = [
+    "beekeeper-studio-5.1.5"
+  ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.systemd-boot.configurationLimit = 10;
@@ -38,12 +43,12 @@
   # Enable networking
   networking.networkmanager.enable = true;
   # networking.networkmanager.dns = "none";
-  networking.nameservers = [
-    "1.1.1.1"
-    "1.0.0.1"
-    "2606:4700:4700::1111"
-    "2606:4700:4700::1001"
-  ];
+  # networking.nameservers = [
+  #   "1.1.1.1"
+  #   "1.0.0.1"
+  #   "2606:4700:4700::1111"
+  #   "2606:4700:4700::1001"
+  # ];
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -126,6 +131,9 @@
     man-pages
 
     sbctl
+
+    dig
+    traceroute
   ];
 
   # enable adb
@@ -142,10 +150,9 @@
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-      localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
-
 
   hardware = {
     graphics.enable = true;
@@ -177,6 +184,7 @@
     blueman.enable = true;
     fprintd.enable = true;
     upower.enable = true;
+    displayManager.gdm.enable = true;
 
     # firmware updates
     fwupd.enable = true;
@@ -202,13 +210,12 @@
         languages = ["eng"];
         symbolsFile = ./keyboard_eurkey-1.2;
       };
-      displayManager.gdm.enable = true;
     };
 
     # Enable CUPS to print documents.
     printing = {
       enable = true;
-      drivers = with pkgs; [ gutenprint hplip splix ];
+      drivers = with pkgs; [gutenprint hplip splix];
     };
   };
 

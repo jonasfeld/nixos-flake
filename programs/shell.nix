@@ -26,6 +26,11 @@ in {
       enableBashIntegration = true;
     };
 
+    nh = {
+      enable = true;
+      flake = "/home/jonasfeld/nixos";
+    };
+
     zsh = {
       enable = true;
       shellAliases = {
@@ -36,7 +41,7 @@ in {
         editconf = "nvim ${home-path}/nixos/configuration.nix";
         editdots = "nvim ${home-path}/nixos/dots";
         update = "nix flake update --flake ${home-path}/nixos";
-        upgrade = "update && rebuild";
+        upgrade = "nh os switch --update";
         nixdiff = "(cd ${home-path}/nixos && git diff)";
         nixfmt = "alejandra ${home-path}/nixos";
         lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';
