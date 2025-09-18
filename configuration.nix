@@ -65,7 +65,7 @@
 
   # Set your time zone.
   # services.automatic-timezoned.enable = true; # does not work for now
-  time.timeZone = "Asia/Tokyo"; # "Europe/Berlin";
+  time.timeZone = "Europe/Berlin"; # "Asia/Tokyo";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";

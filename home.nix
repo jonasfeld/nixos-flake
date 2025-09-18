@@ -68,8 +68,8 @@ in {
   catppuccin.cursors.accent = "dark";
   catppuccin.cursors.enable = true;
   gtk.enable = true;
-  catppuccin.gtk.enable = true;
-  catppuccin.gtk.gnomeShellTheme = true;
+  # catppuccin.gtk.enable = true;
+  # catppuccin.gtk.gnomeShellTheme = true;
 
   services.gnome-keyring.enable = true;
 
@@ -127,7 +127,7 @@ in {
         github.vscode-pull-request-github
         vscodevim.vim
         catppuccin.catppuccin-vsc
-        catppuccin.catppuccin-vsc-icons
+        # catppuccin.catppuccin-vsc-icons
         kamadorueda.alejandra
         bbenoist.nix
         eamodio.gitlens

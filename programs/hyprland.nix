@@ -54,7 +54,7 @@
   volume_brightness = import ../modules/soundkeys.nix pkgs;
 in {
   home.packages = with pkgs; [
-    rofi-wayland # launch menu
+    rofi # launch menu
     waybar
     pop-icon-theme # icon theme for waybar
     wl-clipboard
