@@ -33,6 +33,7 @@
   # we need the new kernel, right? :)
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # luks
   boot.initrd.luks.devices."luks-b350adf5-976c-4a6e-8500-2cc84d73e24d".device = "/dev/disk/by-uuid/b350adf5-976c-4a6e-8500-2cc84d73e24d";
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -49,6 +50,10 @@
   #   "2606:4700:4700::1111"
   #   "2606:4700:4700::1001"
   # ];
+
+  # SSH
+  programs.ssh.startAgent = true;
+  services.gnome.gcr-ssh-agent.enable = false; # the fuxk?
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -165,7 +170,6 @@
     GDK_SCALE = "1";
     XCURSOR_SIZE = "20";
     QT_CURSOR_SIZE = "20";
-    SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh"; # hacky. this should be set by gnome-keyring
     QT_AUTO_SCREEN_SCALE_FACTOR = "auto";
   };
 

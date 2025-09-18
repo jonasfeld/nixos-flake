@@ -34,14 +34,16 @@ in {
     zsh = {
       enable = true;
       shellAliases = {
-        rebuild = "sudo nixos-rebuild switch --flake ${home-path}/nixos";
         vim = "nvim";
         edithome = "nvim ${home-path}/nixos/home.nix";
+        editshell = "nvim ${home-path}/nixos/programs/shell.nix";
+        edithypr = "nvim ${home-path}/nixos/programs/hyprland.nix";
         editflake = "nvim ${home-path}/nixos/flake.nix";
         editconf = "nvim ${home-path}/nixos/configuration.nix";
         editdots = "nvim ${home-path}/nixos/dots";
         update = "nix flake update --flake ${home-path}/nixos";
         upgrade = "nh os switch --update";
+        rebuild = "nh os switch";
         nixdiff = "(cd ${home-path}/nixos && git diff)";
         nixfmt = "alejandra ${home-path}/nixos";
         lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';

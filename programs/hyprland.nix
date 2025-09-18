@@ -122,6 +122,9 @@ in {
       ];
 
       "$mod" = "SUPER";
+
+      gesture = "3, horizontal, workspace";
+
       bind = [
         "$mod, Return, exec, kitty"
         "ALT, space, killactive"
@@ -237,11 +240,6 @@ in {
 
         no_border_on_floating = true;
         resize_on_border = true;
-      };
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_invert = true;
-        workspace_swipe_cancel_ratio = 0.1;
       };
     };
   };
