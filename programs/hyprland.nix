@@ -103,10 +103,10 @@ in {
 
       windowrule = [
         "float, class:org.pulseaudio.pavucontrol"
-        "move 79.5% 42,class:org.pulseaudio.pavucontrol"
+        "move 75% 22,class:org.pulseaudio.pavucontrol"
         "size 20% 50%,class:org.pulseaudio.pavucontrol"
         "float,class:.blueman-manager-wrapped"
-        "move 69.5% 42,class:.blueman-manager-wrapped"
+        "move 65% 22,class:.blueman-manager-wrapped"
         "size 30% 50%,class:.blueman-manager-wrapped"
       ];
 

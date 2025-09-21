@@ -3,7 +3,8 @@
   pkgs-stable,
   pkgs-insecure,
   ...
-}: let
+}:
+let
   dev_pkgs = with pkgs; [
     nodejs
     gh
@@ -59,27 +60,38 @@
     obs-studio
     vlc
   ];
-in {
-  imports = [./dots/waybar-new ./programs/hyprland.nix programs/shell.nix];
+in
+{
+  imports = [
+    ./dots/waybar-new
+    ./programs/hyprland.nix
+    programs/shell.nix
+  ];
 
   # Catppuccin
   catppuccin.flavor = "mocha";
   catppuccin.enable = true;
   catppuccin.cursors.accent = "dark";
   catppuccin.cursors.enable = true;
+
   gtk.enable = true;
-  # catppuccin.gtk.enable = true;
-  # catppuccin.gtk.gnomeShellTheme = true;
+  catppuccin.gtk.icon.enable = true;
+  gtk.theme = {
+    name = "Catppuccin-GTK-Purple-Dark";
+    package = pkgs.magnetic-catppuccin-gtk.override {
+      accent = [ "purple" ];
+      tweaks = [
+        "float"
+      ];
+    };
+  };
 
   services.gnome-keyring.enable = true;
 
   home.username = "jonasfeld";
   home.homeDirectory = "/home/jonasfeld";
 
-  home.packages =
-    []
-    ++ user_programs
-    ++ dev_pkgs;
+  home.packages = [ ] ++ user_programs ++ dev_pkgs;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -122,29 +134,63 @@ in {
     vscode = {
       enable = true;
       package = pkgs.vscodium;
-      profiles.default.extensions = with pkgs.vscode-extensions; [
-        github.copilot
-        github.vscode-pull-request-github
-        vscodevim.vim
-        catppuccin.catppuccin-vsc
-        # catppuccin.catppuccin-vsc-icons
-        kamadorueda.alejandra
-        bbenoist.nix
-        eamodio.gitlens
-        esbenp.prettier-vscode
-        dart-code.flutter
-        dart-code.dart-code
-      ];
+      profiles.default = {
+        userSettings = {
+          "catppuccin.accentColor" = "mauve";
+          "editor.semanticHighlighting.enabled" = true;
+          "terminal.integrated.minimumContrastRatio" = 1;
+          "window.titleBarStyle" = "custom";
 
-      # maybe somewhen else
-      #            userSettings = {
-      #                "workbench.colorCustomizations" = {
-      #                    "editorBracketHighlight.foreground1" = "#ffff00";
-      #                };
-      #                "window.zoomLevel" = 3;
-      #                "workbench.iconTheme" = "catppuccin-mocha";
-      #                "workbench.colorTheme"= "Catppuccin Mocha";
-      #            };
+          "nixEnvPicker.envFile" = "\${workspacefolder}\${/}shell.nix";
+          "nixEnvPicker.terminalAutoActivate" = true;
+          "nixEnvPicker.terminalActivateCommand" = "nxs";
+
+          "editor.formatOnSave" = true;
+          "editor.tabSize" = 2;
+          "editor.lineNumbers" = "relative";
+
+          "typescript.updateImportsOnFileMove.enabled" = "always";
+          "typescript.preferences.importModuleSpecifier" = "relative";
+          "[typescript]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+          "[typescriptreact]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+          "[javascript]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+          "[javascriptreact]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+
+          "workbench.colorTheme" = "Catppuccin Mocha";
+          "workbench.iconTheme" = "catppuccin-mocha";
+          "workbench.colorCustomizations" = {
+            "editorBracketHighlight.foreground1" = "#ffff00";
+            "editorBracketHighlight.foreground2" = "#40ff00";
+            "editorBracketHighlight.foreground3" = "#00ffff";
+            "editorBracketHighlight.foreground4" = "#bf00ff";
+            "editorBracketHighlight.foreground5" = "#ff00bf";
+            "editorBracketHighlight.foreground6" = "#db6165";
+            "editorBracketHighlight.unexpectedBracket.foreground" = "#ff0000";
+          };
+
+          "git.confirmSync" = false;
+        };
+        extensions = with pkgs.vscode-extensions; [
+          github.copilot
+          github.vscode-pull-request-github
+          vscodevim.vim
+          catppuccin.catppuccin-vsc
+          kamadorueda.alejandra
+          oops418.nix-env-picker
+          eamodio.gitlens
+          esbenp.prettier-vscode
+          dart-code.flutter
+          dart-code.dart-code
+        ];
+      };
     };
   };
 
