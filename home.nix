@@ -177,6 +177,14 @@ in
           };
 
           "git.confirmSync" = false;
+
+          "vim.handleKeys" = {
+            # "<C-a>"= false;
+            "<C-f>" = false;
+            "<C-b>" = false;
+            "<C-p>" = false;
+            "<C-n>" = false;
+          };
         };
         extensions = with pkgs.vscode-extensions; [
           github.copilot
