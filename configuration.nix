@@ -97,7 +97,7 @@
   users.users.jonasfeld = {
     isNormalUser = true;
     description = "Jonas";
-    extraGroups = ["networkmanager" "wheel" "docker" "adbusers" "kvm" "wireshark"];
+    extraGroups = ["networkmanager" "wheel" "docker" "adbusers" "kvm" "wireshark" "vboxusers"];
     initialPassword = "password";
     packages = with pkgs; [
       firefox
@@ -182,6 +182,8 @@
 
   # Services
   virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
+
 
   services = {
     gnome.gnome-keyring.enable = true;

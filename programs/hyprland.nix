@@ -90,7 +90,7 @@ in {
       exec-once = [
         "${pkgs.copyq}/bin/copyq"
         "waybar"
-        "swww-daemon && swww img ${../nix-black-4k.png}"
+        "swww-daemon --no-cache & sleep 0.01 && swww img ${../nix-black-4k.png}"
         "${pkgs.swaynotificationcenter}/bin/swaync"
         "nm-applet --indicator"
         "blueman-applet"
