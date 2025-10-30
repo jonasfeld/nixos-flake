@@ -163,7 +163,6 @@ in
           "[javascriptreact]" = {
             "editor.defaultFormatter" = "esbenp.prettier-vscode";
           };
-
           "workbench.colorTheme" = "Catppuccin Mocha";
           "workbench.iconTheme" = "catppuccin-mocha";
           "workbench.colorCustomizations" = {
@@ -185,9 +184,11 @@ in
             "<C-p>" = false;
             "<C-n>" = false;
           };
+          "workbench.secondarySideBar.defaultVisibility" = "hidden";
+          "githubPullRequests.createOnPublishBranch" = "never";
         };
         extensions = with pkgs.vscode-extensions; [
-          github.copilot
+          # github.copilot
           github.vscode-pull-request-github
           vscodevim.vim
           catppuccin.catppuccin-vsc
@@ -197,6 +198,9 @@ in
           esbenp.prettier-vscode
           dart-code.flutter
           dart-code.dart-code
+          tamasfe.even-better-toml
+          ms-python.vscode-pylance
+          ms-python.python
         ];
       };
     };

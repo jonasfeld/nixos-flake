@@ -69,6 +69,7 @@ require("lazy").setup({
         dependencies = { "neovim/nvim-lspconfig" },
         config = function()
             require("lazy-lsp").setup {
+                use_vim_lsp_config = true;
                 excluded_servers = {
                     "ccls",                            -- prefer clangd
                     "denols",                          -- prefer eslint and tsserver

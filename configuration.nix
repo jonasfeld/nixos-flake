@@ -70,7 +70,8 @@
 
   # Set your time zone.
   # services.automatic-timezoned.enable = true; # does not work for now
-  time.timeZone = "Europe/Berlin"; # "Asia/Tokyo";
+  time.timeZone = "Europe/Berlin";
+  # time.timeZone = "Asia/Tokyo";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -97,7 +98,7 @@
   users.users.jonasfeld = {
     isNormalUser = true;
     description = "Jonas";
-    extraGroups = ["networkmanager" "wheel" "docker" "adbusers" "kvm" "wireshark" "vboxusers"];
+    extraGroups = ["networkmanager" "wheel" "docker" "adbusers" "wireshark" "vboxusers"];
     initialPassword = "password";
     packages = with pkgs; [
       firefox
@@ -182,8 +183,6 @@
 
   # Services
   virtualisation.docker.enable = true;
-  virtualisation.virtualbox.host.enable = true;
-
 
   services = {
     gnome.gnome-keyring.enable = true;
