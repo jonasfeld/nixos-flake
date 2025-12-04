@@ -186,6 +186,10 @@ in
           };
           "workbench.secondarySideBar.defaultVisibility" = "hidden";
           "githubPullRequests.createOnPublishBranch" = "never";
+          "redhat.telemetry.enabled" = false;
+          "[jsonc]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
         };
         extensions = with pkgs.vscode-extensions; [
           # github.copilot
@@ -201,6 +205,7 @@ in
           tamasfe.even-better-toml
           ms-python.vscode-pylance
           ms-python.python
+          # prisma.prisma
         ];
       };
     };

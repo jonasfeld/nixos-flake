@@ -80,7 +80,7 @@ in
           "critical": 15
         },
         "format": "Bat {capacity}%",
-        "format-charging": "Bat {capacity}%",
+        "format-charging": " Bat {capacity}%",
         "tooltip": true
       },
       

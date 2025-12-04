@@ -119,6 +119,7 @@ in {
       monitor = [
         ",preferred,auto,auto"
         "eDP-1,2256x1504,0x0,1.566667"
+        "Unknown-1,2256x1504,0x0,1.566667"
       ];
 
       "$mod" = "SUPER";

@@ -59,7 +59,7 @@
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     nerd-fonts.fira-code
     nerd-fonts.fira-mono
     nerd-fonts.jetbrains-mono
@@ -265,7 +265,7 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [25565];
+    allowedTCPPorts = [25565 8081];
   };
 
   # Hyprland dependency cache
