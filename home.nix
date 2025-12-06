@@ -3,8 +3,7 @@
   # pkgs-stable,
   pkgs-insecure,
   ...
-}:
-let
+}: let
   dev_pkgs = with pkgs; [
     nodejs
     gh
@@ -61,8 +60,7 @@ let
     obs-studio
     vlc
   ];
-in
-{
+in {
   imports = [
     ./dots/waybar-new
     ./programs/hyprland.nix
@@ -83,8 +81,8 @@ in
   gtk.theme = {
     name = "Catppuccin-GTK-Purple-Dark";
     package = pkgs.magnetic-catppuccin-gtk.override {
-      accent = [ "purple" ];
-      tweaks = [ "float" ];
+      accent = ["purple"];
+      tweaks = ["float"];
     };
   };
 
@@ -93,7 +91,7 @@ in
   home.username = "jonasfeld";
   home.homeDirectory = "/home/jonasfeld";
 
-  home.packages = [ ] ++ user_programs ++ dev_pkgs;
+  home.packages = [] ++ user_programs ++ dev_pkgs;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

@@ -17,7 +17,7 @@
 
   # Flakes.
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = lib.mkForce false;

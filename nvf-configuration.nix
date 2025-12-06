@@ -16,13 +16,38 @@ in {
     lsp = {
       enable = true;
       formatOnSave = true;
-      servers.nixd.init_options = {
-        nixpkgs = {
-          expr = "import ${inputs.nixpkgs} {}";
+      servers = {
+        "*" = {
+          root_markers = [".git"];
+          capabilities = {
+            textDocument = {
+              semanticTokens = {
+                multilineTokenSupport = true;
+              };
+            };
+          };
         };
-        options = {
-          nixos = {
-            expr = "(builtins.getFlake \"${flake}\").nixosConfigurations.nixos.options";
+
+        texlab = {
+          enable = true;
+          cmd = ["${pkgs.texlab}/bin/texlab"];
+          filetypes = ["tex" "bib"];
+        };
+
+        nixd = {
+          enable = true;
+          init_options = {
+            nixpkgs = {
+              expr = "import <nixpkgs> {}";
+            };
+            options = {
+              nixos = {
+                expr = "(builtins.getFlake \"${flake}\").nixosConfigurations.nixos.options";
+              };
+              home-manager = {
+                expr = "(builtins.getFlake \"${flake}\").nixosConfigurations.nixos.options.home-manager.users.type.getSubOptions []";
+              };
+            };
           };
         };
       };
@@ -35,12 +60,16 @@ in {
     languages = {
       enableFormat = true;
       enableTreesitter = true;
+      enableExtraDiagnostics = true;
 
       nix = {
         enable = true;
         lsp.servers = ["nixd"];
-        treesitter.enable = true;
       };
+
+      python.enable = true;
+
+      clang.enable = true;
     };
 
     statusline = {
@@ -90,10 +119,39 @@ in {
       gitsigns.enable = true;
     };
 
+    ui = {
+      illuminate.enable = true;
+      breadcrumbs.enable = true;
+      breadcrumbs.navbuddy.enable = true;
+      fastaction.enable = true;
+    };
+
+    options = {
+      tabstop = 4;
+      softtabstop = 4;
+      shiftwidth = 4;
+      expandtab = true;
+      smartindent = true;
+      ignorecase = true;
+      scrolloff = 8;
+    };
+
+    spellcheck = {
+      programmingWordlist.enable = true;
+    };
     debugMode = {
       enable = false;
       level = 16;
       logFile = "/tmp/nvim.log";
     };
+    keymaps = [
+      {
+        key = "<leader>f";
+        silent = true;
+        mode = "n";
+        action = ":Oil<CR>";
+        desc = "Open file manager";
+      }
+    ];
   };
 }
