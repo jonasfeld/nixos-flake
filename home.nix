@@ -1,6 +1,6 @@
 {
   pkgs,
-  pkgs-stable,
+  # pkgs-stable,
   pkgs-insecure,
   ...
 }:
@@ -18,6 +18,7 @@ let
     gradle_8
     devenv
     python3
+    alejandra
 
     # watch files script
     (import ./modules/watchfiles.nix pkgs)
@@ -33,7 +34,7 @@ let
     obsidian
     inkscape
     gimp
-    libreoffice-qt
+    libreoffice
 
     # pain.
     texlive.combined.scheme-full
@@ -71,8 +72,11 @@ in
   # Catppuccin
   catppuccin.flavor = "mocha";
   catppuccin.enable = true;
+
   catppuccin.cursors.accent = "dark";
   catppuccin.cursors.enable = true;
+
+  home.pointerCursor.size = 25;
 
   gtk.enable = true;
   catppuccin.gtk.icon.enable = true;
@@ -80,9 +84,7 @@ in
     name = "Catppuccin-GTK-Purple-Dark";
     package = pkgs.magnetic-catppuccin-gtk.override {
       accent = [ "purple" ];
-      tweaks = [
-        "float"
-      ];
+      tweaks = [ "float" ];
     };
   };
 
@@ -96,7 +98,7 @@ in
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".config/nvim".source = dots/nvim;
+    # ".config/nvim".source = dots/nvim;
     ".config/rofi".source = dots/rofi;
     ".config/dunst".source = dots/dunst;
     ".config/kitty".source = dots/kitty;

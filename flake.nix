@@ -13,11 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    alejandra = {
-      url = "github:kamadorueda/alejandra/3.0.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs = {
@@ -25,7 +20,17 @@
         rust-overlay.follows = "rust-overlay";
       };
     };
-    catppuccin.url = "github:catppuccin/nix";
+
+    nvf = {
+      url = "github:notashelf/nvf/v0.8";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-colors.url = "github:misterio77/nix-colors";
 
     rust-overlay = {
@@ -39,10 +44,10 @@
       nixpkgs,
       nixpkgs-stable,
       home-manager,
-      alejandra,
       lanzaboote,
       catppuccin,
       nix-colors,
+      nvf,
       ...
     }:
     let
@@ -65,8 +70,16 @@
         };
       };
       colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
+      nvim = (nvf.lib.neovimConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {inherit inputs; inherit colorScheme;};
+        modules = [ ./nvf-configuration.nix ];
+      }).neovim;
     in
     {
+
+      packages.${system}.nvim = nvim;
+
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
@@ -74,6 +87,7 @@
             inherit inputs;
             inherit lanzaboote;
             inherit pkgs-stable;
+            inherit nvim;
           };
           modules = [
             ./configuration.nix
@@ -95,10 +109,6 @@
                   catppuccin.homeModules.catppuccin
                 ];
               };
-            }
-
-            {
-              environment.systemPackages = [ alejandra.defaultPackage.${system} ];
             }
           ];
         };

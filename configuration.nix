@@ -4,7 +4,9 @@
 {
   pkgs,
   lib,
+  inputs,
   lanzaboote,
+  nvim,
   ...
 }: {
   imports = [
@@ -15,11 +17,7 @@
 
   # Flakes.
   nix.settings.experimental-features = ["nix-command" "flakes"];
-
-  # insecure ugh
-  nixpkgs.config.permittedInsecurePackages = [
-    "beekeeper-studio-5.1.5"
-  ];
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = lib.mkForce false;
@@ -115,7 +113,7 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    neovim
+    nvim
     git
     tmux
     kitty
@@ -125,6 +123,7 @@
     usbutils
     ripgrep
     btop
+    alejandra
     # gnome.seahorse
 
     # paperwm for use in gnome
@@ -169,8 +168,8 @@
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
     GDK_SCALE = "1";
-    XCURSOR_SIZE = "20";
-    QT_CURSOR_SIZE = "20";
+    XCURSOR_SIZE = "25";
+    QT_CURSOR_SIZE = "25";
     QT_AUTO_SCREEN_SCALE_FACTOR = "auto";
   };
 
@@ -270,6 +269,7 @@
 
   # Hyprland dependency cache
   nix.settings = {
+    auto-optimise-store = true;
     substituters = ["https://hyprland.cachix.org"];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };

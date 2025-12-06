@@ -63,6 +63,19 @@ in
         color: @orange;
       }
 
+      @keyframes blinking {
+        to {
+          color: @red;
+        }
+      }
+
+      #memory.critical,
+      #cpu.critical,
+      #temperature.critical {
+        color: @orange;
+        animation: blinking 1s steps(2, start) infinite;
+      }
+
       #battery.warning.discharging {
         color: @red;
       }
@@ -74,7 +87,7 @@ in
         padding-left: 2pt;
         padding-right: 2pt;
         color: @magenta;
-        background: @bg2
+        background: @bg2;
       }
       #workspaces button.empty {
         color: @white;
