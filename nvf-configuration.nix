@@ -151,6 +151,10 @@ in {
       };
     };
 
+    # show neat icons and different colorings for files
+    # changed in git repo
+    startPlugins = [pkgs.vimPlugins.oil-git-nvim];
+
     ui = {
       illuminate.enable = true;
       breadcrumbs.enable = true;
