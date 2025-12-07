@@ -3,6 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   pkgs,
+  specialPkgs,
   lib,
   inputs,
   lanzaboote,
@@ -113,7 +114,7 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    nvim
+    specialPkgs.nvim
     git
     tmux
     kitty

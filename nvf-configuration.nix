@@ -57,6 +57,17 @@ in {
       grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
     };
 
+    telescope = {
+      enable = true;
+      extensions = [
+        {
+          name = "fzf";
+          packages = [pkgs.vimPlugins.telescope-fzf-native-nvim];
+          setup = {fzf = {fuzzy = true;};};
+        }
+      ];
+    };
+
     languages = {
       enableFormat = true;
       enableTreesitter = true;
@@ -68,7 +79,9 @@ in {
       };
 
       python.enable = true;
-
+      rust.enable = true;
+      ts.enable = true;
+      css.enable = true;
       clang.enable = true;
     };
 
@@ -84,7 +97,13 @@ in {
     };
 
     autocomplete = {
-      blink-cmp.enable = true;
+      blink-cmp = {
+        enable = true;
+        mappings = {
+          next = "<C-j>";
+          previous = "<C-k>";
+        };
+      };
     };
 
     snippets.luasnip.enable = true;
@@ -99,10 +118,10 @@ in {
         };
       };
 
-      motion = {
-        hop.enable = true;
-        leap.enable = true;
-      };
+      # motion = {
+      #   hop.enable = true;
+      #   leap.enable = true;
+      # };
     };
 
     binds = {
@@ -116,7 +135,20 @@ in {
 
     git = {
       enable = true;
-      gitsigns.enable = true;
+      gitsigns = {
+        enable = true;
+        mappings = {
+          blameLine = "<leader>gb";
+          diffProject = "<leader>gD";
+          diffThis = "<leader>gd";
+          previewHunk = "<leader>gP";
+          resetBuffer = "<leader>gR";
+          resetHunk = "<leader>gr";
+          stageBuffer = "<leader>gS";
+          stageHunk = "<leader>gs";
+          undoStageHunk = "<leader>gu";
+        };
+      };
     };
 
     ui = {
@@ -136,17 +168,28 @@ in {
       scrolloff = 8;
     };
 
-    spellcheck = {
-      programmingWordlist.enable = true;
+    navigation.harpoon = {
+      enable = true;
+      mappings = {
+        file1 = "<leader>j";
+        file2 = "<leader>k";
+        file3 = null;
+        file4 = null;
+        listMarks = "<leader>h";
+        markFile = "<leader>a";
+      };
+      # setupOpts.tabline = true;
     };
+
     debugMode = {
       enable = false;
       level = 16;
       logFile = "/tmp/nvim.log";
     };
+
     keymaps = [
       {
-        key = "<leader>f";
+        key = "-";
         silent = true;
         mode = "n";
         action = ":Oil<CR>";

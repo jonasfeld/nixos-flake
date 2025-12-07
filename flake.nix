@@ -50,14 +50,12 @@
     ...
   }: let
     system = "x86_64-linux";
-    lib = nixpkgs.lib;
+    inherit (nixpkgs) lib;
     pkgs-insecure = import nixpkgs {
       inherit system;
       config = {
-        allowUnfree = true;
         permittedInsecurePackages = [
           "beekeeper-studio-5.3.4"
-          # "electron-28.3.3"
         ];
       };
     };
@@ -77,6 +75,8 @@
         };
         modules = [./nvf-configuration.nix];
       }).neovim;
+
+    specialPkgs = {inherit nvim;};
   in {
     packages.${system}.nvim = nvim;
 
@@ -87,27 +87,29 @@
           inherit inputs;
           inherit lanzaboote;
           inherit pkgs-stable;
-          inherit nvim;
+          inherit specialPkgs;
         };
         modules = [
           ./configuration.nix
 
           home-manager.nixosModules.home-manager
           {
-            home-manager.extraSpecialArgs = {
-              inherit pkgs-insecure;
-              inherit colorScheme;
-              inherit inputs;
-              inherit pkgs-stable;
-            };
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "bak";
-            home-manager.users.jonasfeld = {
-              imports = [
-                ./home.nix
-                catppuccin.homeModules.catppuccin
-              ];
+            home-manager = {
+              extraSpecialArgs = {
+                inherit pkgs-insecure;
+                inherit pkgs-stable;
+                inherit colorScheme;
+                inherit inputs;
+              };
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "bak";
+              users.jonasfeld = {
+                imports = [
+                  ./home.nix
+                  catppuccin.homeModules.catppuccin
+                ];
+              };
             };
           }
         ];

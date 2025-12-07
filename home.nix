@@ -68,11 +68,12 @@ in {
   ];
 
   # Catppuccin
-  catppuccin.flavor = "mocha";
-  catppuccin.enable = true;
-
-  catppuccin.cursors.accent = "dark";
-  catppuccin.cursors.enable = true;
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    cursors.enable = true;
+    cursors.accent = "dark";
+  };
 
   home.pointerCursor.size = 25;
 
@@ -96,7 +97,6 @@ in {
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    # ".config/nvim".source = dots/nvim;
     ".config/rofi".source = dots/rofi;
     ".config/dunst".source = dots/dunst;
     ".config/kitty".source = dots/kitty;
