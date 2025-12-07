@@ -97,9 +97,7 @@ in {
   # plain files is through 'home.file'.
   home.file = {
     ".config/rofi".source = dots/rofi;
-    ".config/dunst".source = dots/dunst;
     ".config/kitty".source = dots/kitty;
-    ".config/swaylock".source = dots/swaylock;
     ".config/swaync".source = dots/swaync;
     ".config/zathura".source = dots/zathura;
     ".gitconfig".source = dots/git/.gitconfig;

@@ -205,7 +205,7 @@
       xkb.extraLayouts.eurkey = {
         description = "EurKEY layout - https://eurkey.steffen.bruentjen.eu";
         languages = ["eng"];
-        symbolsFile = ./keyboard_eurkey-1.2;
+        symbolsFile = ./assets/keyboard_eurkey-1.2;
       };
     };
 
