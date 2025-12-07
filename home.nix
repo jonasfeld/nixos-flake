@@ -62,7 +62,6 @@
   ];
 in {
   imports = [
-    ./dots/waybar-new
     ./programs/hyprland.nix
     programs/shell.nix
   ];

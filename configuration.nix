@@ -7,7 +7,6 @@
   lib,
   inputs,
   lanzaboote,
-  nvim,
   ...
 }: {
   imports = [
@@ -174,13 +173,6 @@
     QT_AUTO_SCREEN_SCALE_FACTOR = "auto";
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-    ];
-  };
-
   # Services
   virtualisation.docker.enable = true;
 
@@ -233,7 +225,7 @@
         startSession = true;
         fprintAuth = true;
       };
-      swaylock.text = "auth include login";
+      hyprlock.text = "auth include login";
     };
     polkit = {
       enable = true;

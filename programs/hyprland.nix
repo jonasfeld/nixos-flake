@@ -19,9 +19,6 @@
     	suspend)
     		systemctl "suspend"
     		;;
-    	lock)
-    		${lock_cmd}
-    		;;
     	reboot)
     		systemctl "reboot"
     		;;
@@ -33,36 +30,27 @@
     		;;
     esac
   '';
-  lock_cmd = pkgs.writeShellScript "lock_cmd" ''
-    LOCKFILE=~/.cache/lockscreen.png
-    grim $LOCKFILE;
-    convert -scale 10% -blur 0x2.5 -resize 1000% $LOCKFILE $LOCKFILE;
-    swaylock --image $LOCKFILE
-  '';
-  display_off_when_lock = pkgs.writeShellScript "display_off_when_lock" ''
-    swayidle -w \
-      timeout 10 'if pgrep swaylock; then hyprctl dispatch dpms off; fi' \
-      resume 'hyprctl dispatch dpms on' \
-      timeout 60 'if pgrep swaylock; then systemctl "suspend"; fi' \
-      after-resume 'hyprctl dispatch dpms on' \
-  '';
-  idle_lock = pkgs.writeShellScript "idle_lock" ''
-    swayidle -w \
-      timeout 900 'systemctl "suspend"' \
-      before-sleep '${lock_cmd}'
-  '';
   volume_brightness = import ../modules/soundkeys.nix pkgs;
 in {
+  imports = [./waybar];
+
+  xdg.portal = {
+    enable = true;
+    configPackages = [pkgs.hyprland];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+    ];
+  };
+
   home.packages = with pkgs; [
     rofi # launch menu
-    waybar
-    pop-icon-theme # icon theme for waybar
-    wl-clipboard
+    wl-clipboard # command-line copy and paste
     networkmanagerapplet
     pavucontrol # program for sound settings
-    swaylock # locking the screen
+    hyprlock # locking the screen
     imagemagick # screenshots as screen locker
-    swayidle # idle screen
+    hypridle # idle screen
     dunst # notifiaction bar
     swaynotificationcenter # notification bar
     swww # wallpapers
@@ -75,6 +63,69 @@ in {
     copyq # clipboard history
     hyprcursor
   ];
+
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+        ignore_dbus_inhibit = false;
+        lock_cmd = "pidof hyprlock || hyprlock";
+        before_sleep_cmd = "pidof hyprlock || hyprlock";
+      };
+
+      listener = [
+        {
+          timeout = 10;
+          on-timeout = "pidof hyprlock && hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+        {
+          timeout = 30;
+          on-timeout = "pidof hyprlock && systemctl \"suspend\"";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+        {
+          timeout = 900;
+          on-timeout = "pidof hyprlock || hyprlock";
+        }
+        {
+          timeout = 920;
+          on-timeout = "systemctl \"suspend\"";
+        }
+      ];
+    };
+  };
+
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      general = {
+        hide_cursor = true;
+        ignore_empty_input = true;
+      };
+
+      animations = {
+        enabled = true;
+        fade_in = {
+          duration = 100;
+          bezier = "easeOutQuint";
+        };
+        fade_out = {
+          duration = 300;
+          bezier = "easeOutQuint";
+        };
+      };
+
+      background = [
+        {
+          path = "screenshot";
+          blur_passes = 3;
+          blur_size = 7;
+        }
+      ];
+    };
+  };
 
   # Hyprland
   wayland.windowManager.hyprland = {
@@ -94,9 +145,6 @@ in {
         "${pkgs.swaynotificationcenter}/bin/swaync"
         "nm-applet --indicator"
         "blueman-applet"
-        "gnome-keyring-daemon --daemonize"
-        display_off_when_lock
-        idle_lock
       ];
 
       xwayland.force_zero_scaling = true;
@@ -197,13 +245,13 @@ in {
         ",XF86AudioNext,         exec, ${volume_brightness} next_track"
 
         # lock
-        "$mod CONTROL_ALT, L, exec, ${lock_cmd}"
+        "$mod CONTROL_ALT, L, exec, hyprlock"
 
         # screenshot
         ", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
 
         # power menu
-        "$mod, ESCAPE, exec, ${power_menu} \"rofi -dmenu -p Power-menu\""
+        "$mod, ESCAPE, exec, ${power_menu} \"rofi -dmenu -p Power\""
 
         # notification center
         "$mod, n, exec, ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
