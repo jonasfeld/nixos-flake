@@ -19,17 +19,20 @@
     python3
     alejandra
 
+    # container stuff
+    dive
+    distrobox
+    distrobox-tui
+
     # watch files script
     (import ./modules/watchfiles.nix pkgs)
   ];
   user_programs = with pkgs; [
     megasync
-    ollama
     zoxide
     anki-bin
     prismlauncher
     nautilus
-    zathura
     obsidian
     inkscape
     gimp
@@ -65,6 +68,9 @@ in {
     ./programs/hyprland.nix
     programs/shell.nix
   ];
+
+  # syncing with syncthing
+  services.syncthing.enable = true;
 
   # Catppuccin
   catppuccin = {
@@ -127,6 +133,14 @@ in {
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
+
+    sioyek = {
+      enable = true;
+      bindings = {
+        next_page = "J";
+        previous_page = "K";
+      };
+    };
 
     vscode = {
       enable = true;

@@ -34,6 +34,7 @@ in {
     zsh = {
       enable = true;
       shellAliases = {
+        pdf = "sioyek";
         vim = "nvim";
         edithome = "nvim ${home-path}/nixos/home.nix";
         editshell = "nvim ${home-path}/nixos/programs/shell.nix";

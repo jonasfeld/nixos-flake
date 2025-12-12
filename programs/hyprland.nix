@@ -107,7 +107,7 @@ in {
       animations = {
         enabled = true;
         fade_in = {
-          duration = 100;
+          duration = 50;
           bezier = "easeOutQuint";
         };
         fade_out = {

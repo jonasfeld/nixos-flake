@@ -50,6 +50,10 @@ in {
             };
           };
         };
+
+        clangd = {
+          root_markers = ["compile_commands.json" "CMakeLists.txt"];
+        };
       };
     };
 
@@ -170,6 +174,8 @@ in {
       smartindent = true;
       ignorecase = true;
       scrolloff = 8;
+      swapfile = true;
+      directory = "~/.cache/nvim/swap"; # swap file dir
     };
 
     navigation.harpoon = {
@@ -198,6 +204,13 @@ in {
         mode = "n";
         action = ":Oil<CR>";
         desc = "Open file manager";
+      }
+      {
+        key = "<C-BS>";
+        silent = true;
+        mode = "i";
+        action = "<C-w>";
+        desc = "Delete word backwards";
       }
     ];
   };

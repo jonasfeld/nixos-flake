@@ -174,7 +174,17 @@
   };
 
   # Services
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    containers.enable = true;
+    #  podman = {
+    #    enable = true;
+    #    dockerCompat = true;
+    #    defaultNetwork.settings.dns_enabled = true;
+    #    networkSocket.enable = true;
+    #    networkSocket.server = "ghostunnel";
+    #  };
+    docker.enable = true;
+  };
 
   services = {
     gnome.gnome-keyring.enable = true;
@@ -185,6 +195,13 @@
 
     # firmware updates
     fwupd.enable = true;
+
+    # passionate about ai
+    # ollama.enable = true;
+    # open-webui = {
+    #   enable = true;
+    #   port = 3000;
+    # };
 
     # Enable sound with pipewire.
     pipewire = {
@@ -258,6 +275,11 @@
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [25565 8081];
+    trustedInterfaces = [
+      "br+"
+      "veth+"
+      "docker0"
+    ];
   };
 
   # Hyprland dependency cache
