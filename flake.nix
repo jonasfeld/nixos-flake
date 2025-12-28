@@ -5,7 +5,7 @@
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -24,6 +24,7 @@
     nvf = {
       url = "github:notashelf/nvf/v0.8";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.ndg.inputs.nixpkgs.follows = "nixpkgs";
     };
 
     catppuccin = {
@@ -41,7 +42,7 @@
 
   outputs = inputs @ {
     nixpkgs,
-    nixpkgs-stable,
+    # nixpkgs-stable,
     home-manager,
     lanzaboote,
     catppuccin,
@@ -59,12 +60,12 @@
         ];
       };
     };
-    pkgs-stable = import nixpkgs-stable {
-      inherit system;
-      config = {
-        allowUnfree = true;
-      };
-    };
+    # pkgs-stable = import nixpkgs-stable {
+    #   inherit system;
+    #   config = {
+    #     allowUnfree = true;
+    #   };
+    # };
     colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
     nvim =
       (nvf.lib.neovimConfiguration {
@@ -86,7 +87,7 @@
         specialArgs = {
           inherit inputs;
           inherit lanzaboote;
-          inherit pkgs-stable;
+          # inherit pkgs-stable;
           inherit specialPkgs;
         };
         modules = [
@@ -97,7 +98,7 @@
             home-manager = {
               extraSpecialArgs = {
                 inherit pkgs-insecure;
-                inherit pkgs-stable;
+                # inherit pkgs-stable;
                 inherit colorScheme;
                 inherit inputs;
               };

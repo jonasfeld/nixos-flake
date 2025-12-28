@@ -8,6 +8,7 @@
     nodejs
     gh
     android-studio
+    gnumake
     cmake
     cargo
     rustc
@@ -37,6 +38,7 @@
     inkscape
     gimp
     libreoffice
+    croc
 
     # pain.
     texlive.combined.scheme-full

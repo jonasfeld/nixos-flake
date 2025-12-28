@@ -58,6 +58,7 @@ in {
     };
 
     treesitter = {
+      fold = true;
       grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
     };
 
@@ -121,11 +122,6 @@ in {
           };
         };
       };
-
-      # motion = {
-      #   hop.enable = true;
-      #   leap.enable = true;
-      # };
     };
 
     binds = {
@@ -175,7 +171,6 @@ in {
       ignorecase = true;
       scrolloff = 8;
       swapfile = true;
-      directory = "~/.cache/nvim/swap"; # swap file dir
     };
 
     navigation.harpoon = {
@@ -188,7 +183,6 @@ in {
         listMarks = "<leader>h";
         markFile = "<leader>a";
       };
-      # setupOpts.tabline = true;
     };
 
     debugMode = {
