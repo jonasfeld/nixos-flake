@@ -59,7 +59,7 @@
     # uni
     calibre
     eduvpn-client
-    jetbrains.idea-ultimate
+    jetbrains.idea
 
     # temporary
     obs-studio
@@ -77,6 +77,7 @@ in {
   # Catppuccin
   catppuccin = {
     enable = true;
+    cache.enable = true;
     flavor = "mocha";
     cursors.enable = true;
     cursors.accent = "dark";
@@ -218,7 +219,8 @@ in {
           tamasfe.even-better-toml
           ms-python.vscode-pylance
           ms-python.python
-          # prisma.prisma
+          prisma.prisma
+          ms-vscode-remote.remote-ssh
         ];
       };
     };

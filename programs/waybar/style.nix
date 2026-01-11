@@ -12,6 +12,7 @@ in
     ''
       @define-color white #${base05};
       @define-color red #${base08};
+      @define-color very_red #d20f39;
       @define-color green #${base0B};
       @define-color teal #${base0C};
       @define-color orange #${base09};
@@ -57,6 +58,7 @@ in
         padding-right: 8pt;
       }
 
+      #battery.warning.discharging,
       #memory.warning,
       #cpu.warning,
       #temperature.warning {
@@ -65,20 +67,18 @@ in
 
       @keyframes blinking {
         to {
-          color: @red;
+          color: @very_red;
         }
       }
 
+      #battery.critical.discharging,
       #memory.critical,
       #cpu.critical,
       #temperature.critical {
-        color: @orange;
+        color: @white;
         animation: blinking 1s steps(2, start) infinite;
       }
 
-      #battery.warning.discharging {
-        color: @red;
-      }
       #battery.charging {
         color: @green;
       }

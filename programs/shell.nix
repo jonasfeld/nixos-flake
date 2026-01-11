@@ -1,18 +1,8 @@
 {pkgs, ...}: let
-  walk = pkgs.buildGoModule {
-    src = pkgs.fetchFromGitHub {
-      owner = "antonmedv";
-      repo = "walk";
-      rev = "v1.10.0";
-      hash = "sha256-wGiRMNgp5NZVj8ILyQ2C/iqpjv4XgphRfWcF/CSMj48=";
-    };
-    name = "walk";
-    vendorHash = "sha256-MTM7zR5OYHbzAm07FTLvXVnESARg50/BZrB2bl+LtXM=";
-  };
   home-path = "/home/jonasfeld";
 in {
   home.packages = [
-    walk
+    pkgs.walk
   ];
 
   programs = {

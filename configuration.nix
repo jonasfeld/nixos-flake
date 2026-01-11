@@ -141,9 +141,6 @@
     traceroute
   ];
 
-  # enable adb
-  programs.adb.enable = true;
-
   # enable wireshark
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark;

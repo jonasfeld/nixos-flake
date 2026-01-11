@@ -22,7 +22,7 @@
     };
 
     nvf = {
-      url = "github:notashelf/nvf/v0.8";
+      url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.ndg.inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -56,7 +56,7 @@
       inherit system;
       config = {
         permittedInsecurePackages = [
-          "beekeeper-studio-5.3.4"
+          "beekeeper-studio-5.5.3"
         ];
       };
     };

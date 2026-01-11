@@ -149,12 +149,13 @@ in {
       xwayland.force_zero_scaling = true;
 
       windowrule = [
-        "float, class:org.pulseaudio.pavucontrol"
-        "move 75% 22,class:org.pulseaudio.pavucontrol"
-        "size 20% 50%,class:org.pulseaudio.pavucontrol"
-        "float,class:.blueman-manager-wrapped"
-        "move 65% 22,class:.blueman-manager-wrapped"
-        "size 30% 50%,class:.blueman-manager-wrapped"
+        "float on, match:class org.pulseaudio.pavucontrol"
+        "move 75% 22, match:class org.pulseaudio.pavucontrol"
+        "size 20% 50%, match:class org.pulseaudio.pavucontrol"
+        "float on, match:class .blueman-manager-wrapped"
+        "move 65% 22, match:class .blueman-manager-wrapped"
+        "size 30% 50%, match:class .blueman-manager-wrapped"
+        "border_size 0, match:float true"
       ];
 
       misc = {
@@ -286,7 +287,7 @@ in {
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
 
-        no_border_on_floating = true;
+        # no_border_on_floating = true;
         resize_on_border = true;
       };
     };

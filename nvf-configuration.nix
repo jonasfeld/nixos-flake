@@ -206,6 +206,13 @@ in {
         action = "<C-w>";
         desc = "Delete word backwards";
       }
+      {
+        key = "<leader>y";
+        silent = true;
+        mode = "n";
+        action = "\"+y";
+        desc = "Yank to Clipboard";
+      }
     ];
   };
 }
