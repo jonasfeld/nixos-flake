@@ -92,7 +92,7 @@ in {
 
     statusline = {
       lualine = {
-        theme = "catppuccin";
+        theme = "auto";
         enable = true;
       };
     };
@@ -212,6 +212,34 @@ in {
         mode = "n";
         action = "\"+y";
         desc = "Yank to Clipboard";
+      }
+      {
+        key = "<leader>y";
+        silent = true;
+        mode = "v";
+        action = "\"+y";
+        desc = "Yank to Clipboard";
+      }
+      {
+        key = "<leader>p";
+        silent = true;
+        mode = "n";
+        action = "\"+p";
+        desc = "Paste from Clipboard";
+      }
+      {
+        key = "<leader>p";
+        silent = true;
+        mode = "v";
+        action = "\"+p";
+        desc = "Paste from Clipboard";
+      }
+      {
+        key = "<C-c>";
+        silent = true;
+        mode = "i";
+        action = "<ESC>";
+        desc = "Go back to normal mode";
       }
     ];
   };

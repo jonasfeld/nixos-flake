@@ -149,13 +149,9 @@ in {
       xwayland.force_zero_scaling = true;
 
       windowrule = [
-        "float on, match:class org.pulseaudio.pavucontrol"
-        "move 75% 22, match:class org.pulseaudio.pavucontrol"
-        "size 20% 50%, match:class org.pulseaudio.pavucontrol"
-        "float on, match:class .blueman-manager-wrapped"
-        "move 65% 22, match:class .blueman-manager-wrapped"
-        "size 30% 50%, match:class .blueman-manager-wrapped"
-        "border_size 0, match:float true"
+        "match:class org.pulseaudio.pavucontrol, float on, move (monitor_w*0.75) 22, size (monitor_w*.20) (monitor_h*0.50)"
+        "match:class .blueman-manager-wrapped, float on, move (monitor_w*0.65) 22, size (monitor_w*0.30) (monitor_h*0.50)"
+        "match:float true, border_size 0"
       ];
 
       misc = {

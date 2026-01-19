@@ -18,7 +18,7 @@ in {
 
     nh = {
       enable = true;
-      flake = "/home/jonasfeld/nixos";
+      flake = "${home-path}/nixos";
     };
 
     zsh = {
@@ -29,6 +29,7 @@ in {
         edithome = "nvim ${home-path}/nixos/home.nix";
         editshell = "nvim ${home-path}/nixos/programs/shell.nix";
         edithypr = "nvim ${home-path}/nixos/programs/hyprland.nix";
+        editnvf = "nix run ${home-path}/nixos#nvim ${home-path}/nixos/nvf-configuration.nix || nvim ${home-path}/nixos/nvf-configuration.nix";
         editflake = "nvim ${home-path}/nixos/flake.nix";
         editconf = "nvim ${home-path}/nixos/configuration.nix";
         editdots = "nvim ${home-path}/nixos/dots";

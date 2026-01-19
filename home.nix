@@ -221,6 +221,7 @@ in {
           ms-python.python
           prisma.prisma
           ms-vscode-remote.remote-ssh
+          jnoortheen.nix-ide
         ];
       };
     };
