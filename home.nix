@@ -32,7 +32,6 @@
     megasync
     zoxide
     anki-bin
-    prismlauncher
     nautilus
     obsidian
     inkscape
@@ -64,10 +63,14 @@
     # temporary
     obs-studio
     vlc
+
+    # gaming
+    prismlauncher
+    osu-lazer-bin
   ];
 in {
   imports = [
-    ./programs/hyprland.nix
+    programs/hyprland.nix
     programs/shell.nix
   ];
 
@@ -78,6 +81,7 @@ in {
   catppuccin = {
     enable = true;
     cache.enable = true;
+    accent = "mauve";
     flavor = "mocha";
     cursors.enable = true;
     cursors.accent = "dark";
@@ -88,9 +92,10 @@ in {
   gtk.enable = true;
   catppuccin.gtk.icon.enable = true;
   gtk.theme = {
-    name = "Catppuccin-GTK-Purple-Dark";
+    name = "Catppuccin-GTK-Mauve-Dark";
     package = pkgs.magnetic-catppuccin-gtk.override {
-      accent = ["purple"];
+      shade = "dark";
+      accent = ["mauve"];
       tweaks = ["float"];
     };
   };
@@ -156,8 +161,6 @@ in {
           "window.titleBarStyle" = "custom";
 
           "nixEnvPicker.envFile" = "\${workspacefolder}\${/}shell.nix";
-          "nixEnvPicker.terminalAutoActivate" = true;
-          "nixEnvPicker.terminalActivateCommand" = "nxs";
 
           "editor.formatOnSave" = true;
           "editor.tabSize" = 2;

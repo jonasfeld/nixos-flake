@@ -104,6 +104,7 @@ in {
     autocomplete = {
       blink-cmp = {
         enable = true;
+        sourcePlugins.emoji.enable = true;
         mappings = {
           next = "<C-j>";
           previous = "<C-k>";
