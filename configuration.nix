@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   pkgs,
-  specialPkgs,
+  special-pkgs,
   lib,
   inputs,
   lanzaboote,
@@ -64,6 +64,7 @@
     font-awesome
     dm-sans
     liberation_ttf
+    montserrat
   ];
 
   # Set your time zone.
@@ -113,7 +114,7 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    specialPkgs.nvim
+    special-pkgs.nvim
     git
     tmux
     kitty

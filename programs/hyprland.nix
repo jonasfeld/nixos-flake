@@ -57,6 +57,8 @@ in {
     libnotify # sending notifications
     playerctl # controlling the multimedia player
     pulseaudio # audiocontrol
+    grimblast
+    satty
     grim # screenshots
     slurp # screenshots (selection)
     copyq # clipboard history
@@ -244,7 +246,8 @@ in {
         "$mod CONTROL_ALT, L, exec, hyprlock"
 
         # screenshot
-        ", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
+        ", Print, exec, grimblast --freeze save area - | satty --filename - --actions-on-enter save-to-file --copy-command wl-copy --disable-notifications --initial-tool rectangle --early-exit --output-filename $HOME/Pictures/Screenshots/$(date +%F-%H-%M-%S).png"
+        "CONTROL, Print, exec, grimblast save output - | satty --filename - --actions-on-enter save-to-file --copy-command wl-copy --disable-notifications --initial-tool rectangle --early-exit --output-filename $HOME/Pictures/Screenshots/$(date +%F-%H-%M-%S).png"
 
         # power menu
         "$mod, ESCAPE, exec, ${power_menu} \"rofi -dmenu -p Power\""
@@ -274,6 +277,9 @@ in {
       animations = {
         # first_launch_animation = false;
       };
+      animation = [
+        "windows, 1, 2, default, popin 50%"
+      ];
 
       general = {
         gaps_in = 3;

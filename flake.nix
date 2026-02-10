@@ -14,11 +14,8 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
-      };
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nvf = {
@@ -77,7 +74,9 @@
         modules = [./nvf-configuration.nix];
       }).neovim;
 
-    specialPkgs = {inherit nvim;};
+    special-pkgs = {
+      inherit nvim;
+    };
   in {
     packages.${system}.nvim = nvim;
 
@@ -88,7 +87,7 @@
           inherit inputs;
           inherit lanzaboote;
           # inherit pkgs-stable;
-          inherit specialPkgs;
+          inherit special-pkgs;
         };
         modules = [
           ./configuration.nix
@@ -101,6 +100,7 @@
                 # inherit pkgs-stable;
                 inherit colorScheme;
                 inherit inputs;
+                inherit special-pkgs;
               };
               useGlobalPkgs = true;
               useUserPackages = true;

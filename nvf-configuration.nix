@@ -88,6 +88,7 @@ in {
       ts.enable = true;
       css.enable = true;
       clang.enable = true;
+      typst.enable = true;
     };
 
     statusline = {

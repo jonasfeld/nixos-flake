@@ -160,8 +160,6 @@ in {
           "terminal.integrated.minimumContrastRatio" = 1;
           "window.titleBarStyle" = "custom";
 
-          "nixEnvPicker.envFile" = "\${workspacefolder}\${/}shell.nix";
-
           "editor.formatOnSave" = true;
           "editor.tabSize" = 2;
           "editor.lineNumbers" = "relative";
@@ -214,7 +212,6 @@ in {
           vscodevim.vim
           catppuccin.catppuccin-vsc
           kamadorueda.alejandra
-          oops418.nix-env-picker
           eamodio.gitlens
           esbenp.prettier-vscode
           dart-code.flutter
@@ -225,6 +222,7 @@ in {
           prisma.prisma
           ms-vscode-remote.remote-ssh
           jnoortheen.nix-ide
+          mkhl.direnv
         ];
       };
     };
