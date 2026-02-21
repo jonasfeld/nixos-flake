@@ -33,16 +33,16 @@
     zoxide
     anki-bin
     nautilus
-    obsidian
     inkscape
     gimp
     libreoffice
     croc
+    pdfarranger
 
-    # pain.
+    ## pain.
     texlive.combined.scheme-full
 
-    # messengers
+    ## messengers
     discord
     # zoom-us
     signal-desktop-bin
@@ -51,20 +51,21 @@
     telegram-desktop
     mattermost-desktop
 
-    # work related
+    ## work related
     google-chrome
     slack
 
-    # uni
+    ## uni
     calibre
     eduvpn-client
     jetbrains.idea
+    drawio
 
-    # temporary
-    obs-studio
+    ## temporary
+    # obs-studio
     vlc
 
-    # gaming
+    ## gaming
     prismlauncher
     osu-lazer-bin
   ];
@@ -80,6 +81,9 @@ in {
   # Catppuccin
   catppuccin = {
     enable = true;
+    sources = {
+      cursors = pkgs.catppuccin-cursors.mochaDark;
+    };
     cache.enable = true;
     accent = "mauve";
     flavor = "mocha";
@@ -198,6 +202,7 @@ in {
             "<C-b>" = false;
             "<C-p>" = false;
             "<C-n>" = false;
+            "<C-k>" = false;
           };
           "workbench.secondarySideBar.defaultVisibility" = "hidden";
           "githubPullRequests.createOnPublishBranch" = "never";

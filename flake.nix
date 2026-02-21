@@ -31,10 +31,10 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # rust-overlay = {
+    #   url = "github:oxalica/rust-overlay";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = inputs @ {
@@ -53,7 +53,7 @@
       inherit system;
       config = {
         permittedInsecurePackages = [
-          "beekeeper-studio-5.5.3"
+          "beekeeper-studio-5.5.5"
         ];
       };
     };

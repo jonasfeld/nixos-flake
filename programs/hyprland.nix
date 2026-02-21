@@ -63,6 +63,7 @@ in {
     slurp # screenshots (selection)
     copyq # clipboard history
     hyprcursor
+    hyprmon # monitor config TUI
   ];
 
   services.hypridle = {
