@@ -244,13 +244,13 @@
     };
     polkit = {
       enable = true;
-      extraConfig = ''
-        polkit.addRule(function(action, subject) {
-            if (action.id === "net.reactivated.fprint.device.enroll") {
-                return polkit.Result.YES;
-            }
-        });
-      '';
+      #extraConfig = ''
+      #  polkit.addRule(function(action, subject) {
+      #      if (action.id === "net.reactivated.fprint.device.enroll") {
+      #          return polkit.Result.YES;
+      #      }
+      #  });
+      #'';
     };
   };
 
@@ -270,9 +270,9 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
+  # networking.nftables.enable = true; # does not work because docker is dockering
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [25565 8081];
     trustedInterfaces = [
       "br+"
       "veth+"
