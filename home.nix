@@ -12,7 +12,8 @@
     cmake
     cargo
     rustc
-    vscodium
+    code-cursor
+    cursor-cli
     pkgs-insecure.beekeeper-studio
     jdk17
     gradle_8
@@ -37,15 +38,17 @@
     gimp
     libreoffice
     croc
+    qrcp
     pdfarranger
 
     ## pain.
     texlive.combined.scheme-full
+    tex-fmt
 
     ## messengers
     discord
     # zoom-us
-    signal-desktop-bin
+    signal-desktop
     wasistlos
     element-desktop
     telegram-desktop
@@ -56,7 +59,7 @@
     slack
 
     ## uni
-    calibre
+    # calibre
     eduvpn-client
     jetbrains.idea
     drawio
@@ -139,7 +142,6 @@ in {
   #
   home.sessionVariables = {
     EDITOR = "nvim";
-    GDK_SCALE = "1.566667";
   };
 
   programs = {
@@ -156,12 +158,16 @@ in {
 
     vscode = {
       enable = true;
-      package = pkgs.vscodium;
+      package = pkgs.code-cursor;
       profiles.default = {
+        enableExtensionUpdateCheck = false;
+        enableUpdateCheck = false;
         userSettings = {
           "catppuccin.accentColor" = "mauve";
           "editor.semanticHighlighting.enabled" = true;
           "terminal.integrated.minimumContrastRatio" = 1;
+          "terminal.integrated.inheritEnv" = false;
+          "terminal.integrated.defaultProfile.linux" = "zsh";
           "window.titleBarStyle" = "custom";
 
           "editor.formatOnSave" = true;
@@ -194,6 +200,7 @@ in {
             "editorBracketHighlight.unexpectedBracket.foreground" = "#ff0000";
           };
 
+          "git.autofetch" = true;
           "git.confirmSync" = false;
 
           "vim.handleKeys" = {
@@ -210,6 +217,7 @@ in {
           "[jsonc]" = {
             "editor.defaultFormatter" = "esbenp.prettier-vscode";
           };
+          "gitlens.launchpad.indicator.enabled" = false;
         };
         extensions = with pkgs.vscode-extensions; [
           # github.copilot
