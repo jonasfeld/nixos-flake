@@ -30,8 +30,24 @@ in {
 
         texlab = {
           enable = true;
-          cmd = ["${pkgs.texlab}/bin/texlab"];
+          cmd = ["${pkgs.texlab}/bin/texlab" "-v"];
           filetypes = ["tex" "bib"];
+          root_markers = [".latexmkrc"];
+          settings = {
+            texlab = {
+              build = {
+                args = ["-pdf" "-interaction=nonstopmode" "-synctex=1" "%f"];
+                onSave = true;
+                forwardSearchAfter = true;
+              };
+              forwardSearch = {
+                executable = "sioyek"; # installed externally
+                args = ["--forward-search-file %p" "--forward-search-line %l"];
+              };
+              cktex.onOpenAndSave = true;
+              latexFormatter = "tex-fmt"; # installed externally
+            };
+          };
         };
 
         nixd = {
@@ -106,6 +122,7 @@ in {
       blink-cmp = {
         enable = true;
         sourcePlugins.emoji.enable = true;
+        friendly-snippets.enable = true;
         mappings = {
           next = "<C-j>";
           previous = "<C-k>";
@@ -155,7 +172,21 @@ in {
 
     # show neat icons and different colorings for files
     # changed in git repo
-    startPlugins = [pkgs.vimPlugins.oil-git-nvim];
+    startPlugins = with pkgs.vimPlugins; [
+      oil-git-nvim
+    ];
+
+    lazy.plugins = with pkgs.vimPlugins; {
+      # vimtex = {
+      #   package = vimtex;
+      #   setupOpts = {}; # vimtex is vimscript
+      #   after = ''
+      #     vim.g.vimtex_view_method = "sioyek";
+      #   '';
+
+      #   lazy = false;
+      # };
+    };
 
     ui = {
       illuminate.enable = true;
