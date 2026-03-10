@@ -239,6 +239,7 @@ in {
 
         # fn buttons
         ",XF86AudioMute,         exec, ${volume_brightness} volume_mute"
+        ",XF86AudioPause,         exec, ${volume_brightness} play_pause"
         ",XF86AudioPlay,         exec, ${volume_brightness} play_pause"
         ",XF86AudioPrev,         exec, ${volume_brightness} prev_track"
         ",XF86AudioNext,         exec, ${volume_brightness} next_track"
