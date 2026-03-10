@@ -90,6 +90,7 @@
           inherit special-pkgs;
         };
         modules = [
+          catppuccin.nixosModules.catppuccin
           ./configuration.nix
 
           home-manager.nixosModules.home-manager

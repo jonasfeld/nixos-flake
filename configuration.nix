@@ -28,6 +28,12 @@
     pkiBundle = "/etc/secureboot";
   };
 
+  catppuccin = {
+    enable = true;
+    cache.enable = true;
+    tty.enable = true;
+  };
+
   # we need the new kernel, right? :)
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -97,7 +103,15 @@
   users.users.jonasfeld = {
     isNormalUser = true;
     description = "Jonas";
-    extraGroups = ["networkmanager" "wheel" "docker" "adbusers" "wireshark" "vboxusers"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "adbusers"
+      "wireshark"
+      "vboxusers"
+      "syncthing"
+    ];
     initialPassword = "password";
     packages = with pkgs; [
       firefox
@@ -165,10 +179,12 @@
   environment.sessionVariables = {
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
-    GDK_SCALE = "1";
     XCURSOR_SIZE = "25";
     QT_CURSOR_SIZE = "25";
-    QT_AUTO_SCREEN_SCALE_FACTOR = "auto";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    QT_ENABLE_HIGHDPI_SCALING = "1";
+    # QT_SCALE_FACTOR = "1.566667";
+    GDK_SCALE = "1.566667";
   };
 
   # Services
@@ -185,6 +201,11 @@
   };
 
   services = {
+    # syncing with syncthing
+    syncthing = {
+      openDefaultPorts = true;
+    };
+
     gnome.gnome-keyring.enable = true;
     blueman.enable = true;
     fprintd.enable = true;
@@ -235,6 +256,7 @@
     pam.services = {
       login.fprintAuth = false;
       login.enableGnomeKeyring = true;
+      sudo.fprintAuth = false;
       gdm-fingerprint = {
         enableGnomeKeyring = true;
         startSession = true;
