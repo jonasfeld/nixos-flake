@@ -10,7 +10,7 @@
     (nvf.lib.neovimConfiguration {
       inherit pkgs;
       extraSpecialArgs = {
-        inherit inputs;
+        flake = inputs.self;
       };
       modules = [./modules/nvf/basic.nix] ++ modules;
     }).neovim;
