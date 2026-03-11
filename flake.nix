@@ -2,9 +2,7 @@
   description = "Personal NixOS flake";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
     # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     home-manager = {
@@ -44,7 +42,6 @@
     lanzaboote,
     catppuccin,
     nix-colors,
-    nvf,
     ...
   }: let
     system = "x86_64-linux";
@@ -57,28 +54,42 @@
         ];
       };
     };
+
     # pkgs-stable = import nixpkgs-stable {
     #   inherit system;
     #   config = {
     #     allowUnfree = true;
     #   };
     # };
+
     colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
-    nvim =
-      (nvf.lib.neovimConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = {
-          inherit inputs;
-          inherit colorScheme;
-        };
-        modules = [./nvf-configuration.nix];
-      }).neovim;
+
+    buildNeovimConfig = {modules}:
+      (import ./nvf-configuration.nix).buildNeovimConfig {
+        inherit inputs;
+        inherit system;
+        inherit modules;
+      };
+
+    nvims = {
+      nvimFull = buildNeovimConfig {
+        modules = lib.filesystem.listFilesRecursive ./modules/nvf/languages;
+      };
+
+      nvimPython = buildNeovimConfig {
+        modules = [./modules/nvf/languages/python.nix];
+      };
+    };
 
     special-pkgs = {
-      inherit nvim;
+      nvim = nvims.nvimFull;
     };
   in {
-    packages.${system}.nvim = nvim;
+    packages.${system} = nvims;
+
+    lib.${system} = {
+      inherit buildNeovimConfig;
+    };
 
     nixosConfigurations = {
       nixos = lib.nixosSystem {

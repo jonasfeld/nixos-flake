@@ -36,7 +36,7 @@ in {
         edithome = "nvim ${home-path}/nixos/home.nix";
         editshell = "nvim ${home-path}/nixos/programs/shell.nix";
         edithypr = "nvim ${home-path}/nixos/programs/hyprland.nix";
-        editnvf = "nix run ${home-path}/nixos#nvim ${home-path}/nixos/nvf-configuration.nix || nvim ${home-path}/nixos/nvf-configuration.nix";
+        editnvf = "nix run ${home-path}/nixos#nvimFull ${home-path}/nixos/modules/nvf || nvim ${home-path}/nixos/modules/nvf";
         editflake = "nvim ${home-path}/nixos/flake.nix";
         editconf = "nvim ${home-path}/nixos/configuration.nix";
         editdots = "nvim ${home-path}/nixos/dots";

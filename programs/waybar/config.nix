@@ -83,7 +83,7 @@ in
         "format-charging": " Bat {capacity}%",
         "tooltip": true
       },
-      
+    
       "tray": {
         "icon-size": 15,
         "spacing": 5,
