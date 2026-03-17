@@ -10,6 +10,11 @@ in {
 
     ripgrep.enable = true;
 
+    lazygit = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     zoxide = {
       enable = true;
       enableZshIntegration = true;
@@ -44,6 +49,7 @@ in {
         upgrade = "nh os switch --update";
         rebuild = "nh os switch";
         nixdiff = "(cd ${home-path}/nixos && git diff)";
+        nixgit = "${pkgs.lazygit}/bin/lazygit -p ${home-path}/nixos";
         nixfmt = "alejandra ${home-path}/nixos";
         lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';
         nxs = "nix-shell --run zsh";
