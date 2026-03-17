@@ -231,7 +231,7 @@
         desc = "Go back to normal mode";
       }
       {
-        key = "<ESC>";
+        key = "<C-ESC>";
         silent = true;
         mode = "t";
         action = "<C-\\><C-n>";
