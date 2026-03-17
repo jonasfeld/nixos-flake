@@ -43,7 +43,6 @@
 
     ## pain.
     texlive.combined.scheme-full
-    tex-fmt
 
     ## messengers
     discord
@@ -147,6 +146,15 @@ in {
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
+    neovide = {
+      enable = true;
+      settings = {
+        font = {
+          normal = [];
+          size = 11.0;
+        };
+      };
+    };
 
     sioyek = {
       enable = true;
