@@ -15,6 +15,7 @@
             home-manager = {
               expr = "(builtins.getFlake \"${flake}\").nixosConfigurations.nixos.options.home-manager.users.type.getSubOptions []";
             };
+            nvf.expr = "((builtins.getFlake \"${flake}\").inputs.nvf.lib.neovimConfiguration {pkgs = import <nixpkgs> {};}).options";
           };
         };
       };

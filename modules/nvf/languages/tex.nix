@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   vim = {
+    extraPackages = with pkgs; [tex-fmt];
     lsp.servers.texlab = {
       enable = true;
       cmd = ["${pkgs.texlab}/bin/texlab" "-v"];
@@ -14,10 +15,10 @@
           };
           forwardSearch = {
             executable = "sioyek"; # installed externally
-            args = ["--forward-search-file %p" "--forward-search-line %l"];
+            # args = ["--forward-search-file %p" "--forward-search-line %l"];
           };
           cktex.onOpenAndSave = true;
-          latexFormatter = "tex-fmt"; # installed externally
+          latexFormatter = "tex-fmt";
         };
       };
     };

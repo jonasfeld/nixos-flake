@@ -82,6 +82,13 @@
           };
         };
       };
+      motion.leap = {
+        enable = true;
+        mappings = {
+          leapForwardTo = "f";
+          leapBackwardTo = "F";
+        };
+      };
     };
 
     binds = {
@@ -93,14 +100,15 @@
       nvim-web-devicons.enable = true;
     };
 
-    # show neat icons and different colorings for files
-    startPlugins = with pkgs.vimPlugins; [
-      (oil-git-nvim.overrideAttrs {
+    startPlugins = [
+      (pkgs.vimUtils.buildVimPlugin {
+        # show neat icons and different colorings for files based on git status
+        name = "oil-git.nvim";
         src = pkgs.fetchFromGitHub {
           owner = "malewicz1337"; # newer fork than what is availabe in nixpkgs
           repo = "oil-git.nvim";
           rev = "6c92acdbae04dce8a4a2302c3a5dd264bd337456";
-          hash = "sha256-QQj3ck+5GpA/htG0tZzniS5bbfRscvcfXjMUjY8F9A4=";
+          hash = "sha256-WvbfL+bw3jNsI+e6Rjpz4KFwjWort1SJy7u3bEfLrHQ=";
         };
       })
     ];
@@ -109,12 +117,24 @@
       enable = true;
       gitsigns = {
         enable = true;
-        mappings = lib.mkForce {
+        mappings = {
           blameLine = "<leader>gb";
           diffProject = "<leader>gD";
           diffThis = "<leader>gd";
           stageBuffer = "<leader>gS";
           stageHunk = "<leader>gs";
+
+          # taken from the defaults
+          toggleBlame = "<leader>tb";
+          toggleDeleted = "<leader>td";
+          nextHunk = "]c";
+          previousHunk = "[c";
+
+          # mappings i dont want :)
+          undoStageHunk = lib.mkForce null;
+          resetHunk = lib.mkForce null;
+          resetBuffer = lib.mkForce null;
+          previewHunk = lib.mkForce null;
         };
       };
     };
@@ -208,6 +228,13 @@
         silent = true;
         mode = "i";
         action = "<ESC>";
+        desc = "Go back to normal mode";
+      }
+      {
+        key = "<ESC>";
+        silent = true;
+        mode = "t";
+        action = "<C-\\><C-n>";
         desc = "Go back to normal mode";
       }
     ];
