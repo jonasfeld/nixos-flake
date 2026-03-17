@@ -103,6 +103,7 @@
         modules = [
           catppuccin.nixosModules.catppuccin
           ./configuration.nix
+          ./modules/displaylink.nix
 
           home-manager.nixosModules.home-manager
           {
