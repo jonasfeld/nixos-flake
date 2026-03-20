@@ -173,6 +173,18 @@ in {
 
       gesture = "3, horizontal, workspace";
 
+      workspace = builtins.concatLists (
+        builtins.genList (
+          monId: let
+            baseWs = monId * 10 + 1; # base workspace number skip all the (% 10) = 1 workspaces to work around
+            # hyprlands stupid default workspace for monitor selector
+          in
+            # ["${toString baseWs},monitor:${toString monId},default:true"] # die default selection funktioniert nicht mit monitor: id
+            builtins.genList (offset: "${toString (baseWs + offset)},monitor:${toString monId}") 10
+        )
+        3
+      );
+
       bind = [
         "$mod, Return, exec, kitty"
         "ALT, space, killactive"
@@ -200,28 +212,28 @@ in {
         "$mod SHIFT, TAB, workspace, e-1"
 
         # Switch workspaces with mainMod + [0-9]
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-        "$mod, 5, workspace, 5"
-        "$mod, 6, workspace, 6"
-        "$mod, 7, workspace, 7"
-        "$mod, 8, workspace, 8"
-        "$mod, 9, workspace, 9"
-        "$mod, 0, workspace, 10"
+        "$mod, 1, workspace, r~1"
+        "$mod, 2, workspace, r~2"
+        "$mod, 3, workspace, r~3"
+        "$mod, 4, workspace, r~4"
+        "$mod, 5, workspace, r~5"
+        "$mod, 6, workspace, r~6"
+        "$mod, 7, workspace, r~7"
+        "$mod, 8, workspace, r~8"
+        "$mod, 9, workspace, r~9"
+        "$mod, 0, workspace, r~10"
 
         # Move active window to a workspace with mainMod + SHIFT + [0-9]
-        "$mod SHIFT, 1, movetoworkspace, 1"
-        "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
-        "$mod SHIFT, 5, movetoworkspace, 5"
-        "$mod SHIFT, 6, movetoworkspace, 6"
-        "$mod SHIFT, 7, movetoworkspace, 7"
-        "$mod SHIFT, 8, movetoworkspace, 8"
-        "$mod SHIFT, 9, movetoworkspace, 9"
-        "$mod SHIFT, 0, movetoworkspace, 10"
+        "$mod SHIFT, 1, movetoworkspace, r~1"
+        "$mod SHIFT, 2, movetoworkspace, r~2"
+        "$mod SHIFT, 3, movetoworkspace, r~3"
+        "$mod SHIFT, 4, movetoworkspace, r~4"
+        "$mod SHIFT, 5, movetoworkspace, r~5"
+        "$mod SHIFT, 6, movetoworkspace, r~6"
+        "$mod SHIFT, 7, movetoworkspace, r~7"
+        "$mod SHIFT, 8, movetoworkspace, r~8"
+        "$mod SHIFT, 9, movetoworkspace, r~9"
+        "$mod SHIFT, 0, movetoworkspace, r~10"
 
         # Move active window one workspace to the left or right
         "$mod CONTROL SHIFT, H, movetoworkspace, r-1"
