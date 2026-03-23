@@ -150,7 +150,7 @@ in {
       enable = true;
       settings = {
         font = {
-          normal = [];
+          normal = "FiraCode Nerd Font";
           size = 11.0;
         };
       };
