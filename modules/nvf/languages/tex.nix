@@ -15,7 +15,7 @@
           };
           forwardSearch = {
             executable = "sioyek"; # installed externally
-            # args = ["--forward-search-file %p" "--forward-search-line %l"];
+            args = ["--forward-search-file" "%p" "--forward-search-line" "%l"];
           };
           cktex.onOpenAndSave = true;
           latexFormatter = "tex-fmt";

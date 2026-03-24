@@ -2,6 +2,7 @@
   pkgs,
   # pkgs-stable,
   pkgs-insecure,
+  config,
   ...
 }: let
   dev_pkgs = with pkgs; [
@@ -40,6 +41,7 @@
     croc
     qrcp
     pdfarranger
+    fastfetch
 
     ## pain.
     texlive.combined.scheme-full
@@ -51,7 +53,7 @@
     wasistlos
     element-desktop
     telegram-desktop
-    mattermost-desktop
+    # mattermost-desktop
 
     ## work related
     google-chrome
@@ -95,15 +97,18 @@ in {
 
   home.pointerCursor.size = 25;
 
-  gtk.enable = true;
   catppuccin.gtk.icon.enable = true;
-  gtk.theme = {
-    name = "Catppuccin-GTK-Mauve-Dark";
-    package = pkgs.magnetic-catppuccin-gtk.override {
-      shade = "dark";
-      accent = ["mauve"];
-      tweaks = ["float"];
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-GTK-Mauve-Dark";
+      package = pkgs.magnetic-catppuccin-gtk.override {
+        shade = "dark";
+        accent = ["mauve"];
+        tweaks = ["float"];
+      };
     };
+    gtk4.theme = config.gtk.theme;
   };
 
   services.gnome-keyring.enable = true;
@@ -150,7 +155,7 @@ in {
       enable = true;
       settings = {
         font = {
-          normal = "FiraCode Nerd Font";
+          normal = "FiraCode Nerd Font Mono";
           size = 11.0;
         };
       };

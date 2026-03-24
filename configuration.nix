@@ -150,6 +150,7 @@
     # quickemu
     man-pages
 
+    # secure boot
     sbctl
 
     dig
@@ -157,8 +158,8 @@
   ];
 
   # enable wireshark
-  programs.wireshark.enable = true;
-  programs.wireshark.package = pkgs.wireshark;
+  # programs.wireshark.enable = true;
+  # programs.wireshark.package = pkgs.wireshark;
 
   # Hyprland
   programs.hyprland.enable = true;

@@ -27,7 +27,7 @@
     };
 
     treesitter = {
-      fold = true;
+      fold = false;
       grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
     };
 
@@ -85,8 +85,8 @@
       motion.leap = {
         enable = true;
         mappings = {
-          leapForwardTo = "f";
-          leapBackwardTo = "F";
+          # leapForwardTo = "f";
+          # leapBackwardTo = "F";
         };
       };
     };
