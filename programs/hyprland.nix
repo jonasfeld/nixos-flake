@@ -186,7 +186,7 @@ in {
       );
 
       bind = [
-        "$mod, Return, exec, kitty"
+        "$mod, Return, exec, ghostty"
         "ALT, space, killactive"
         "ALT, F4, killactive"
         "$mod, B, pseudo"

@@ -131,7 +131,7 @@
     special-pkgs.nvim
     git
     tmux
-    kitty
+    ghostty
     wget
     gcc
     zsh

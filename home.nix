@@ -169,6 +169,15 @@ in {
       };
     };
 
+    ghostty = {
+      enable = true;
+      enableZshIntegration = true;
+      settings = {
+        font-family = ["FiraCode Nerd Font" "Font Awesome 7 Free Solid"];
+        font-size = 11;
+      };
+    };
+
     vscode = {
       enable = true;
       package = pkgs.code-cursor;
