@@ -1,5 +1,6 @@
 {pkgs, ...}: let
   home-path = "/home/jonasfeld";
+  runInNix = cmd: "(cd ${home-path}/nixos && ${cmd})";
 in {
   home.packages = [
     pkgs.walk
@@ -38,17 +39,17 @@ in {
       shellAliases = {
         pdf = "sioyek";
         vim = "nvim";
-        edithome = "nvim ${home-path}/nixos/home.nix";
-        editshell = "nvim ${home-path}/nixos/programs/shell.nix";
-        edithypr = "nvim ${home-path}/nixos/programs/hyprland.nix";
-        editnvf = "nix run ${home-path}/nixos#nvimFull ${home-path}/nixos/modules/nvf || nvim ${home-path}/nixos/modules/nvf";
-        editflake = "nvim ${home-path}/nixos/flake.nix";
-        editconf = "nvim ${home-path}/nixos/configuration.nix";
-        editdots = "nvim ${home-path}/nixos/dots";
+        edithome = runInNix "nvim home.nix";
+        editshell = runInNix "nvim programs/shell.nix";
+        edithypr = runInNix "nvim programs/hyprland.nix";
+        editnvf = runInNix "nix run .#nvimFull modules/nvf || nvim modules/nvf";
+        editflake = runInNix "nvim flake.nix";
+        editconf = runInNix "nvim configuration.nix";
+        editdots = runInNix "nvim dots";
         update = "nix flake update --flake ${home-path}/nixos";
         upgrade = "nh os switch --update";
         rebuild = "nh os switch";
-        nixdiff = "(cd ${home-path}/nixos && git diff)";
+        nixdiff = runInNix "git diff";
         nixgit = "${pkgs.lazygit}/bin/lazygit -p ${home-path}/nixos";
         nixfmt = "alejandra ${home-path}/nixos";
         lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';
