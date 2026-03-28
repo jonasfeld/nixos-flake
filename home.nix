@@ -172,9 +172,13 @@ in {
     ghostty = {
       enable = true;
       enableZshIntegration = true;
+      systemd.enable = true;
       settings = {
         font-family = ["FiraCode Nerd Font" "Font Awesome 7 Free Solid"];
         font-size = 11;
+        quit-after-last-window-closed = true;
+        quit-after-last-window-closed-delay = "5m";
+        shell-integration-features = "ssh-terminfo,ssh-env";
       };
     };
 
