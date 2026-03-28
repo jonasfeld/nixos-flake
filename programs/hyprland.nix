@@ -129,6 +129,8 @@ in {
     };
   };
 
+  services.swww.enable = true;
+
   # Hyprland
   wayland.windowManager.hyprland = {
     enable = true;
@@ -143,7 +145,7 @@ in {
       exec-once = [
         "${pkgs.copyq}/bin/copyq"
         "waybar"
-        "swww-daemon --no-cache & sleep 0.01 && swww img ${../assets/nix-black-4k.png}"
+        "swww img ${../assets/nix-black-4k.png}"
         "${pkgs.swaynotificationcenter}/bin/swaync"
         "nm-applet --indicator"
         "blueman-applet"
