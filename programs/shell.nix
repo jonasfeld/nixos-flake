@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   home-path = "/home/jonasfeld";
   runInNix = cmd: "(cd ${home-path}/nixos && ${cmd})";
 in {
@@ -50,7 +54,7 @@ in {
         upgrade = "nh os switch --update";
         rebuild = "nh os switch";
         nixdiff = runInNix "git diff";
-        nixgit = "${pkgs.lazygit}/bin/lazygit -p ${home-path}/nixos";
+        nixgit = "${lib.getExe pkgs.lazygit} -p ${home-path}/nixos";
         nixfmt = "alejandra ${home-path}/nixos";
         lesc = ''LESS="-R" LESSOPEN="|pygmentize -g %s" less'';
         nxs = "nix-shell --run zsh";
@@ -73,7 +77,7 @@ in {
       baseIndex = 1;
       clock24 = true;
       mouse = true;
-      shell = "${pkgs.zsh}/bin/zsh";
+      shell = lib.getExe pkgs.zsh;
     };
   };
 }

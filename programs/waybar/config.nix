@@ -1,9 +1,10 @@
 {
   pkgs,
+  lib,
   config,
 }: let
   nm-connection-editor = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
-  pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
+  pavucontrol = lib.getExe pkgs.pavucontrol;
   swaync-client = "${pkgs.swaynotificationcenter}/bin/swaync-client";
 in
   /*

@@ -1,9 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   vim = {
     extraPackages = with pkgs; [tex-fmt];
     lsp.servers.texlab = {
       enable = true;
-      cmd = ["${pkgs.texlab}/bin/texlab" "-v"];
+      cmd = [(lib.getExe pkgs.texlab) "-v"];
       filetypes = ["tex" "bib"];
       root_markers = [".latexmkrc"];
       settings = {

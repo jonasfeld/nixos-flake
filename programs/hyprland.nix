@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   rofi_toggle = pkgs.writeShellScript "toggle" ''
     if (pidof rofi)
         then
@@ -142,11 +146,11 @@ in {
         kb_options = "caps:escape";
       };
 
-      exec-once = [
-        "${pkgs.copyq}/bin/copyq"
-        "waybar"
-        "swww img ${../assets/nix-black-4k.png}"
-        "${pkgs.swaynotificationcenter}/bin/swaync"
+      exec-once = with pkgs; [
+        (lib.getExe pkgs.copyq)
+        (lib.getExe waybar)
+        "${lib.getExe awww} img ${../assets/nix-black-4k.png}"
+        (lib.getExe swaynotificationcenter)
         "nm-applet --indicator"
         "blueman-applet"
       ];
