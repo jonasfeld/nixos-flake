@@ -237,6 +237,13 @@
         action = "<C-\\><C-n>";
         desc = "Go back to normal mode";
       }
+      {
+        key = "<C-b>";
+        silent = true;
+        mode = "n";
+        action = "";
+        # desc = "Disable dumb jumping with <C-b>";
+      }
     ];
   };
 }
