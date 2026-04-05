@@ -56,7 +56,7 @@ in {
     imagemagick # screenshots as screen locker
     hypridle # idle screen
     swaynotificationcenter # notification bar
-    swww # wallpapers
+    awww # wallpapers
     brightnessctl # light control
     libnotify # sending notifications
     playerctl # controlling the multimedia player
@@ -133,7 +133,7 @@ in {
     };
   };
 
-  services.swww.enable = true;
+  services.awww.enable = true;
 
   # Hyprland
   wayland.windowManager.hyprland = {
