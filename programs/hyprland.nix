@@ -34,6 +34,13 @@
     		;;
     esac
   '';
+  edit_screenshot = pkgs.writeShellScript "edit_screenshot" ''
+    if [[ $(wl-paste -l)  != "image/png" ]]
+    then
+      exit 1;
+    fi
+    wl-paste | satty --filename - --actions-on-enter save-to-file --copy-command wl-copy --disable-notifications --initial-tool rectangle --early-exit --output-filename $HOME/Pictures/Screenshots/$(date +%F-%H-%M-%S).png
+  '';
   volume_brightness = import ../modules/soundkeys.nix pkgs;
 in {
   imports = [./waybar];
@@ -266,7 +273,9 @@ in {
         "$mod CONTROL_ALT, L, exec, hyprlock"
 
         # screenshot
-        ", Print, exec, grimblast --freeze save area - | satty --filename - --actions-on-enter save-to-file --copy-command wl-copy --disable-notifications --initial-tool rectangle --early-exit --output-filename $HOME/Pictures/Screenshots/$(date +%F-%H-%M-%S).png"
+        ", Print, exec, grimblast --freeze copy area"
+        "$mod, Print, exec, ${edit_screenshot}"
+        "$mod, F11, exec, ${edit_screenshot}"
         "CONTROL, Print, exec, grimblast save output - | satty --filename - --actions-on-enter save-to-file --copy-command wl-copy --disable-notifications --initial-tool rectangle --early-exit --output-filename $HOME/Pictures/Screenshots/$(date +%F-%H-%M-%S).png"
 
         # power menu
