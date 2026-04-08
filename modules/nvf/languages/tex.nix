@@ -1,15 +1,7 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+_: {
   vim = {
-    extraPackages = with pkgs; [tex-fmt];
+    languages.tex.enable = true;
     lsp.servers.texlab = {
-      enable = true;
-      cmd = [(lib.getExe pkgs.texlab) "-v"];
-      filetypes = ["tex" "bib"];
-      root_markers = [".latexmkrc"];
       settings = {
         texlab = {
           build = {
@@ -21,8 +13,6 @@
             executable = "sioyek"; # installed externally
             args = ["--forward-search-file" "%p" "--forward-search-line" "%l"];
           };
-          cktex.onOpenAndSave = true;
-          latexFormatter = "tex-fmt";
         };
       };
     };
