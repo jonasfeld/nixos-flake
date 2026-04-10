@@ -194,6 +194,7 @@
         mode = "i";
         action = "<C-w>";
         desc = "Delete word backwards";
+        noremap = false;
       }
       {
         key = "<leader>y";
