@@ -271,6 +271,7 @@ in {
 
         # lock
         "$mod CONTROL_ALT, L, exec, hyprlock"
+        "CONTROL_ALT, Q, exec, hyprlock"
 
         # screenshot
         ", Print, exec, grimblast --freeze copy area"
@@ -321,6 +322,8 @@ in {
         # no_border_on_floating = true;
         resize_on_border = true;
       };
+
+      cursor.hide_on_key_press = true;
     };
   };
 }

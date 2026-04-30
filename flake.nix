@@ -29,6 +29,11 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
+    nix-mplabx = {
+      url = "github:jonasfeld/nix-mplabx/x16-comp-support";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # rust-overlay = {
     #   url = "github:oxalica/rust-overlay";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -104,6 +109,7 @@
           catppuccin.nixosModules.catppuccin
           ./configuration.nix
           ./modules/displaylink.nix
+          # ./modules/mplabx.nix
 
           home-manager.nixosModules.home-manager
           {

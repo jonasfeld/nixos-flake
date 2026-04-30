@@ -15,6 +15,7 @@
     rustc
     code-cursor
     cursor-cli
+    claude-code
     pkgs-insecure.beekeeper-studio
     jdk17
     gradle_8
@@ -51,8 +52,8 @@
     # zoom-us
     signal-desktop
     wasistlos
-    element-desktop
     telegram-desktop
+    element-desktop
     # mattermost-desktop
 
     ## work related
@@ -60,7 +61,7 @@
     slack
 
     ## uni
-    # calibre
+    calibre
     eduvpn-client
     jetbrains.idea
     drawio
@@ -68,6 +69,8 @@
     ## temporary
     # obs-studio
     vlc
+    opencode
+    timr-tui
 
     ## gaming
     prismlauncher
@@ -164,8 +167,16 @@ in {
     sioyek = {
       enable = true;
       bindings = {
-        next_page = "J";
-        previous_page = "K";
+        screen_down = ["J" "<C-d>"];
+        screen_up = ["K" "<C-u>"];
+        # move_* moves the camera, not the document
+        move_right = "h";
+        move_left = "l";
+        noop = "q"; # unbind the weird "quit all instances" button
+      };
+      config = {
+        move_screen_ratio = "0.5";
+        should_launch_new_window = "1";
       };
     };
 
@@ -184,7 +195,7 @@ in {
 
     vscode = {
       enable = true;
-      package = pkgs.code-cursor;
+      # package = pkgs.code-cursor;
       profiles.default = {
         enableExtensionUpdateCheck = false;
         enableUpdateCheck = false;
