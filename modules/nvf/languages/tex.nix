@@ -1,4 +1,8 @@
-_: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   vim = {
     languages.tex.enable = true;
     lsp.servers.texlab = {
@@ -11,7 +15,17 @@ _: {
           };
           forwardSearch = {
             executable = "sioyek"; # installed externally
-            args = ["--forward-search-file" "%p" "--forward-search-line" "%l"];
+            args = [
+              "--execute-command"
+              "toggle_synctex"
+              "--inverse-search"
+              "${lib.getExe pkgs.texlab} inverse-search -i \"%%1\" -l %%2"
+              "--forward-search-file"
+              "%f"
+              "--forward-search-line"
+              "%l"
+              "%p"
+            ];
           };
         };
       };

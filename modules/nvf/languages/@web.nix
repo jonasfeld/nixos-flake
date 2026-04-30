@@ -1,6 +1,6 @@
 _: {
   vim.languages = {
-    ts.enable = true;
+    typescript.enable = true;
     css.enable = true;
     html.enable = true;
   };

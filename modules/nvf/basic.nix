@@ -82,13 +82,13 @@
           };
         };
       };
-      motion.leap = {
-        enable = true;
-        mappings = {
-          # leapForwardTo = "f";
-          # leapBackwardTo = "F";
-        };
-      };
+      # motion.leap = {
+      #   enable = true;
+      #   mappings = {
+      #     leapForwardTo = "f";
+      #     leapBackwardTo = "F";
+      #   };
+      # };
     };
 
     binds = {
