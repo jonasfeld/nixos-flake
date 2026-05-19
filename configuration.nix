@@ -115,6 +115,7 @@
       "wireshark"
       "vboxusers"
       "syncthing"
+      "dialout"
     ];
     initialPassword = "password";
     packages = with pkgs; [
@@ -159,6 +160,8 @@
 
     dig
     traceroute
+
+    cutecom
   ];
 
   # enable wireshark
