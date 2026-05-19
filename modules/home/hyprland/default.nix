@@ -41,7 +41,7 @@
     fi
     wl-paste | satty --filename - --actions-on-enter save-to-file --copy-command wl-copy --disable-notifications --initial-tool rectangle --early-exit --output-filename $HOME/Pictures/Screenshots/$(date +%F-%H-%M-%S).png
   '';
-  volume_brightness = import ../modules/soundkeys.nix pkgs;
+  volume_brightness = import ./soundkeys.nix pkgs;
 in {
   imports = [./waybar];
 
@@ -156,7 +156,7 @@ in {
       exec-once = with pkgs; [
         (lib.getExe pkgs.copyq)
         (lib.getExe waybar)
-        "${lib.getExe awww} img ${../assets/nix-black-4k.png}"
+        "${lib.getExe awww} img ${../../../assets/nix-black-4k.png}"
         (lib.getExe swaynotificationcenter)
         "nm-applet --indicator"
         "blueman-applet"

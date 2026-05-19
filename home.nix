@@ -27,9 +27,6 @@
     dive
     distrobox
     distrobox-tui
-
-    # watch files script
-    (import ./modules/watchfiles.nix pkgs)
   ];
   user_programs = with pkgs; [
     megasync
@@ -51,7 +48,7 @@
     discord
     # zoom-us
     signal-desktop
-    wasistlos
+    whatsapp-electron # whatsapp
     telegram-desktop
     element-desktop
     # mattermost-desktop
@@ -78,7 +75,7 @@
   ];
 in {
   imports = [
-    programs/hyprland.nix
+    modules/home/hyprland
     programs/shell.nix
   ];
 
@@ -195,7 +192,7 @@ in {
 
     vscode = {
       enable = true;
-      # package = pkgs.code-cursor;
+      package = pkgs.code-cursor;
       profiles.default = {
         enableExtensionUpdateCheck = false;
         enableUpdateCheck = false;
