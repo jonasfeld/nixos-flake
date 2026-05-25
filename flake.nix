@@ -102,7 +102,9 @@
         };
         modules = [
           catppuccin.nixosModules.catppuccin
+          ./hosts/nixos
           ./configuration.nix
+          ./modules/nixos/common
           ./modules/displaylink.nix
 
           home-manager.nixosModules.home-manager

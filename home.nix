@@ -41,6 +41,12 @@
     pdfarranger
     fastfetch
 
+    firefox
+    thunderbird
+    spotify
+    keepassxc
+    onedrive
+
     ## pain.
     texlive.combined.scheme-full
 
