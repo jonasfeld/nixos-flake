@@ -93,6 +93,7 @@ in {
     flavor = "mocha";
     cursors.enable = true;
     cursors.accent = "dark";
+    vscode.profiles.default.enable = false; # build failure -> prefer nixpkgs ver
   };
 
   home.pointerCursor.size = 25;
@@ -122,7 +123,6 @@ in {
   # plain files is through 'home.file'.
   home.file = {
     ".config/rofi".source = dots/rofi;
-    ".config/kitty".source = dots/kitty;
     ".config/swaync".source = dots/swaync;
     ".config/zathura".source = dots/zathura;
     ".gitconfig".source = dots/git/.gitconfig;
