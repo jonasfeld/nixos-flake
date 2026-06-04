@@ -27,6 +27,7 @@
     dive
     distrobox
     distrobox-tui
+    tmux-sessionizer
   ];
   user_programs = with pkgs; [
     megasync
