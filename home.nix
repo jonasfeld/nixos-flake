@@ -84,7 +84,7 @@
 in {
   imports = [
     modules/home/hyprland
-    programs/shell.nix
+    modules/home/shell
   ];
 
   # syncing with syncthing
