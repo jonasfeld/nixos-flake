@@ -41,6 +41,7 @@
     qrcp
     pdfarranger
     fastfetch
+    ncdu
 
     firefox
     thunderbird

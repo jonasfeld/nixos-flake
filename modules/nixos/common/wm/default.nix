@@ -1,4 +1,5 @@
 _: {
+  imports = [./dm.nix];
   environment.sessionVariables = {
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
@@ -20,15 +21,9 @@ _: {
       xkb.extraLayouts.eurkey = {
         description = "EurKEY layout - https://eurkey.steffen.bruentjen.eu";
         languages = ["eng"];
-        symbolsFile = ../../../assets/keyboard_eurkey-1.2;
+        symbolsFile = ../../../../assets/keyboard_eurkey-1.2;
       };
     };
-    displayManager.dms-greeter = {
-      enable = true;
-      compositor.name = "hyprland";
-    };
-    # displayManager.gdm.enable = true;
-    # displayManager.defaultSession = "hyprland";
   };
 
   security = {
@@ -36,10 +31,6 @@ _: {
       login.fprintAuth = false;
       login.enableGnomeKeyring = true;
       sudo.fprintAuth = false;
-      greetd = {
-        enableGnomeKeyring = true;
-        fprintAuth = false;
-      };
 
       hyprlock.text = "auth include login";
     };

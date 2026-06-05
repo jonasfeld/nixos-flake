@@ -8,6 +8,6 @@ _: {
     ./temporary.nix
     ./user.nix
     ./virtualisation.nix
-    ./wm.nix
+    ./wm
   ];
 }
