@@ -67,30 +67,8 @@ in {
       nix-direnv.enable = true;
     };
 
-    zsh = {
-      enable = true;
-      shellAliases = {
-        pdf = "sioyek";
-        vim = "nvim";
-        editnix = runInNix "nvim .";
-        edithome = runInNix "nvim modules/home";
-        edithypr = runInNix "nvim modules/home/hyprland";
-        editnvf = runInNix "nix run .#nvimFull modules/nvf || nvim modules/nvf";
-        editflake = runInNix "nvim flake.nix";
-        editdots = runInNix "nvim dots";
-        update = "nix flake update --flake ${home-path}/nixos";
-        upgrade = "nh os switch --update";
-        rebuild = "nh os switch";
-        nixdiff = runInNix "git diff";
-        nixgit = "${lib.getExe pkgs.lazygit} -p ${home-path}/nixos";
-        nxs = "nix-shell --run zsh";
-        knecht = "nxs ${../../../shells/matheknecht.nix}";
-        run = "${pkgs.writeShellScript "run" "$* &> /dev/null & disown"}";
-        silent = "${pkgs.writeShellScript "silent" "$* &> /dev/null"}";
-        gc = "git clone";
-        proxied-fox = "firefox --profile /home/jonasfeld/.mozilla/firefox/skfzecce.proxied &> /dev/null & disown";
-      };
-    };
+    zsh.enable = true;
+    bash.enable = true;
 
     tmux = {
       enable = true;
@@ -100,5 +78,27 @@ in {
       mouse = true;
       shell = lib.getExe pkgs.zsh;
     };
+  };
+
+  home.shellAliases = {
+    pdf = "sioyek";
+    vim = "nvim";
+    editnix = runInNix "nvim .";
+    edithome = runInNix "nvim modules/home";
+    edithypr = runInNix "nvim modules/home/hyprland";
+    editnvf = runInNix "nix run .#nvimFull modules/nvf || nvim modules/nvf";
+    editflake = runInNix "nvim flake.nix";
+    editdots = runInNix "nvim dots";
+    update = "nix flake update --flake ${home-path}/nixos";
+    upgrade = "nh os switch --update";
+    rebuild = "nh os switch";
+    nixdiff = runInNix "git diff";
+    nixgit = "${lib.getExe pkgs.lazygit} -p ${home-path}/nixos";
+    nxs = "nix-shell --run zsh";
+    knecht = "nxs ${../../../shells/matheknecht.nix}";
+    run = "${pkgs.writeShellScript "run" "$* &> /dev/null & disown"}";
+    silent = "${pkgs.writeShellScript "silent" "$* &> /dev/null"}";
+    gc = "git clone";
+    proxied-fox = "firefox --profile /home/jonasfeld/.mozilla/firefox/skfzecce.proxied &> /dev/null & disown";
   };
 }
