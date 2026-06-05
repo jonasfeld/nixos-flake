@@ -23,7 +23,12 @@ _: {
         symbolsFile = ../../../assets/keyboard_eurkey-1.2;
       };
     };
-    displayManager.gdm.enable = true;
+    displayManager.dms-greeter = {
+      enable = true;
+      compositor.name = "hyprland";
+    };
+    # displayManager.gdm.enable = true;
+    # displayManager.defaultSession = "hyprland";
   };
 
   security = {
@@ -31,11 +36,11 @@ _: {
       login.fprintAuth = false;
       login.enableGnomeKeyring = true;
       sudo.fprintAuth = false;
-      gdm-fingerprint = {
+      greetd = {
         enableGnomeKeyring = true;
-        startSession = true;
-        fprintAuth = true;
+        fprintAuth = false;
       };
+
       hyprlock.text = "auth include login";
     };
     polkit.enable = true;

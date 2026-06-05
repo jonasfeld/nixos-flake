@@ -91,6 +91,7 @@ in {
 
   # Catppuccin
   catppuccin = {
+    autoEnable = true;
     enable = true;
     sources = {
       cursors = pkgs.catppuccin-cursors.mochaDark;

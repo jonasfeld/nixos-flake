@@ -64,16 +64,21 @@
 
     colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
 
-    buildNeovimConfig = {modules}:
+    buildNeovimConfig = {
+      modules,
+      extraSpecialArgs ? {},
+    }:
       (import ./nvf-configuration.nix).buildNeovimConfig {
         inherit inputs;
         inherit system;
         inherit modules;
+        inherit extraSpecialArgs;
       };
 
     nvims = {
       nvimFull = buildNeovimConfig {
         modules = lib.filesystem.listFilesRecursive ./modules/nvf/languages;
+        extraSpecialArgs = {flake = "/home/jonasfeld/nixos/";};
       };
 
       nvimPython = buildNeovimConfig {
