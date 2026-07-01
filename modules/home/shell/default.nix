@@ -67,7 +67,12 @@ in {
       nix-direnv.enable = true;
     };
 
-    zsh.enable = true;
+    zsh = {
+      enable = true;
+      autosuggestion.enable = true;
+      oh-my-zsh.enable = true;
+    };
+
     bash.enable = true;
 
     tmux = {
@@ -77,6 +82,7 @@ in {
       clock24 = true;
       mouse = true;
       shell = lib.getExe pkgs.zsh;
+      focusEvents = true;
     };
   };
 

@@ -64,5 +64,6 @@
     # network debugging
     dig
     traceroute
+    wireguard-tools
   ];
 }

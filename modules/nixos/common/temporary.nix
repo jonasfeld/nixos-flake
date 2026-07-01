@@ -2,6 +2,7 @@
   # system level packages
   environment.systemPackages = with pkgs; [
     cutecom
+    serial-studio
   ];
 
   # enable wireshark
