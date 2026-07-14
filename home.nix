@@ -108,7 +108,10 @@ in {
     vscode.profiles.default.enable = false; # build failure -> prefer nixpkgs ver
   };
 
-  home.pointerCursor.size = 25;
+  home.pointerCursor = {
+    enable = true;
+    size = 25;
+  };
 
   catppuccin.gtk.icon.enable = true;
   gtk = {
