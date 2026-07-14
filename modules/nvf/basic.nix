@@ -28,6 +28,7 @@
 
     treesitter = {
       fold = false;
+      indent.enable = true;
       grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
     };
 
@@ -100,18 +101,25 @@
       nvim-web-devicons.enable = true;
     };
 
-    startPlugins = [
-      (pkgs.vimUtils.buildVimPlugin {
-        # show neat icons and different colorings for files based on git status
-        name = "oil-git.nvim";
-        src = pkgs.fetchFromGitHub {
-          owner = "malewicz1337"; # newer fork than what is availabe in nixpkgs
-          repo = "oil-git.nvim";
-          rev = "6c92acdbae04dce8a4a2302c3a5dd264bd337456";
-          hash = "sha256-WvbfL+bw3jNsI+e6Rjpz4KFwjWort1SJy7u3bEfLrHQ=";
+    extraPlugins = {
+      guess-indent = {
+        package = pkgs.vimPlugins.guess-indent-nvim;
+        setup = "require('guess-indent').setup {}";
+      };
+      oil-git-nvim = {
+        package = pkgs.vimUtils.buildVimPlugin {
+          # show neat icons and different colorings for files based on git status
+          name = "oil-git.nvim";
+          src = pkgs.fetchFromGitHub {
+            owner = "malewicz1337"; # newer fork than what is availabe in nixpkgs
+            repo = "oil-git.nvim";
+            rev = "6c92acdbae04dce8a4a2302c3a5dd264bd337456";
+            hash = "sha256-WvbfL+bw3jNsI+e6Rjpz4KFwjWort1SJy7u3bEfLrHQ=";
+          };
         };
-      })
-    ];
+        setup = "require('oil-git').setup {}";
+      };
+    };
 
     git = {
       enable = true;
