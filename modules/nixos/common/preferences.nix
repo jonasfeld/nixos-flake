@@ -66,4 +66,6 @@
     traceroute
     wireguard-tools
   ];
+
+  programs.nix-ld.enable = true;
 }

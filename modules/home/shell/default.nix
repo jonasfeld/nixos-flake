@@ -6,10 +6,11 @@
   home-path = "/home/jonasfeld";
   runInNix = cmd: "(cd ${home-path}/nixos && ${cmd})";
 in {
+  imports = [./tmux.nix];
   programs = {
     fd.enable = true;
     starship = {
-      enable = true;
+      enable = false;
       enableZshIntegration = true;
       enableBashIntegration = true;
       settings = {
@@ -70,7 +71,10 @@ in {
     zsh = {
       enable = true;
       autosuggestion.enable = true;
-      oh-my-zsh.enable = true;
+      oh-my-zsh = {
+        enable = true;
+        theme = "af-magic";
+      };
     };
 
     bash.enable = true;
@@ -83,6 +87,7 @@ in {
       mouse = true;
       shell = lib.getExe pkgs.zsh;
       focusEvents = true;
+      terminal = "tmux-256color";
     };
   };
 

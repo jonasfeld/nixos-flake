@@ -27,7 +27,6 @@
     dive
     distrobox
     distrobox-tui
-    tmux-sessionizer
   ];
   user_programs = with pkgs; [
     megasync
@@ -50,7 +49,7 @@
     onedrive
 
     ## pain.
-    texlive.combined.scheme-full
+    texliveFull
 
     ## messengers
     discord
@@ -72,7 +71,7 @@
     drawio
 
     ## temporary
-    # obs-studio
+    obs-studio
     vlc
     opencode
     timr-tui
@@ -88,6 +87,7 @@ in {
     modules/home/hyprland
     modules/home/shell
     modules/home/editors
+    modules/home/browsers
   ];
 
   # syncing with syncthing
