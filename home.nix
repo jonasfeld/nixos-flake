@@ -122,7 +122,7 @@ in {
       package = pkgs.magnetic-catppuccin-gtk.override {
         shade = "dark";
         accent = ["mauve"];
-        tweaks = ["float"];
+        shell_float = true;
       };
     };
     gtk4.theme = config.gtk.theme;

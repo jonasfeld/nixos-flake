@@ -39,6 +39,7 @@
 
   home.shellAliases = {
     mon = "hyprmon";
+    nosleep = "systemctl --user stop hypridle.service";
   };
 
   services.hypridle = {
