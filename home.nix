@@ -54,7 +54,7 @@
 
     ## messengers
     discord
-    # zoom-us
+    zoom-us
     signal-desktop
     whatsapp-electron # whatsapp
     telegram-desktop
