@@ -13,8 +13,6 @@
     cmake
     cargo
     rustc
-    code-cursor
-    cursor-cli
     claude-code
     pkgs-insecure.beekeeper-studio
     jdk17
