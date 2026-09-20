@@ -1,4 +1,4 @@
-_: {
+{
   imports = [./dm.nix];
   environment.sessionVariables = {
     # Hint electron apps to use wayland

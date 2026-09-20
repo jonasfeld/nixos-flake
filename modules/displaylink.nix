@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    # displaylink
+    displaylink
   ];
 
-  # services.xserver.videoDrivers = ["displaylink" "modesetting"];
+  services.xserver.videoDrivers = ["displaylink" "modesetting"];
 }
