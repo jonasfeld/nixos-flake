@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   vim = {
@@ -24,6 +25,12 @@
           };
         };
       };
+      mappings = {
+        renameSymbol = "grn";
+        codeAction = "gra";
+        goToDeclaration = "grD";
+        hover = "grh";
+      };
     };
 
     treesitter = {
@@ -41,6 +48,15 @@
           setup = {fzf = {fuzzy = true;};};
         }
       ];
+      mappings = {
+        lspReferences = "grr";
+        lspImplementations = "gri";
+        lspDefinitions = "grd";
+        lspTypeDefinitions = "grt";
+        findFiles = "<leader>sf";
+        liveGrep = "<leader>sg";
+        helpTags = "<leader>sh";
+      };
     };
 
     languages = {
@@ -51,7 +67,7 @@
 
     statusline = {
       lualine = {
-        theme = "auto";
+        setupOpts.options.theme = "auto";
         enable = true;
         integrations.breadcrumbs = {
           navbuddy.enable = true;
@@ -67,12 +83,12 @@
     autocomplete = {
       blink-cmp = {
         enable = true;
+        setupOpts = {
+          keymap.preset = "super-tab";
+        };
+        mappings = lib.mapAttrs (_: _: null) config.vim.autocomplete.blink-cmp.mappings;
         sourcePlugins.emoji.enable = true;
         friendly-snippets.enable = true;
-        mappings = {
-          next = "<C-j>";
-          previous = "<C-k>";
-        };
       };
     };
 
@@ -87,13 +103,6 @@
           };
         };
       };
-      # motion.leap = {
-      #   enable = true;
-      #   mappings = {
-      #     leapForwardTo = "f";
-      #     leapBackwardTo = "F";
-      #   };
-      # };
     };
 
     binds = {
@@ -130,11 +139,11 @@
       gitsigns = {
         enable = true;
         mappings = {
-          blameLine = "<leader>gb";
-          diffProject = "<leader>gD";
-          diffThis = "<leader>gd";
-          stageBuffer = "<leader>gS";
-          stageHunk = "<leader>gs";
+          # blameLine = "<leader>gb";
+          # diffProject = "<leader>gD";
+          # diffThis = "<leader>gd";
+          # stageBuffer = "<leader>gS";
+          # stageHunk = "<leader>gs";
 
           # taken from the defaults
           toggleBlame = "<leader>tb";
@@ -153,7 +162,10 @@
 
     terminal.toggleterm = {
       enable = true;
-      lazygit.enable = true;
+      lazygit = {
+        enable = true;
+        mappings.open = "<leader>g";
+      };
     };
 
     ui = {
@@ -254,6 +266,34 @@
         mode = "n";
         action = "";
         # desc = "Disable dumb jumping with <C-b>";
+      }
+      {
+        silent = true;
+        mode = "n";
+        key = "<C-h>";
+        action = "<C-w><C-h>";
+        desc = "Move focus to the left window";
+      }
+      {
+        silent = true;
+        mode = "n";
+        key = "<C-l>";
+        action = "<C-w><C-l>";
+        desc = "Move focus to the right window";
+      }
+      {
+        silent = true;
+        mode = "n";
+        key = "<C-j>";
+        action = "<C-w><C-j>";
+        desc = "Move focus to the lower window";
+      }
+      {
+        silent = true;
+        mode = "n";
+        key = "<C-k>";
+        action = "<C-w><C-k>";
+        desc = "Move focus to the upper window";
       }
     ];
   };
