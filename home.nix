@@ -3,6 +3,8 @@
   # pkgs-stable,
   pkgs-insecure,
   config,
+  colorScheme,
+  gtkTheme,
   ...
 }: let
   dev_pkgs = with pkgs; [
@@ -105,6 +107,7 @@ in {
     cursors.enable = true;
     cursors.accent = "dark";
     vscode.profiles.default.enable = false; # build failure -> prefer nixpkgs ver
+    vscodium.profiles.default.enable = false; # build failure -> prefer nixpkgs ver
   };
 
   home.pointerCursor = {
@@ -115,15 +118,10 @@ in {
   catppuccin.gtk.icon.enable = true;
   gtk = {
     enable = true;
-    theme = {
-      name = "Catppuccin-GTK-Mauve-Dark";
-      package = pkgs.magnetic-catppuccin-gtk.override {
-        shade = "dark";
-        accent = ["mauve"];
-        shell_float = true;
-      };
-    };
-    gtk4.theme = config.gtk.theme;
+    colorScheme = colorScheme.variant;
+    gtk4.theme = null;
+    gtk3.extraCss = builtins.readFile "${gtkTheme.package}/share/themes/${gtkTheme.name}/gtk-3.0/gtk.css";
+    gtk4.extraCss = builtins.readFile "${gtkTheme.package}/share/themes/${gtkTheme.name}/gtk-4.0/gtk.css";
   };
 
   services.gnome-keyring.enable = true;

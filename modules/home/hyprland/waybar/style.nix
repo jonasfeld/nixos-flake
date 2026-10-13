@@ -3,24 +3,27 @@
   inputs,
   userSettings,
 }: let
-  toRGBA = RGBhex: alpha: "rgba(${inputs.nix-colors.lib.conversions.hexToRGBString "," RGBhex}, ${builtins.toString alpha})";
+  # basix palettes are "#rrggbb"; pull the bytes back out for rgba().
+  toRGBA = RGBhex: alpha: let
+    byte = i: builtins.toString (builtins.fromTOML "v=0x${builtins.substring i 2 RGBhex}").v;
+  in "rgba(${byte 1}, ${byte 3}, ${byte 5}, ${builtins.toString alpha})";
 in
   with colorScheme.palette;
   /*
   css
   */
     ''
-      @define-color white #${base05};
-      @define-color red #${base08};
+      @define-color white ${base05};
+      @define-color red ${base08};
       @define-color very_red #d20f39;
-      @define-color green #${base0B};
-      @define-color teal #${base0C};
-      @define-color orange #${base09};
-      @define-color magenta #${base0E};
-      @define-color active_color #${base0F};
+      @define-color green ${base0B};
+      @define-color teal ${base0C};
+      @define-color orange ${base09};
+      @define-color magenta ${base0E};
+      @define-color active_color ${base0F};
       @define-color bg_trans ${toRGBA base00 0.85};
-      @define-color bg #${base00};
-      @define-color bg2 #${base01};
+      @define-color bg ${base00};
+      @define-color bg2 ${base01};
 
       * {
         border: none;

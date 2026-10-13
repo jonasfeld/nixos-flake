@@ -5,6 +5,13 @@
   ...
 }: {
   vim = {
+    autopairs.nvim-autopairs.enable = true;
+    mini.pick.enable = true;
+    clipboard = {
+      registers = "unnamedplus";
+      enable = true;
+    };
+
     theme = {
       enable = true;
       name = "catppuccin";
@@ -182,18 +189,6 @@
       ignorecase = true;
       scrolloff = 8;
       swapfile = true;
-    };
-
-    navigation.harpoon = {
-      enable = true;
-      mappings = {
-        file1 = "<leader>j";
-        file2 = "<leader>k";
-        file3 = null;
-        file4 = null;
-        listMarks = "<leader>h";
-        markFile = "<leader>a";
-      };
     };
 
     debugMode = {

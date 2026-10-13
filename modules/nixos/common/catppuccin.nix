@@ -1,4 +1,4 @@
-_: {
+{
   catppuccin = {
     autoEnable = false;
     enable = true;

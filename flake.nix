@@ -12,7 +12,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v1.1.0";
+      url = "github:nix-community/lanzaboote/v1.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -27,7 +27,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-colors.url = "github:misterio77/nix-colors";
+    basix = {
+      url = "github:notashelf/basix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -50,7 +53,7 @@
     home-manager,
     lanzaboote,
     catppuccin,
-    nix-colors,
+    basix,
     ...
   }: let
     system = "x86_64-linux";
@@ -59,7 +62,7 @@
       inherit system;
       config = {
         permittedInsecurePackages = [
-          "beekeeper-studio-6.0.5"
+          "beekeeper-studio-6.1.4"
         ];
       };
     };
@@ -71,7 +74,14 @@
     #   };
     # };
 
-    colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
+    # The one place a theme is chosen. Any base16 scheme in
+    # `basix.schemeData.base16` works; consumers are nvf, GTK and waybar.
+    basixScheme = "catppuccin-mocha";
+    colorScheme = basix.schemeData.base16.${basixScheme};
+    gtkTheme = {
+      name = basix.lib.mkThemeName basixScheme;
+      package = basix.themePackages.${system}.base16.${basixScheme};
+    };
 
     buildNeovimConfig = {
       modules,
@@ -128,6 +138,7 @@
                 inherit pkgs-insecure;
                 # inherit pkgs-stable;
                 inherit colorScheme;
+                inherit gtkTheme;
                 inherit inputs;
                 inherit special-pkgs;
               };
