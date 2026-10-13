@@ -10,7 +10,6 @@
   dev_pkgs = with pkgs; [
     nodejs
     gh
-    android-studio
     gnumake
     cmake
     cargo
@@ -43,7 +42,7 @@
     ncdu
     p7zip
 
-    firefox
+    # firefox
     thunderbird
     spotify
     keepassxc
@@ -56,7 +55,7 @@
     discord
     zoom-us
     signal-desktop
-    whatsapp-electron # whatsapp
+    zapfast # whatsapp
     telegram-desktop
     element-desktop
     # mattermost-desktop
@@ -68,7 +67,6 @@
     ## uni
     calibre
     eduvpn-client
-    jetbrains.idea
     drawio
 
     ## temporary
@@ -77,11 +75,10 @@
     opencode
     timr-tui
     kicad
-    ltspice
 
     ## gaming
     prismlauncher
-    osu-lazer-bin
+    # osu-lazer-bin
   ];
 in {
   imports = [

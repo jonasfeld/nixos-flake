@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./catppuccin.nix
     ./nix.nix
@@ -9,5 +9,6 @@ _: {
     ./user.nix
     ./virtualisation.nix
     ./wm
+    # ./mplabx.nix
   ];
 }
