@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  imports = [./waybar];
+  imports = [./waybar ./stt.nix];
 
   xdg.portal = {
     enable = true;
