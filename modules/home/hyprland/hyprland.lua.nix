@@ -233,8 +233,8 @@ in
     hl.bind("CTRL + ALT + J", hl.dsp.window.resize({ relative = true, x =   0, y =  40 }), { repeating = true })
 
     -- Lock screen
-    hl.bind(mod .. " + CTRL + ALT + L", hl.dsp.exec_cmd("hyprlock"))
-    hl.bind("CTRL + ALT + Q",           hl.dsp.exec_cmd("hyprlock"))
+    hl.bind(mod .. " + CTRL + ALT + L", hl.dsp.exec_cmd('${pkgs.util-linux}/bin/flock -n "$XDG_RUNTIME_DIR/hyprlock.lock" hyprlock'))
+    hl.bind("CTRL + ALT + Q",           hl.dsp.exec_cmd('${pkgs.util-linux}/bin/flock -n "$XDG_RUNTIME_DIR/hyprlock.lock" hyprlock'))
 
     -- Screenshots
     hl.bind("Print",           hl.dsp.exec_cmd("grimblast --freeze copy area"))

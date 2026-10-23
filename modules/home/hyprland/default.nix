@@ -35,37 +35,44 @@
     copyq # clipboard history
     hyprcursor
     hyprmon # monitor config TUI
+    (writeShellScriptBin "nosleep" ''
+      # stop hypridle + block lid suspend until interrupted; hypridle restarts on exit
+      # (SIGKILL can't be trapped: then run `systemctl --user start hypridle`)
+      trap 'kill $pid 2>/dev/null; systemctl --user start hypridle.service' EXIT
+      trap exit INT TERM HUP
+      systemctl --user stop hypridle.service
+      systemd-inhibit --what=handle-lid-switch --who=nosleep --why=nosleep sleep infinity &
+      pid=$!
+      wait $pid
+    '')
   ];
 
-  home.shellAliases = {
-    mon = "hyprmon";
-    nosleep = "systemctl --user stop hypridle.service";
-  };
+  home.shellAliases.mon = "hyprmon";
 
   services.hypridle = {
     enable = true;
     settings = {
       general = {
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+        after_sleep_cmd = "hyprctl dispatch 'hl.dsp.dpms({ action = \"on\" })'";
         ignore_dbus_inhibit = false;
-        lock_cmd = "pidof hyprlock || hyprlock";
-        before_sleep_cmd = "pidof hyprlock || hyprlock";
+        lock_cmd = "${pkgs.util-linux}/bin/flock -n \"$XDG_RUNTIME_DIR/hyprlock.lock\" hyprlock";
+        before_sleep_cmd = "${pkgs.util-linux}/bin/flock -n \"$XDG_RUNTIME_DIR/hyprlock.lock\" hyprlock";
       };
 
       listener = [
         {
           timeout = 10;
-          on-timeout = "pidof hyprlock && hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
+          on-timeout = "pidof hyprlock && hyprctl dispatch 'hl.dsp.dpms({ action = \"off\" })'";
+          on-resume = "hyprctl dispatch 'hl.dsp.dpms({ action = \"on\" })'";
         }
         {
           timeout = 30;
           on-timeout = "pidof hyprlock && systemctl \"suspend\"";
-          on-resume = "hyprctl dispatch dpms on";
+          on-resume = "hyprctl dispatch 'hl.dsp.dpms({ action = \"on\" })'";
         }
         {
           timeout = 900;
-          on-timeout = "pidof hyprlock || hyprlock";
+          on-timeout = "${pkgs.util-linux}/bin/flock -n \"$XDG_RUNTIME_DIR/hyprlock.lock\" hyprlock";
         }
         {
           timeout = 920;
