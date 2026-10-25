@@ -129,7 +129,7 @@
           ./hosts/nixos
           ./configuration.nix
           ./modules/nixos/common
-          # ./modules/displaylink.nix
+          ./modules/displaylink.nix
 
           home-manager.nixosModules.home-manager
           {

@@ -65,7 +65,7 @@
     slack
 
     ## uni
-    # calibre
+    calibre
     eduvpn-client
     drawio
 
