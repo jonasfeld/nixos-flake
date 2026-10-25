@@ -38,9 +38,7 @@ in
       // Modules
 
       "hyprland/workspaces": {
-        "disable-scroll": true,
-        "on-click": "activate",
-        "sort-by-number": true,
+        "sort-by": "number",
         "persistent-workspaces": {
           "*": 10
         }
