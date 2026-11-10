@@ -1,7 +1,9 @@
 {
   pkgs,
   lib,
+  theme,
 }: let
+  p = builtins.mapAttrs (_: c: builtins.substring 1 6 c) theme.scheme.palette; # "#rrggbb" -> "rrggbb"
   rofi_toggle = pkgs.writeShellScript "toggle" ''
     if (pidof rofi)
         then
@@ -71,8 +73,6 @@ in
     hl.on("hyprland.start", function()
         hl.exec_cmd("${lib.getExe pkgs.copyq}")
         hl.exec_cmd("${lib.getExe pkgs.waybar}")
-        hl.exec_cmd("${lib.getExe pkgs.awww} img ${../../../assets/nix-black-4k.png}")
-        hl.exec_cmd(swaync)
         hl.exec_cmd("nm-applet --indicator")
         hl.exec_cmd("blueman-applet")
     end)
@@ -86,8 +86,8 @@ in
         general = {
             border_size      = 1,
             col = {
-                active_border   = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-                inactive_border = "rgba(595959aa)",
+                active_border   = { colors = { "rgba(${p.base0D}ee)", "rgba(${p.base0E}ee)" }, angle = 45 },
+                inactive_border = "rgba(${p.base03}aa)",
             },
             gaps_in          = 3,
             gaps_out         = 5,

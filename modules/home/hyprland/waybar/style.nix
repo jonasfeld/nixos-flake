@@ -1,5 +1,5 @@
 {
-  colorScheme,
+  theme,
   inputs,
   userSettings,
 }: let
@@ -8,14 +8,14 @@
     byte = i: builtins.toString (builtins.fromTOML "v=0x${builtins.substring i 2 RGBhex}").v;
   in "rgba(${byte 1}, ${byte 3}, ${byte 5}, ${builtins.toString alpha})";
 in
-  with colorScheme.palette;
+  with theme.scheme.palette;
   /*
   css
   */
     ''
       @define-color white ${base05};
       @define-color red ${base08};
-      @define-color very_red #d20f39;
+      @define-color very_red ${base08};
       @define-color green ${base0B};
       @define-color teal ${base0C};
       @define-color orange ${base09};
@@ -23,7 +23,7 @@ in
       @define-color active_color ${base0F};
       @define-color bg_trans ${toRGBA base00 0.85};
       @define-color bg ${base00};
-      @define-color bg2 ${base01};
+      @define-color bg2 ${base00}; # base01 is a darker bg in catppuccin but lighter in most schemes
 
       * {
         border: none;
@@ -86,9 +86,12 @@ in
         color: @green;
       }
 
+      /* the GTK theme's `button` rule (min-height 24px, 4px vertical padding,
+         rounding) beats the `*` reset; only this id selector outranks it */
       #workspaces button {
-        padding-left: 2pt;
-        padding-right: 2pt;
+        min-height: 0;
+        padding: 0 2pt;
+        border-radius: 0;
         color: @magenta;
         background: @bg2;
       }

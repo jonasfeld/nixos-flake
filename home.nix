@@ -3,8 +3,6 @@
   # pkgs-stable,
   pkgs-insecure,
   config,
-  colorScheme,
-  gtkTheme,
   ...
 }: let
   dev_pkgs = with pkgs; [
@@ -91,35 +89,11 @@ in {
   # syncing with syncthing
   services.syncthing.enable = true;
 
-  # Catppuccin
-  catppuccin = {
-    autoEnable = true;
-    enable = true;
-    sources = {
-      cursors = pkgs.catppuccin-cursors.mochaDark;
-    };
-    cache.enable = true;
-    accent = "mauve";
-    flavor = "mocha";
-    cursors.enable = true;
-    cursors.accent = "dark";
-    vscode.profiles.default.enable = false; # build failure -> prefer nixpkgs ver
-    vscodium.profiles.default.enable = false; # build failure -> prefer nixpkgs ver
-  };
-
-  home.pointerCursor = {
-    enable = true;
-    size = 25;
-  };
-
-  catppuccin.gtk.icon.enable = true;
-  gtk = {
-    enable = true;
-    colorScheme = colorScheme.variant;
-    gtk4.theme = null;
-    gtk3.extraCss = builtins.readFile "${gtkTheme.package}/share/themes/${gtkTheme.name}/gtk-3.0/gtk.css";
-    gtk4.extraCss = builtins.readFile "${gtkTheme.package}/share/themes/${gtkTheme.name}/gtk-4.0/gtk.css";
-  };
+  # colors, cursor and icons come from stylix (modules/nixos/common/theme.nix)
+  gtk.enable = true;
+  # fonts below are set by hand; keep stylix's out of them
+  stylix.targets.neovide.fonts.enable = false;
+  stylix.targets.ghostty.fonts.enable = false;
 
   services.gnome-keyring.enable = true;
 
@@ -131,9 +105,6 @@ in {
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".config/rofi".source = dots/rofi;
-    ".config/swaync".source = dots/swaync;
-    ".config/zathura".source = dots/zathura;
     ".gitconfig".source = dots/git/.gitconfig;
     "matheknecht".source = shells/matheknecht.nix;
   };

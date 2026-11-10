@@ -12,7 +12,10 @@
   };
 
   # Hyprland
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
   services = {
     gnome.gnome-keyring.enable = true;
     xserver = {

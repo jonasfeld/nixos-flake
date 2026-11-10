@@ -21,8 +21,8 @@
       inputs.ndg.inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    catppuccin = {
-      url = "github:catppuccin/nix";
+    stylix = {
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -51,7 +51,7 @@
     # nixpkgs-stable,
     home-manager,
     lanzaboote,
-    catppuccin,
+    stylix,
     basix,
     ...
   }: let
@@ -73,13 +73,22 @@
     #   };
     # };
 
-    # The one place a theme is chosen. Any base16 scheme in
-    # `basix.schemeData.base16` works; consumers are nvf, GTK and waybar.
-    basixScheme = "catppuccin-mocha";
-    colorScheme = basix.schemeData.base16.${basixScheme};
-    gtkTheme = {
-      name = basix.lib.mkThemeName basixScheme;
-      package = basix.themePackages.${system}.base16.${basixScheme};
+    # The one place a theme is chosen: any name in pkgs.base16-schemes
+    # (all of them also exist in basix, which supplies the palette as pure Nix).
+    # Stylix reads `file`; everything it can't reach reads `scheme.palette`.
+    theme = rec {
+      name = "kanagawa";
+      scheme = basix.schemeData.base16.${name};
+      file = "${nixpkgs.legacyPackages.${system}.base16-schemes}/share/themes/${name}.yaml";
+      wallpaper = with scheme.palette;
+        nixpkgs.legacyPackages.${system}.runCommand "wallpaper-${name}.png" {
+          nativeBuildInputs = [nixpkgs.legacyPackages.${system}.imagemagick];
+        } ''
+          magick ${./assets/nix-black-4k.png} \
+            -fuzz 4% -fill "${base0D}" -opaque "#96cdfb" -fill "${base0C}" -opaque "#89dceb" \
+            -fuzz 25% -fill "${base00}" -opaque "#1e1e2e" \
+            $out
+        '';
     };
 
     buildNeovimConfig = {
@@ -90,7 +99,7 @@
         inherit inputs;
         inherit system;
         inherit modules;
-        inherit extraSpecialArgs;
+        extraSpecialArgs = {inherit theme;} // extraSpecialArgs;
       };
 
     nvims = {
@@ -120,11 +129,11 @@
         specialArgs = {
           inherit inputs;
           inherit lanzaboote;
-          # inherit pkgs-stable;
+          inherit theme;
           inherit special-pkgs;
         };
         modules = [
-          catppuccin.nixosModules.catppuccin
+          stylix.nixosModules.stylix
           ./hosts/nixos
           ./configuration.nix
           ./modules/nixos/common
@@ -135,9 +144,7 @@
             home-manager = {
               extraSpecialArgs = {
                 inherit pkgs-insecure;
-                # inherit pkgs-stable;
-                inherit colorScheme;
-                inherit gtkTheme;
+                inherit theme;
                 inherit inputs;
                 inherit special-pkgs;
               };
@@ -145,10 +152,7 @@
               useUserPackages = true;
               backupFileExtension = "bak";
               users.jonasfeld = {
-                imports = [
-                  ./home.nix
-                  catppuccin.homeModules.catppuccin
-                ];
+                imports = [./home.nix];
               };
             };
           }

@@ -5,7 +5,6 @@
       enableExtensionUpdateCheck = false;
       enableUpdateCheck = false;
       userSettings = {
-        "catppuccin.accentColor" = "mauve";
         "editor.semanticHighlighting.enabled" = true;
         "terminal.integrated.minimumContrastRatio" = 1;
         "terminal.integrated.inheritEnv" = false;
@@ -30,8 +29,6 @@
         "[javascriptreact]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
-        "workbench.colorTheme" = "Catppuccin Mocha";
-        "workbench.iconTheme" = "catppuccin-mocha";
         "workbench.colorCustomizations" = {
           "editorBracketHighlight.foreground1" = "#ffff00";
           "editorBracketHighlight.foreground2" = "#40ff00";
@@ -65,7 +62,6 @@
         # github.copilot
         github.vscode-pull-request-github
         vscodevim.vim
-        catppuccin.catppuccin-vsc
         kamadorueda.alejandra
         eamodio.gitlens
         esbenp.prettier-vscode

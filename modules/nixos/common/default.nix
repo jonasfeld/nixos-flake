@@ -1,6 +1,6 @@
 {
   imports = [
-    ./catppuccin.nix
+    ./theme.nix
     ./nix.nix
     ./preferences.nix
     ./ssh.nix

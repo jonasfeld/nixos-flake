@@ -1,4 +1,6 @@
-{
+{theme, ...}: let
+  palette = builtins.mapAttrs (_: s: builtins.substring 1 6 s) theme.scheme.palette; # "#rrggbb" -> "rrggbb"
+in {
   services.displayManager.dux-greeter = {
     enable = true;
     compositor = {
@@ -23,8 +25,8 @@
             general = {
               border_size      = 1,
               col = {
-                active_border   = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-                inactive_border = "rgba(595959aa)",
+                active_border   = { colors = { "rgba(${palette.base0D}ee)", "rgba(${palette.base0E}ee)" }, angle = 45 },
+                inactive_border = "rgba(${palette.base03}aa)",
               },
               gaps_in          = 3,
               gaps_out         = 5,

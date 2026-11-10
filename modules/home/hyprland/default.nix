@@ -1,9 +1,21 @@
 {
   pkgs,
   lib,
+  theme,
   ...
 }: {
-  imports = [./waybar ./stt.nix];
+  imports = [./waybar ./stt.nix ./hyprlock.nix ./rofi.nix];
+
+  # wallpaper is set by awww, not hyprpaper
+  stylix.targets.hyprland.hyprpaper.enable = false;
+
+  services.swaync = {
+    enable = true;
+    # stylix borders both .notification.<urgency> and the nested .notification-content
+    style = lib.mkAfter ''
+      .notification-content { border: none; }
+    '';
+  };
 
   xdg.portal = {
     enable = true;
@@ -15,7 +27,6 @@
   };
 
   home.packages = with pkgs; [
-    rofi # launch menu
     wl-clipboard # command-line copy and paste
     networkmanagerapplet
     pavucontrol # program for sound settings
@@ -114,13 +125,30 @@
 
   services.awww.enable = true;
 
+  systemd.user.services.awww-wallpaper = {
+    Unit = {
+      Description = "set awww wallpaper";
+      After = ["awww.service"];
+      Requires = ["awww.service"];
+      PartOf = ["awww.service"];
+    };
+    Service = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      Restart = "on-failure";
+      RestartSec = 1;
+      ExecStart = "${lib.getExe pkgs.awww} img ${theme.wallpaper}";
+    };
+    Install.WantedBy = ["awww.service"];
+  };
+
   # Hyprland
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
     configType = "lua";
     extraLuaFiles = {
-      generated = import ./hyprland.lua.nix {inherit pkgs lib;};
+      generated = import ./hyprland.lua.nix {inherit pkgs lib theme;};
       hyprmon-supp = ''require("hyprmon")'';
     };
   };

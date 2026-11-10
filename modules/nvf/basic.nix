@@ -2,8 +2,76 @@
   pkgs,
   lib,
   config,
+  theme,
   ...
-}: {
+}: let
+  # Real nvim colorschemes for schemes nvf ships a port of;
+  # the generic base16 highlighter only for everything else.
+  nvfThemes = {
+    "catppuccin-mocha" = {
+      name = "catppuccin";
+      style = "mocha";
+    };
+    "catppuccin-macchiato" = {
+      name = "catppuccin";
+      style = "macchiato";
+    };
+    "catppuccin-frappe" = {
+      name = "catppuccin";
+      style = "frappe";
+    };
+    "catppuccin-latte" = {
+      name = "catppuccin";
+      style = "latte";
+    };
+    "gruvbox-dark-hard" = {
+      name = "gruvbox";
+      style = "dark";
+    };
+    "gruvbox-dark" = {
+      name = "gruvbox";
+      style = "dark";
+    };
+    "gruvbox-light-medium" = {
+      name = "gruvbox";
+      style = "light";
+    };
+    "rose-pine" = {
+      name = "rose-pine";
+      style = "main";
+    };
+    "rose-pine-moon" = {
+      name = "rose-pine";
+      style = "moon";
+    };
+    "rose-pine-dawn" = {
+      name = "rose-pine";
+      style = "dawn";
+    };
+    "tokyo-night-dark" = {
+      name = "tokyonight";
+      style = "night";
+    };
+    "tokyo-night-storm" = {
+      name = "tokyonight";
+      style = "storm";
+    };
+    "kanagawa" = {
+      name = "kanagawa";
+      style = "wave";
+    };
+    "everforest" = {
+      name = "everforest";
+      style = "medium";
+    };
+    "onedark" = {
+      name = "onedark";
+      style = "dark";
+    };
+    "nord" = {name = "nord";};
+    "dracula" = {name = "dracula";};
+  };
+in {
   vim = {
     autopairs.nvim-autopairs.enable = true;
     mini.pick.enable = true;
@@ -12,12 +80,17 @@
       enable = true;
     };
 
-    theme = {
-      enable = true;
-      name = "catppuccin";
-      style = "mocha";
-      transparent = false;
-    };
+    theme =
+      {
+        enable = true;
+        transparent = false;
+      }
+      // (nvfThemes.${
+          theme.name
+        } or {
+          name = "base16";
+          base16-colors = theme.scheme.palette; # base00..base0F as "#rrggbb"
+        });
 
     lsp = {
       enable = true;
