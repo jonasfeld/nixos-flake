@@ -6,7 +6,7 @@
   home-path = "/home/jonasfeld";
   runInNix = cmd: "(cd ${home-path}/nixos && ${cmd})";
 in {
-  imports = [./tmux.nix];
+  imports = [./tmux.nix ./nix.nix];
   programs = {
     fd.enable = true;
 
@@ -28,11 +28,6 @@ in {
       enable = true;
       enableZshIntegration = true;
       enableBashIntegration = true;
-    };
-
-    nh = {
-      enable = true;
-      flake = "${home-path}/nixos";
     };
 
     direnv = {
@@ -73,6 +68,5 @@ in {
     run = "${pkgs.writeShellScript "run" "$* &> /dev/null & disown"}";
     silent = "${pkgs.writeShellScript "silent" "$* &> /dev/null"}";
     gc = "git clone";
-    proxied-fox = "firefox --profile /home/jonasfeld/.mozilla/firefox/skfzecce.proxied &> /dev/null & disown";
   };
 }
